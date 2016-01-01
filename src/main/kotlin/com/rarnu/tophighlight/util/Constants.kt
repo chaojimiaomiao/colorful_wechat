@@ -5,4 +5,6 @@ package com.rarnu.tophighlight.util
  */
 object Constants {
     val REQUEST_CODE_PAY = 1001
+
+    val REQUEST_CODE_LOGIN = 1002
 }

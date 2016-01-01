@@ -23,6 +23,7 @@ import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.UserLoginRegisterActivity
 import com.rarnu.tophighlight.ui.CustomToolBar
+import com.rarnu.tophighlight.util.Constants.REQUEST_CODE_LOGIN
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
 import java.io.File
@@ -38,7 +39,6 @@ class PublishActivity : AppCompatActivity() {
     private val REQUEST_CODE_CROP_TOPBAC = 102
     private val REQUEST_CODE_CROP_BOTTOMBAC = 103
     private val REQUEST_CODE_PAY = 1001
-    private val REQUEST_CODE_LOGIN = 1002
 
     private var ini : ThemeINI?= null
 

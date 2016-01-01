@@ -225,7 +225,6 @@ object XpConfig {
         var editor = prefs.edit()
         editor.putString(KEY_THEME_PATH, themePath)
                 .apply()
-        editor.apply()
     }
 
     val PKGNAME = "com.rarnu.tophighlight"

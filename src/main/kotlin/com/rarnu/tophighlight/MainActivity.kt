@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.graphics.Color
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -155,9 +154,12 @@ class MainActivity : Activity(), View.OnClickListener {
 
         //读取
         if (XpConfig.ini != null) {
-            var listviewBitmap = BitmapFactory.decodeFile(XpConfig.ini!!.listPath)
+            /*var listviewBitmap = BitmapFactory.decodeFile(XpConfig.ini!!.listPath)
             val drawable = BitmapDrawable(listviewBitmap)
-            scrollView?.background = drawable
+            scrollView?.background = drawable*/
+            UIUtils.backviewBindPath(scrollView!!, XpConfig.ini!!.listPath)
+            UIUtils.backviewBindPath(bottomBar!!, XpConfig.ini!!.bottomBarPath)
+            UIUtils.backviewBindPath(toolBar!!, XpConfig.ini!!.statusBarPath)
         }
     }
 

@@ -39,7 +39,7 @@ class PayActivity : Activity() , RadioGroup.OnCheckedChangeListener {
 
         BP.init(APPID)
 
-        much = 0.1//intent.getDoubleExtra("much", 1.0)
+        much = intent.getDoubleExtra("much", 1.0)
         go = findViewById(R.id.go) as Button
         type = findViewById(R.id.type) as RadioGroup
 

@@ -8,18 +8,19 @@ import android.os.Environment
 import android.os.Handler
 import android.os.Message
 import android.util.Log
-import android.view.Gravity
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.view.*
+import android.widget.Button
 import android.widget.GridView
 import android.widget.PopupWindow
 import android.widget.Toast
+import com.rarnu.tophighlight.LogoutActivity
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.Theme
 import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.util.Constants
+import com.rarnu.tophighlight.util.Constants.REQUEST_CODE_LOGIN
 import com.rarnu.tophighlight.util.Constants.REQUEST_CODE_PAY
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
@@ -47,6 +48,8 @@ class ThemeListActivity : BaseMarkerActivity() {
     private var listTheme: MutableList<ThemeINI>? = null
     private var gvTheme: GridView? = null
     private var adapterTheme: ThemeListAdapter? = null
+
+    private var loginBtn : Button ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,6 +119,18 @@ class ThemeListActivity : BaseMarkerActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         miProfile = menu?.add(0, MENUID_PROFILE, 1, R.string.menu_profile)
+        loginBtn = Button(this)
+        loginBtn?.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        if (LocalApi.userId != 0)
+            loginBtn?.text = LocalApi.curUser?.account
+        else loginBtn?.text = resources.getString(R.string.view_login)
+        loginBtn?.setOnClickListener {
+            if (LocalApi.userId == 0)
+                startActivityForResult(Intent(this, UserLoginRegisterActivity::class.java), Constants.REQUEST_CODE_LOGIN)
+            else
+                startActivity(Intent(this, LogoutActivity::class.java))
+        }
+        miProfile?.actionView =loginBtn
         miProfile?.setIcon(android.R.drawable.ic_menu_myplaces)
         miProfile?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         return super.onCreateOptionsMenu(menu)
@@ -145,9 +160,10 @@ class ThemeListActivity : BaseMarkerActivity() {
             REQUEST_CODE_PAY -> {
                 Toast.makeText(this, "重启本软件及微信可生效", Toast.LENGTH_LONG).show()
                 XpConfig.ini = WthApi.readThemeFromINI(listTheme!![adapterTheme!!.getSelectedPos()].localPath)
-                XpConfig.themePath = XpConfig.ini!!.localPath
-                XpConfig.save(this)
+                XpConfig.themePath = listTheme!![adapterTheme!!.getSelectedPos()].localPath
+                XpConfig.saveTheme(this)
             }
+            REQUEST_CODE_LOGIN -> loginBtn?.text = LocalApi.curUser?.account
         }
     }
 
