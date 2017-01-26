@@ -1,0 +1,70 @@
+buildscript {
+    ext.kotlin_version = '1.0.5'
+    repositories {
+        jcenter();
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+
+    defaultConfig {
+        applicationId "com.rarnu.tophighlight"
+        minSdkVersion 21
+        targetSdkVersion 25
+    }
+
+    signingConfigs {
+        signConfig {
+            storeFile file ('roottools2.keystore')
+            storePassword '123456'
+            keyAlias 'roottools2'
+            keyPassword '123456'
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.signConfig
+        }
+        debug {
+            signingConfig signingConfigs.signConfig
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.android.support:support-v4:25.1.0'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    provided fileTree(include: ['*.jar'], dir: 'xposed')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+}
+
+project.gradle.startParameter.excludedTaskNames.add('lint')
+project.gradle.startParameter.excludedTaskNames.add('lintVitalRelease')
+

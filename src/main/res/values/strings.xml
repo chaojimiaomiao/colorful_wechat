@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">多彩置顶</string>
+    <string name="app_desc">以多彩的形式呈现微信的置顶对话</string>
+    <string name="view_item" formatted="false">第 %d 项</string>
+    <string name="view_default">默认颜色</string>
+    <string name="view_press">点击颜色</string>
+    <string name="menu_about">关于</string>
+
+    <string name="alert_hint">提示</string>
+    <string name="alert_text_about">喵~</string>
+    <string name="alert_ok">确定</string>
+    <string name="alert_cancel">确定</string>
+    <string name="alert_text_placeholder">手动输入颜色值，以#号开头</string>
+
+    <string name="org_dmfs_colorpicker_pick_a_color">选择颜色</string>
+</resources>
