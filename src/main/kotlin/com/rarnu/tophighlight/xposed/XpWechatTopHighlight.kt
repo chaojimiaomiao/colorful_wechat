@@ -1,5 +1,6 @@
 package com.rarnu.tophighlight.xposed
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.StateListDrawable
@@ -54,6 +55,18 @@ class XpWechatTopHighlight : IXposedHookLoadPackage {
                     }
                 }
             })
+            XposedHelpers.findAndHookConstructor(Versions.actionBar, param.classLoader, Activity::class.java,  ViewGroup::class.java, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun afterHookedMethod(pmethod: MethodHookParam) {
+                    var Hq = XposedHelpers.getObjectField(pmethod.thisObject, "Hq")
+                    var Hr = XposedHelpers.getObjectField(pmethod.thisObject, "Hr")
+                    //var findViewById = (pmethod.args[1] as ViewGroup).findViewById(R.id.fx)
+
+                    (Hq as View).background = createSelectorDrawable(0);
+                    (Hr as View).background = createSelectorDrawable(0);
+                }
+            })
+
         }
     }
 
