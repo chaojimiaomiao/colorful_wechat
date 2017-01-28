@@ -59,6 +59,8 @@ repositories {
 }
 
 dependencies {
+    compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.android.support:design:25.0.0' //最新
     compile 'com.android.support:support-v4:25.1.0'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     provided fileTree(include: ['*.jar'], dir: 'xposed')

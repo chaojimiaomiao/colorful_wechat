@@ -27,7 +27,7 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
     override fun onCreate(savedInstanceState: Bundle?) {
         UIUtils.initDisplayMetrics(this, windowManager)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main)
+        setContentView(R.layout.firstpage)//main
         pref = getSharedPreferences(Consts.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         layMain = findViewById(R.id.layMain) as LinearLayout?
         (0..9).forEach {

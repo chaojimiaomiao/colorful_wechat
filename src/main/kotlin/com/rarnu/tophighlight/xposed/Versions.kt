@@ -11,6 +11,8 @@ object Versions {
     var topInfoMethod = ""
     var topInfoField = ""
 
+    var actionBar = ""
+
     fun initVersion(idx: Int) {
         when (idx) {
             0 -> {
@@ -20,6 +22,10 @@ object Versions {
                 topInfoMethod = "j"
                 topInfoField = "oLH"
                 inited = true
+
+                //"com.tencent.mm.ui.b"
+                actionBar = "com.tencent.mm.ui.b.d"
+
             }
         }
     }
