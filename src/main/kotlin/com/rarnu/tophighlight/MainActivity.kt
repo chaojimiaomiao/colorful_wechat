@@ -1,20 +1,24 @@
 package com.rarnu.tophighlight
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.DialogInterface.OnClickListener
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
-import org.dmfs.android.colorpicker.ColorPickerDialogFragment
-import org.dmfs.android.colorpicker.ColorUtils
+import com.flask.colorpicker.ColorPickerView
+import com.flask.colorpicker.OnColorSelectedListener
+import com.flask.colorpicker.builder.ColorPickerClickListener
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 
 
-class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, ColorPickerDialogFragment.ColorDialogResultListener {
+class MainActivity : Activity() {//, ColorItemView.ColorItemViewDelegate
 
 
     private var layMain: LinearLayout? = null
@@ -23,6 +27,7 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
     private var _colorType = 0      // 0: default 1: press
     private var _selectedPalette: String? = null
     private var pref: SharedPreferences? = null
+    private var toolBar : Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         UIUtils.initDisplayMetrics(this, windowManager)
@@ -30,6 +35,11 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
         setContentView(R.layout.firstpage)//main
         pref = getSharedPreferences(Consts.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         layMain = findViewById(R.id.layMain) as LinearLayout?
+        toolBar = findViewById(R.id.first_toolbar) as Toolbar?
+        toolBar?.setOnClickListener { view -> this.showDialog(view) }
+    }
+
+    /*fun initColorItem() {
         (0..9).forEach {
             val colorItem = ColorItemView(this)
             colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(80))
@@ -39,7 +49,7 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
             colorItem.delegate = this
             layMain?.addView(colorItem)
         }
-    }
+    }*/
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val item = menu?.add(0, 0, 0, R.string.menu_about)
@@ -60,13 +70,13 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
         return true
     }
 
-    override fun onSelectDefaultColorClicked(sender: ColorItemView?, idx: Int) {
+    /*override fun onSelectDefaultColorClicked(sender: ColorItemView?, idx: Int) {
         _colorItem = sender
         _colorIdx = idx
         _colorType = 0
         val d = ColorUtils.createColorDialog(this)
         d.selectPaletteId(_selectedPalette)
-        d.show(supportFragmentManager, "")
+        d.show(fragmentManager, "")
     }
 
     override fun onSelectPressColorClicked(sender: ColorItemView?, idx: Int) {
@@ -75,10 +85,10 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
         _colorType = 1
         val d = ColorUtils.createColorDialog(this)
         d.selectPaletteId(_selectedPalette)
-        d.show(supportFragmentManager, "")
+        //d.show(supportFragmentManager, "")
     }
 
-    override fun onColorChanged(color: Int, paletteId: String?, colorName: String?, paletteName: String?) {
+    fun onColorChanged(color: Int, paletteId: String?, colorName: String?, paletteName: String?) {
         _selectedPalette = paletteId
         when (_colorType) {
             0 -> {
@@ -92,7 +102,7 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
         }
     }
 
-    override fun onColorDialogCancelled() {
+    fun onColorDialogCancelled() {
         _selectedPalette = null
         when (_colorType) {
             0 -> {
@@ -106,7 +116,7 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
         }
     }
 
-    override fun onSelectDefaultColorLongClicked(sender: ColorItemView?, idx: Int) {
+    fun onSelectDefaultColorLongClicked(sender: ColorItemView?, idx: Int) {
         _colorItem = sender
         _colorIdx = idx
         _colorType = 0
@@ -126,7 +136,7 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
         }).show()
     }
 
-    override fun onSelectPressColorLongClicked(sender: ColorItemView?, idx: Int) {
+    fun onSelectPressColorLongClicked(sender: ColorItemView?, idx: Int) {
         _colorItem = sender
         _colorIdx = idx
         _colorType = 1
@@ -144,6 +154,36 @@ class MainActivity : FragmentActivity(), ColorItemView.ColorItemViewDelegate, Co
             _colorItem?.setDefColor(Consts.COLOR_DEFAULT)
             pref?.edit()?.putInt("highlight_$_colorIdx", Consts.COLOR_DEFAULT)?.apply()
         }).show()
+    }*/
+
+    fun showDialog(view : View) {
+        var colorSelectListener = OnColorSelectedListener {  }
+        var pickerClickListener = ColorPickerClickListener { dialogInterface, selectColor, ints ->
+            view.setBackgroundColor(selectColor)
+        }
+
+        var clickListener = OnClickListener { dialogInterface, i ->  }
+        ColorPickerDialogBuilder
+                .with(this)
+                .setTitle("Choose color")
+                .initialColor(Color.parseColor("#ffffff"))
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(colorSelectListener)
+//                .setOnColorSelectedListener(new OnColorSelectedListener() {
+//                    @Override
+//                    public void onColorSelected(int selectedColor) {
+//                        toast("onColorSelected: 0x" + Integer.toHexString(selectedColor));
+//                    }
+//                })
+                .setPositiveButton("ok", pickerClickListener)
+                .setNegativeButton("cancel", clickListener)
+                .build()
+                .show();
+    }
+
+    fun changeBackgroundColor(color : Int) {
+
     }
 
 }

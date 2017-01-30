@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- 默认色彩 -->
+    <color name="colorPrimary">#FF6EC7</color>
+    <color name="colorPrimaryDark">#8E236B</color>
+    <color name="colorAccent">#000000</color>
 
+    <!-- 预置色彩 -->
+
+    <!-- 兰 -->
+    <color name="colorPrimary_blue">#3F51B5</color>
+    <color name="colorPrimaryDark_blue">#303F9F</color>
+    <color name="colorAccent_blue">#FF4081</color>、
+
+    <!-- 黑 -->
+    <color name="colorPrimary_black">#333333</color>
+    <color name="colorPrimaryDark_black">#000000</color>
+    <color name="colorAccent_black">#FF4081</color>
+
+    <color name="white">#ffffff</color>
     <color name="black_semi_transparent">#B2000000</color>
     <color name="text">#FFFFFF</color>
 </resources>
