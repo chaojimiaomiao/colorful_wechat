@@ -47,6 +47,7 @@ object Versions {
                         "com.tencent.mm.plugin.collect.ui.CollectMainUI",
                         "com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI",
                         "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyMyRecordUI")
+
                 // in mmfragmentactivity
                 getAppCompact = "cU"
                 getActionBar = "cV"

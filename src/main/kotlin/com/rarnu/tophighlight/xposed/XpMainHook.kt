@@ -45,6 +45,7 @@ class XpMainHook : IXposedHookLoadPackage {
             _prefs?.reload()
             HookTopHighlight.hookTopHighlight(param.classLoader, _prefs)
             HookStatusbar.hookStatusbar(param.classLoader, _prefs)
+            HookSettings.hookSettings(param.classLoader)
         }
 
     }
