@@ -5,13 +5,28 @@ package com.rarnu.tophighlight.xposed
  */
 object Versions {
 
+    // global
     var inited = false
+
+    // top highlight color
     var conversationAdapter = ""
     var userInfoMethod = ""
     var topInfoMethod = ""
     var topInfoField = ""
 
-    var actionBar = ""
+    // statusbar immersion
+    var mmFragmentActivity = ""
+    var chatUIActivity = ""
+    var expectImmersionList = arrayListOf<String>()
+    var getAppCompact = ""
+    var getActionBar = ""
+    var dividerId = 0
+    var actionBarViewId = 0
+    var customizeActionBar = ""
+    var actionBarContainer = ""
+
+    // global resource
+    var colorToChange = arrayListOf<Int>()
 
     fun initVersion(idx: Int) {
         when (idx) {
@@ -21,10 +36,39 @@ object Versions {
                 userInfoMethod = "en"
                 topInfoMethod = "j"
                 topInfoField = "oLH"
-                inited = true
 
-                //"com.tencent.mm.ui.b"
-                actionBar = "com.tencent.mm.ui.b.d"
+                mmFragmentActivity = "com.tencent.mm.ui.MMFragmentActivity"
+                chatUIActivity = "com.tencent.mm.ui.chatting.ChattingUI\$a"
+
+                expectImmersionList = arrayListOf(
+                        "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyIndexUI",
+                        "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyPrepareUI",
+                        "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyDetailUI",
+                        "com.tencent.mm.plugin.collect.ui.CollectMainUI",
+                        "com.tencent.mm.plugin.offline.ui.WalletOfflineCoinPurseUI",
+                        "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyMyRecordUI")
+                // in mmfragmentactivity
+                getAppCompact = "cU"
+                getActionBar = "cV"
+                dividerId = 2131755267
+                actionBarViewId = 2131755252
+
+                // in chatui
+                customizeActionBar = "bIT"
+                actionBarContainer = "oZl"
+
+                colorToChange = arrayListOf(
+                        2131231135,
+                        2131231148,
+                        2131689968,
+                        2131689977,
+                        2131690035,
+                        2131690068,
+                        2131690069,
+                        2131690072,
+                        2131690082)
+
+                inited = true
 
             }
         }
