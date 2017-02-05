@@ -4,9 +4,7 @@ import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.StateListDrawable
 import android.view.View
 import android.view.ViewGroup
-import com.rarnu.tophighlight.Consts
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedHelpers
 
 /**
@@ -14,7 +12,7 @@ import de.robv.android.xposed.XposedHelpers
  */
 object HookTopHighlight {
 
-    fun hookTopHighlight(classLoader: ClassLoader?, prefs: XSharedPreferences?) {
+    fun hookTopHighlight(classLoader: ClassLoader?) {
         XposedHelpers.findAndHookMethod(Versions.conversationAdapter, classLoader, "getView", Integer.TYPE, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(pmethod: MethodHookParam) {
@@ -22,16 +20,17 @@ object HookTopHighlight {
                 val j = XposedHelpers.callMethod(pmethod.thisObject, Versions.topInfoMethod, ad)
                 val oLH = XposedHelpers.getBooleanField(j, Versions.topInfoField)
                 if (oLH) {
-                    (pmethod.result as View).background = createSelectorDrawable(pmethod.args[0] as Int, prefs)
+                    (pmethod.result as View).background = createSelectorDrawable(pmethod.args[0] as Int)
                 }
             }
         })
     }
 
-    private fun createSelectorDrawable(idx: Int, prefs: XSharedPreferences?): StateListDrawable? {
+    private fun createSelectorDrawable(idx: Int): StateListDrawable? {
+        XpConfig.load()
         val stateList = StateListDrawable()
-        val defaultColor = prefs?.getInt("default_$idx", Consts.COLOR_DEFAULT_ARR[idx])!!
-        val highlightColor = prefs?.getInt("highlight_$idx", Consts.COLOR_HIGHLIGHT_ARR[idx])!!
+        val defaultColor = XpConfig.topColors[idx]
+        val highlightColor = XpConfig.topPressColors[idx]
         stateList.addState(intArrayOf(android.R.attr.state_selected), ColorDrawable(highlightColor))
         stateList.addState(intArrayOf(android.R.attr.state_focused), ColorDrawable(highlightColor))
         stateList.addState(intArrayOf(android.R.attr.state_pressed), ColorDrawable(highlightColor))

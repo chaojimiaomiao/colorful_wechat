@@ -23,10 +23,9 @@ object SystemUtils {
 
     fun setMiuiStatusBarDarkMode(activity: Activity?, dark: Boolean) = try {
         val clazz = activity?.window?.javaClass
-        var darkModeFlag = 0
         val layoutParams = Class.forName("android.view.MiuiWindowManager\$LayoutParams")
         val field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE")
-        darkModeFlag = field.getInt(layoutParams)
+        val darkModeFlag = field.getInt(layoutParams)
         val extraFlagField = clazz?.getMethod("setExtraFlags", Integer.TYPE, Integer.TYPE)
         extraFlagField?.invoke(activity?.window, if (dark) darkModeFlag else 0, darkModeFlag)
     } catch (e: Exception) {

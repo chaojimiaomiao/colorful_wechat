@@ -13,5 +13,4 @@
     <string name="alert_cancel">确定</string>
     <string name="alert_text_placeholder">手动输入颜色值，以#号开头</string>
 
-    <string name="org_dmfs_colorpicker_pick_a_color">选择颜色</string>
 </resources>

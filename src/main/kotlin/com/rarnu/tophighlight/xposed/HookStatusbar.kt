@@ -1,14 +1,12 @@
 package com.rarnu.tophighlight.xposed
 
 import android.app.Activity
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.view.ViewGroup
-import com.rarnu.tophighlight.Consts
 import com.rarnu.tophighlight.util.SystemUtils
+import com.rarnu.tophighlight.util.UIUtils
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedHelpers
 
 /**
@@ -16,25 +14,28 @@ import de.robv.android.xposed.XposedHelpers
  */
 object HookStatusbar {
 
-    fun hookStatusbar(classLoader: ClassLoader?, prefs: XSharedPreferences?) {
+    fun hookStatusbar(classLoader: ClassLoader?) {
 
         XposedHelpers.findAndHookMethod(Versions.mmFragmentActivity, classLoader, "onResume", object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
+                XpConfig.load()
                 val activity = param!!.thisObject as Activity
-
                 val activityName = activity.javaClass.name
                 if (!Versions.expectImmersionList.contains(activityName)) {
                     val actionbar = XposedHelpers.callMethod(XposedHelpers.callMethod(activity, Versions.getAppCompact), Versions.getActionBar)
                     if (actionbar != null) {
-                        XposedHelpers.callMethod(actionbar, "setBackgroundDrawable", ColorDrawable(Consts.COLOR_DEFAULT_ARR[0]))
+                        XposedHelpers.callMethod(actionbar, "setBackgroundDrawable", ColorDrawable(XpConfig.statusBarColor))
+                        if (XpConfig.darkerStatusBar) {
+                            activity.window.statusBarColor = UIUtils.getDarkerColor(XpConfig.statusBarColor, 0.85f)
+                        }
                     }
                     if (SystemUtils.isMIUI()) {
-                        SystemUtils.setMiuiStatusBarDarkMode(activity, true)
+                        SystemUtils.setMiuiStatusBarDarkMode(activity, XpConfig.darkStatusBarText)
                     } else if (SystemUtils.isFlyme()) {
-                        SystemUtils.setMeizuStatusBarDarkIcon(activity, true)
+                        SystemUtils.setMeizuStatusBarDarkIcon(activity, XpConfig.darkStatusBarText)
                     } else {
-                        SystemUtils.setDarkStatusIcon(activity, true)
+                        SystemUtils.setDarkStatusIcon(activity, XpConfig.darkStatusBarText)
                     }
                 }
             }
@@ -44,7 +45,17 @@ object HookStatusbar {
                 val activity = param!!.thisObject as Activity
                 val actionbar = XposedHelpers.callMethod(XposedHelpers.callMethod(activity, Versions.getAppCompact), Versions.getActionBar)
                 if (actionbar != null) {
-                    (XposedHelpers.callMethod(actionbar, "getCustomView") as ViewGroup).findViewById(Versions.dividerId).visibility = View.INVISIBLE
+                    (XposedHelpers.callMethod(actionbar, "getCustomView") as ViewGroup).findViewById(Versions.dividerId).visibility = if (XpConfig.showDivider) View.VISIBLE else View.INVISIBLE
+                    val divider = (XposedHelpers.callMethod(actionbar, "getCustomView") as ViewGroup).findViewById(Versions.dividerId)
+                    if (XpConfig.showDivider) {
+                        divider.setBackgroundColor(XpConfig.dividerColor)
+                        divider.layoutParams.height = 1
+                    } else {
+                        divider.layoutParams.height = 0
+                    }
+                    if (XpConfig.darkerStatusBar) {
+                        activity.window.statusBarColor = UIUtils.getDarkerColor(XpConfig.statusBarColor, 0.85f)
+                    }
                 }
             }
         })
@@ -55,8 +66,16 @@ object HookStatusbar {
                 val actionBarContainer = XposedHelpers.getObjectField(param.thisObject, Versions.actionBarContainer) as ViewGroup?
                 if (actionBarContainer != null) {
                     val actionbarView = actionBarContainer.findViewById(Versions.actionBarViewId) as ViewGroup
-                    actionbarView.setBackgroundColor(Consts.COLOR_DEFAULT_ARR[0])
-                    actionbarView.findViewById(Versions.dividerId).visibility = View.INVISIBLE
+                    actionbarView.setBackgroundColor(XpConfig.statusBarColor)
+
+                    val divider = actionbarView.findViewById(Versions.dividerId)
+                    divider.visibility = if (XpConfig.showDivider) View.VISIBLE else View.INVISIBLE
+                    if (XpConfig.showDivider) {
+                        divider.setBackgroundColor(XpConfig.dividerColor)
+                        divider.layoutParams.height = 1
+                    } else {
+                        divider.layoutParams.height = 0
+                    }
                 }
             }
         })
@@ -65,14 +84,14 @@ object HookStatusbar {
             var needChange = false
 
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+            override fun beforeHookedMethod(param: MethodHookParam) {
                 needChange = Versions.colorToChange.contains(param.args[0] as Int)
             }
 
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                 if (needChange) {
-                    param.result = Consts.COLOR_DEFAULT_ARR[0]
+                    param.result = if (XpConfig.darkerStatusBar) UIUtils.getDarkerColor(XpConfig.statusBarColor, 0.85f) else XpConfig.statusBarColor
                 }
             }
         })

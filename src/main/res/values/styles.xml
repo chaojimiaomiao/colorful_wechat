@@ -6,8 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary_black</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark_black</item>
         <item name="colorAccent">@color/colorAccent</item>-->
-
-
         <item name="android:windowBackground">@color/white</item>
 
     </style>
