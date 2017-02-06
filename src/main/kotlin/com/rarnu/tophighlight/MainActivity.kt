@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.Toolbar
 import android.view.Menu
 import android.view.MenuItem
@@ -28,6 +29,7 @@ class MainActivity : Activity() {//, ColorItemView.ColorItemViewDelegate
     private var _selectedPalette: String? = null
     private var pref: SharedPreferences? = null
     private var toolBar : Toolbar? = null
+    private var scrollView : NestedScrollView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         UIUtils.initDisplayMetrics(this, windowManager)
@@ -37,6 +39,15 @@ class MainActivity : Activity() {//, ColorItemView.ColorItemViewDelegate
         layMain = findViewById(R.id.layMain) as LinearLayout?
         toolBar = findViewById(R.id.first_toolbar) as Toolbar?
         toolBar?.setOnClickListener { view -> this.showDialog(view) }
+
+        initScrollView()
+    }
+
+    fun initScrollView() {
+        //scrollView = findViewById(R.id.first_scrollview) as NestedScrollView?
+        var columnView = ColumnView(this, R.drawable.mac, "mac")
+        columnView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layMain?.addView(columnView)
     }
 
     /*fun initColorItem() {
