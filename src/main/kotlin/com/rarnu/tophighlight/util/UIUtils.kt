@@ -7,6 +7,7 @@ import android.view.WindowManager
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
+import com.rarnu.tophighlight.R
 
 
 /**
@@ -42,13 +43,12 @@ object UIUtils {
     fun showDialog(context: Context, pickerClickListener: ColorPickerClickListener, longClick: Boolean = false) =
             ColorPickerDialogBuilder
                     .with(context)
-                    .setTitle(if (!longClick) "选择背景色" else "选择选中时的颜色")
-                    .initialColor(Color.parseColor("#ffffff"))
+                    .setTitle(if (!longClick) R.string.view_select_background_color else R.string.view_select_press_color)
+                    .initialColor(Color.WHITE)
                     .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                     .density(12)
-                    // .setOnColorSelectedListener(colorSelectListener)
-                    .setPositiveButton("ok", pickerClickListener)
-                    .setNegativeButton("cancel", null)
+                    .setPositiveButton(R.string.alert_ok, pickerClickListener)
+                    .setNegativeButton(R.string.alert_cancel, null)
                     .build()
                     .show()
 

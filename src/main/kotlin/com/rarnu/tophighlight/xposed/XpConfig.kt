@@ -38,8 +38,10 @@ object XpConfig {
         dividerColor = prefs.getInt(KEY_DIVIDER_COLOR, defaultDividerColor)
         darkerStatusBar = prefs.getBoolean(KEY_DARKER_STATUSBAR, defaultDarkerStatusBar)
         darkStatusBarText = prefs.getBoolean(KEY_DARK_STATUSBAR_TEXT, defaultDarkStatusBarText)
-        macColor = prefs.getInt(KEY_MAC_COLOR, R.color.ll_gray)
-        readerColor = prefs.getInt(KEY_TOP_READER_COLOR, R.color.ll_gray)
+        macColor = prefs.getInt(KEY_MAC_COLOR, defaultMacColor)
+        macPressColor = prefs.getInt(KEY_MAC_PRESS_COLOR, defaultMacPressColor)
+        readerColor = prefs.getInt(KEY_TOP_READER_COLOR, defaultReaderColor)
+        readerPressColor = prefs.getInt(KEY_TOP_READER_PRESS_COLOR, defaultReaderPressColor)
         (0..9).forEach {
             topColors[it] = prefs.getInt("$KEY_TOP_COLOR$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_TOP_PRESS_COLOR$it", defaultTopPressColors[it])
@@ -53,7 +55,9 @@ object XpConfig {
                 .putBoolean(KEY_DARKER_STATUSBAR, darkerStatusBar)
                 .putBoolean(KEY_DARK_STATUSBAR_TEXT, darkStatusBarText)
                 .putInt(KEY_MAC_COLOR, macColor)
+                .putInt(KEY_MAC_PRESS_COLOR, macPressColor)
                 .putInt(KEY_TOP_READER_COLOR, readerColor)
+                .putInt(KEY_TOP_READER_PRESS_COLOR, readerPressColor)
                 .apply()
     }
 
@@ -69,7 +73,9 @@ object XpConfig {
     private val KEY_TOP_PRESS_COLOR = "top_press_color_"
 
     val KEY_MAC_COLOR = "mac_color"
+    val KEY_MAC_PRESS_COLOR = "mac_press_color"
     val KEY_TOP_READER_COLOR = "top_reader_color"
+    val KEY_TOP_READER_PRESS_COLOR = "top_reader_press_color"
 
     // 状态栏颜色
     val defaultStatusBarColor = 0xffffc7c8.toInt()
@@ -92,8 +98,15 @@ object XpConfig {
     var darkStatusBarText = defaultDarkStatusBarText
 
     // Mac 和 置顶的reader颜色
-    var macColor = R.color.ll_gray
-    var readerColor = R.color.ll_gray
+    var defaultMacColor = 0xfff5f5f5.toInt()
+    var macColor = defaultMacColor
+    var defaultMacPressColor = 0xffd9d9d9.toInt()
+    var macPressColor = defaultMacPressColor
+
+    var defaultReaderColor = 0xfff5f5f5.toInt()
+    var readerColor = defaultReaderColor
+    var defaultReaderPressColor = 0xffd9d9d9.toInt()
+    var readerPressColor = defaultReaderPressColor
 
     // 默认的置顶项高亮颜色，可以修改
     val defaultTopColors = arrayOf(

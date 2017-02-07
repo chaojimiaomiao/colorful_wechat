@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 
-
-
 /**
  * Created by rarnu on 1/11/17.
  */
@@ -25,7 +23,7 @@ object HookTopHighlight {
                 val j = XposedHelpers.callMethod(pmethod.thisObject, Versions.topInfoMethod, ad)
                 val oLH = XposedHelpers.getBooleanField(j, Versions.topInfoField)
                 if (oLH) {
-                    (pmethod.result as View).background = createSelectorDrawable(pmethod.args[0] as Int)
+                    (pmethod.result as View?)?.background = createTopHighlightSelectorDrawable(pmethod.args[0] as Int)
                 }
             }
         })
@@ -35,29 +33,39 @@ object HookTopHighlight {
         XposedHelpers.findAndHookMethod(Versions.topMacActivity, classLoader, Versions.topMacMethod, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(pmethod: MethodHookParam) {
-                val ejD = XposedHelpers.getObjectField(pmethod.thisObject, Versions.topMacField) as View
-                ejD.setBackgroundColor(XpConfig.macColor)
+                val v = XposedHelpers.getObjectField(pmethod.thisObject, Versions.topMacField) as View?
+                v?.background = createTopReaderAndMacSelectorDrawable()
             }
         })
         XposedHelpers.findAndHookMethod(Versions.topReaderActivity, classLoader, Versions.topReaderMethod, Integer.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(pmethod: MethodHookParam) {
                 val view = XposedHelpers.getObjectField(pmethod.thisObject, Versions.topReaderField) as View?
-                view?.findViewById(Versions.topReaderViewId)?.setBackgroundColor(XpConfig.readerColor)
+                view?.findViewById(Versions.topReaderViewId)?.background = createTopReaderAndMacSelectorDrawable(1)
             }
         })
     }
 
-    private fun createSelectorDrawable(idx: Int): StateListDrawable? {
+    private fun createTopHighlightSelectorDrawable(idx: Int): StateListDrawable? {
         XpConfig.xposedload()
+        return createSelectorDrawable(XpConfig.topColors[idx], XpConfig.topPressColors[idx])
+    }
+
+    private fun createTopReaderAndMacSelectorDrawable(type: Int = 0): StateListDrawable? {
+        XpConfig.xposedload()
+        return when (type) {
+            0 -> createSelectorDrawable(XpConfig.macColor, XpConfig.macPressColor)
+            1 -> createSelectorDrawable(XpConfig.readerColor, XpConfig.readerPressColor)
+            else -> null
+        }
+    }
+
+    private fun createSelectorDrawable(defaultColor: Int, pressColor: Int): StateListDrawable? {
         val stateList = StateListDrawable()
-        val defaultColor = XpConfig.topColors[idx]
-        val highlightColor = XpConfig.topPressColors[idx]
-        stateList.addState(intArrayOf(android.R.attr.state_selected), ColorDrawable(highlightColor))
-        stateList.addState(intArrayOf(android.R.attr.state_focused), ColorDrawable(highlightColor))
-        stateList.addState(intArrayOf(android.R.attr.state_pressed), ColorDrawable(highlightColor))
+        stateList.addState(intArrayOf(android.R.attr.state_selected), ColorDrawable(pressColor))
+        stateList.addState(intArrayOf(android.R.attr.state_focused), ColorDrawable(pressColor))
+        stateList.addState(intArrayOf(android.R.attr.state_pressed), ColorDrawable(pressColor))
         stateList.addState(intArrayOf(), ColorDrawable(defaultColor))
         return stateList
     }
-
 }

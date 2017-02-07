@@ -13,10 +13,13 @@
     <string name="view_mac_login">Mac 微信已登录</string>
     <string name="view_top_reader">正在浏览 置顶文章</string>
 
+    <string name="view_select_background_color">选择背景色</string>
+    <string name="view_select_press_color">选择选中时的颜色</string>
+
     <string name="alert_hint">提示</string>
     <string name="alert_text_about">喵~</string>
     <string name="alert_ok">确定</string>
-    <string name="alert_cancel">确定</string>
+    <string name="alert_cancel">取消</string>
     <string name="alert_text_placeholder">手动输入颜色值，以#号开头</string>
 
 </resources>

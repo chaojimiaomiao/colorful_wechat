@@ -1,6 +1,7 @@
 package com.rarnu.tophighlight
 
 import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.LayoutInflater
@@ -37,17 +38,24 @@ class ColumnView(ctx: Context, private val resourceId: Int, private val textStri
             (findViewById(R.id.item_image) as ImageView?)?.setImageResource(resourceId)
             setOnClickListener { UIUtils.showDialog(context, getPickerClickListener(this@with), false) }
             setOnLongClickListener {
-                // UIUtils.showDialog(context, getPickerClickListener(this@with), true)
+                UIUtils.showDialog(context, getPickerClickListener(this@with, true), true)
                 true
             }
         }
     }
 
-    fun getPickerClickListener(view: View): ColorPickerClickListener = ColorPickerClickListener { dialogInterface, selectColor, integers ->
-        view.setBackgroundColor(selectColor)
-        when (key) {
-            XpConfig.KEY_MAC_COLOR -> XpConfig.macColor = selectColor
-            XpConfig.KEY_TOP_READER_COLOR -> XpConfig.readerColor = selectColor
+    fun getPickerClickListener(view: View, longClick: Boolean = false): ColorPickerClickListener = ColorPickerClickListener { dialogInterface, selectColor, integers ->
+        if (!longClick) {
+            view.setBackgroundColor(selectColor)
+            when (key) {
+                XpConfig.KEY_MAC_COLOR -> XpConfig.macColor = selectColor
+                XpConfig.KEY_TOP_READER_COLOR -> XpConfig.readerColor = selectColor
+            }
+        } else {
+            when (key) {
+                XpConfig.KEY_MAC_COLOR -> XpConfig.macPressColor = selectColor
+                XpConfig.KEY_TOP_READER_COLOR -> XpConfig.readerPressColor = selectColor
+            }
         }
         XpConfig.save(context)
     }
