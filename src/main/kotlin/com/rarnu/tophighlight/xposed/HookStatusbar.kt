@@ -2,6 +2,10 @@ package com.rarnu.tophighlight.xposed
 
 import android.app.Activity
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.InsetDrawable
+import android.util.DisplayMetrics
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.rarnu.tophighlight.util.SystemUtils
@@ -14,6 +18,8 @@ import de.robv.android.xposed.XposedHelpers
  */
 object HookStatusbar {
 
+    var density = 1.0f
+
     fun hookStatusbar(classLoader: ClassLoader?) {
 
         XposedHelpers.findAndHookMethod(Versions.mmFragmentActivity, classLoader, "onResume", object : XC_MethodHook() {
@@ -21,6 +27,9 @@ object HookStatusbar {
             override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
                 XpConfig.xposedload()
                 val activity = param!!.thisObject as Activity
+                val dm = DisplayMetrics()
+                activity.windowManager.defaultDisplay.getMetrics(dm)
+                density = dm.density
                 val activityName = activity.javaClass.name
                 if (!Versions.expectImmersionList.contains(activityName)) {
                     val actionbar = XposedHelpers.callMethod(XposedHelpers.callMethod(activity, Versions.getAppCompact), Versions.getActionBar)
@@ -77,6 +86,15 @@ object HookStatusbar {
                         divider.layoutParams.height = 0
                     }
                 }
+            }
+        })
+
+        XposedHelpers.findAndHookMethod("com.tencent.mm.ui.tools.q", classLoader, "dQ", object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(param: MethodHookParam) {
+                val padding = (12 * density + 0.5f).toInt()
+                val d = InsetDrawable(ColorDrawable(XpConfig.statusBarColor), padding, padding, padding, padding)
+                XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "oQs"), "setBackgroundDrawable", d)
             }
         })
 

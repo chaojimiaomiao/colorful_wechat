@@ -38,7 +38,10 @@ object UIUtils {
         return Color.HSVToColor(hsv)
     }
 
-    fun getReverseColor(color: Int): Int = Color.rgb(255 - Color.red(color), 255 - Color.green(color), 255 - Color.blue(color))
+    fun isSimilarToWhite(color: Int): Boolean {
+        val gray = (Color.red(color) * 0.2126f + Color.green(color) * 0.7152f + Color.blue(color) * 0.0722f).toInt()
+        return gray > 0xcc
+    }
 
     fun showDialog(context: Context, pickerClickListener: ColorPickerClickListener, longClick: Boolean = false) =
             ColorPickerDialogBuilder

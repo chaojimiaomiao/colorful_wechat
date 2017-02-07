@@ -60,6 +60,7 @@ class MainActivity : Activity(), View.OnClickListener {
     }
 
     private fun initScrollView() {
+        toolBar?.setBackgroundColor(XpConfig.statusBarColor)
         chkDarkStatusBar?.isChecked = XpConfig.darkerStatusBar
         chkDarkStatusBarText?.isChecked = XpConfig.darkStatusBarText
         //替换掉R.id.bvj的背景色
@@ -84,10 +85,10 @@ class MainActivity : Activity(), View.OnClickListener {
     }
 
     private fun refreshStatusBar() {
-        val c = UIUtils.getReverseColor(XpConfig.statusBarColor)
-        tvTitle?.setTextColor(c)
-        chkDarkStatusBar?.setTextColor(c)
-        chkDarkStatusBarText?.setTextColor(c)
+        val isWhite = UIUtils.isSimilarToWhite(XpConfig.statusBarColor)
+        tvTitle?.setTextColor(if (isWhite) Color.BLACK else Color.WHITE)
+        chkDarkStatusBar?.setTextColor(if (isWhite) Color.BLACK else Color.WHITE)
+        chkDarkStatusBarText?.setTextColor(if (isWhite) Color.BLACK else Color.WHITE)
         window.statusBarColor = if (XpConfig.darkerStatusBar) UIUtils.getDarkerColor(XpConfig.statusBarColor, 0.85f) else XpConfig.statusBarColor
         if (SystemUtils.isMIUI()) {
             SystemUtils.setMiuiStatusBarDarkMode(this, XpConfig.darkStatusBarText)

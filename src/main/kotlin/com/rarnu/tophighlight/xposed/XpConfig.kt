@@ -12,6 +12,7 @@ import de.robv.android.xposed.XSharedPreferences
  */
 object XpConfig {
 
+    // 不同的进程空间，需要不同的配置加载
     fun xposedload() {
 
         val prefs = XSharedPreferences(PKGNAME, PREF)
@@ -23,8 +24,10 @@ object XpConfig {
         dividerColor = prefs.getInt(KEY_DIVIDER_COLOR, defaultDividerColor)
         darkerStatusBar = prefs.getBoolean(KEY_DARKER_STATUSBAR, defaultDarkerStatusBar)
         darkStatusBarText = prefs.getBoolean(KEY_DARK_STATUSBAR_TEXT, defaultDarkStatusBarText)
-        macColor = prefs.getInt(KEY_MAC_COLOR, R.color.ll_gray)
-        readerColor = prefs.getInt(KEY_TOP_READER_COLOR, R.color.ll_gray)
+        macColor = prefs.getInt(KEY_MAC_COLOR, defaultMacColor)
+        macPressColor = prefs.getInt(KEY_MAC_PRESS_COLOR, defaultMacPressColor)
+        readerColor = prefs.getInt(KEY_TOP_READER_COLOR, defaultReaderColor)
+        readerPressColor = prefs.getInt(KEY_TOP_READER_PRESS_COLOR, defaultReaderPressColor)
         (0..9).forEach {
             topColors[it] = prefs.getInt("$KEY_TOP_COLOR$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_TOP_PRESS_COLOR$it", defaultTopPressColors[it])
