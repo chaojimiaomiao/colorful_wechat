@@ -18,6 +18,7 @@
                 android:background="@color/colorPrimary_black">
 
             <TextView
+                    android:id="@+id/tvTitle"
                     android:textSize="18sp"
                     android:text="@string/view_select_theme_color"
                     android:gravity="start"

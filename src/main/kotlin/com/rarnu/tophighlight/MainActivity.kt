@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
+import android.widget.TextView
 import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
@@ -27,6 +28,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private var toolBar: Toolbar? = null
     private var chkDarkStatusBar: CheckBox? = null
     private var chkDarkStatusBarText: CheckBox? = null
+    private var tvTitle: TextView? = null
     // private var scrollView: NestedScrollView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,6 +51,8 @@ class MainActivity : Activity(), View.OnClickListener {
         chkDarkStatusBarText = findViewById(R.id.chkDarkStatusBarText) as CheckBox?
         chkDarkStatusBar?.setOnClickListener(this)
         chkDarkStatusBarText?.setOnClickListener(this)
+
+        tvTitle = findViewById(R.id.tvTitle) as TextView?
 
         XpConfig.load(this)
         initScrollView()
@@ -80,6 +84,10 @@ class MainActivity : Activity(), View.OnClickListener {
     }
 
     private fun refreshStatusBar() {
+        val c = UIUtils.getReverseColor(XpConfig.statusBarColor)
+        tvTitle?.setTextColor(c)
+        chkDarkStatusBar?.setTextColor(c)
+        chkDarkStatusBarText?.setTextColor(c)
         window.statusBarColor = if (XpConfig.darkerStatusBar) UIUtils.getDarkerColor(XpConfig.statusBarColor, 0.85f) else XpConfig.statusBarColor
         if (SystemUtils.isMIUI()) {
             SystemUtils.setMiuiStatusBarDarkMode(this, XpConfig.darkStatusBarText)

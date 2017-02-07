@@ -1,12 +1,10 @@
 package com.rarnu.tophighlight.util
 
 import android.content.Context
-import android.content.DialogInterface
 import android.graphics.Color
 import android.util.DisplayMetrics
 import android.view.WindowManager
 import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.OnColorSelectedListener
 import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
 
@@ -39,20 +37,19 @@ object UIUtils {
         return Color.HSVToColor(hsv)
     }
 
-    fun showDialog(context: Context, pickerClickListener: ColorPickerClickListener, longClick:Boolean = false) {
+    fun getReverseColor(color: Int): Int = Color.rgb(255 - Color.red(color), 255 - Color.green(color), 255 - Color.blue(color))
 
-        var cancelListener = DialogInterface.OnClickListener { dialogInterface, i -> }
-        ColorPickerDialogBuilder
-                .with(context)
-                .setTitle(if(!longClick) "选择背景色" else "选择选中时的颜色")
-                .initialColor(Color.parseColor("#ffffff"))
-                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                .density(12)
-                // .setOnColorSelectedListener(colorSelectListener)
-                .setPositiveButton("ok", pickerClickListener)
-                .setNegativeButton("cancel", cancelListener)
-                .build()
-                .show()
-    }
+    fun showDialog(context: Context, pickerClickListener: ColorPickerClickListener, longClick: Boolean = false) =
+            ColorPickerDialogBuilder
+                    .with(context)
+                    .setTitle(if (!longClick) "选择背景色" else "选择选中时的颜色")
+                    .initialColor(Color.parseColor("#ffffff"))
+                    .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                    .density(12)
+                    // .setOnColorSelectedListener(colorSelectListener)
+                    .setPositiveButton("ok", pickerClickListener)
+                    .setNegativeButton("cancel", null)
+                    .build()
+                    .show()
 
 }
