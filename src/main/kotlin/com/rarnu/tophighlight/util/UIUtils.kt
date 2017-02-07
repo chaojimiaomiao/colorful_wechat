@@ -40,9 +40,6 @@ object UIUtils {
     }
 
     fun showDialog(context: Context, pickerClickListener: ColorPickerClickListener, longClick:Boolean = false) {
-        var colorSelectListener = OnColorSelectedListener {
-            // TODO: on color selected
-        }
 
         var cancelListener = DialogInterface.OnClickListener { dialogInterface, i -> }
         ColorPickerDialogBuilder
@@ -51,7 +48,7 @@ object UIUtils {
                 .initialColor(Color.parseColor("#ffffff"))
                 .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                 .density(12)
-                .setOnColorSelectedListener(colorSelectListener)
+                // .setOnColorSelectedListener(colorSelectListener)
                 .setPositiveButton("ok", pickerClickListener)
                 .setNegativeButton("cancel", cancelListener)
                 .build()

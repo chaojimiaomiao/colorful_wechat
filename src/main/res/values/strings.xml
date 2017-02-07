@@ -7,6 +7,12 @@
     <string name="view_press">点击颜色</string>
     <string name="menu_about">关于</string>
 
+    <string name="view_select_theme_color">选择主题色</string>
+    <string name="view_dark_statusbar">暗状态栏</string>
+    <string name="view_dark_statusbar_text">状态栏黑字</string>
+    <string name="view_mac_login">Mac 微信已登录</string>
+    <string name="view_top_reader">正在浏览 置顶文章</string>
+
     <string name="alert_hint">提示</string>
     <string name="alert_text_about">喵~</string>
     <string name="alert_ok">确定</string>

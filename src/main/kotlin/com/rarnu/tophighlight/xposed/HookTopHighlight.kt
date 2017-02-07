@@ -32,18 +32,18 @@ object HookTopHighlight {
     }
 
     fun hookTopReaderAndMac(classLoader: ClassLoader?) {
-        XposedHelpers.findAndHookMethod(Versions.topMacActivity, classLoader, "aii", object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(Versions.topMacActivity, classLoader, Versions.topMacMethod, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(pmethod: MethodHookParam) {
-                val ejD = XposedHelpers.getObjectField(pmethod.thisObject, "ejD") as View
+                val ejD = XposedHelpers.getObjectField(pmethod.thisObject, Versions.topMacField) as View
                 ejD.setBackgroundColor(XpConfig.macColor)
             }
         })
-        XposedHelpers.findAndHookMethod(Versions.topReaderActivity, classLoader, "setVisibility", Integer.TYPE, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(Versions.topReaderActivity, classLoader, Versions.topReaderMethod, Integer.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(pmethod: MethodHookParam) {
-                var view = XposedHelpers.getObjectField(pmethod.thisObject, "view") as View?
-                view?.findViewById(0x7f101472)?.setBackgroundColor(XpConfig.readerColor)
+                val view = XposedHelpers.getObjectField(pmethod.thisObject, Versions.topReaderField) as View?
+                view?.findViewById(Versions.topReaderViewId)?.setBackgroundColor(XpConfig.readerColor)
             }
         })
     }

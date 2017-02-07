@@ -28,6 +28,17 @@ object Versions {
     // top mac or reader & etc.
     var topMacActivity = ""
     var topReaderActivity = ""
+    var topMacMethod = ""
+    var topMacField = ""
+    var topReaderMethod = ""
+    var topReaderField = ""
+    var topReaderViewId = 0
+
+    // settings
+    var settingActivity = ""
+    var settingPreference = ""
+    var settingListField = ""
+    var settingAddMethod = ""
 
     // global resource
     var colorToChange = arrayListOf<Int>()
@@ -44,8 +55,20 @@ object Versions {
                 mmFragmentActivity = "com.tencent.mm.ui.MMFragmentActivity"
                 chatUIActivity = "com.tencent.mm.ui.chatting.ChattingUI\$a"
 
+                // top mac or reader
                 topMacActivity = "com.tencent.mm.ui.d.m"
                 topReaderActivity = "com.tencent.mm.ui.d.o"
+                topMacMethod = "aii"
+                topMacField = "ejD"
+                topReaderMethod = "setVisibility"
+                topReaderField = "view"
+                topReaderViewId = 0x7f101472
+
+                // settings
+                settingActivity = "com.tencent.mm.plugin.setting.ui.setting.SettingsAboutSystemUI"
+                settingPreference = "com.tencent.mm.ui.base.preference.Preference"
+                settingListField = "oHs"
+                settingAddMethod = "a"
 
                 expectImmersionList = arrayListOf(
                         "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyIndexUI",

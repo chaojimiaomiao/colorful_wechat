@@ -16,7 +16,7 @@ object HookSettings {
 
     fun hookSettings(classLoader: ClassLoader?) {
 
-        XposedHelpers.findAndHookMethod("com.tencent.mm.ui.base.preference.Preference", classLoader, "onBindView", View::class.java, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(Versions.settingPreference, classLoader, "onBindView", View::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: MethodHookParam) {
                 val v = param.args[0] as View?
@@ -31,15 +31,15 @@ object HookSettings {
             }
         })
 
-        XposedHelpers.findAndHookMethod("com.tencent.mm.plugin.setting.ui.setting.SettingsAboutSystemUI", classLoader, "onCreate", Bundle::class.java, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(Versions.settingActivity, classLoader, "onCreate", Bundle::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: MethodHookParam) {
                 _ctx = param.thisObject as Context  // activity
-                val clsPreference = XposedHelpers.findClass("com.tencent.mm.ui.base.preference.Preference", classLoader)
+                val clsPreference = XposedHelpers.findClass(Versions.settingPreference, classLoader)
                 val objPreference = XposedHelpers.newInstance(clsPreference, _ctx)
                 XposedHelpers.callMethod(objPreference, "setTitle", "多彩微信")
-                val prefList = XposedHelpers.getObjectField(_ctx, "oHs")
-                XposedHelpers.callMethod(prefList, "a", objPreference, 0)
+                val prefList = XposedHelpers.getObjectField(_ctx, Versions.settingListField)
+                XposedHelpers.callMethod(prefList, Versions.settingAddMethod, objPreference, 0)
 
             }
         })

@@ -50,6 +50,8 @@ object XpConfig {
         val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         prefs.edit()
                 .putInt(KEY_STATUBAR_COLOR, statusBarColor)
+                .putBoolean(KEY_DARKER_STATUSBAR, darkerStatusBar)
+                .putBoolean(KEY_DARK_STATUSBAR_TEXT, darkStatusBarText)
                 .putInt(KEY_MAC_COLOR, macColor)
                 .putInt(KEY_TOP_READER_COLOR, readerColor)
                 .apply()
