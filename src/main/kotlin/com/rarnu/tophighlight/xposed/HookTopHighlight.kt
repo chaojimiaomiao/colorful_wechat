@@ -49,7 +49,7 @@ object HookTopHighlight {
     }
 
     private fun createSelectorDrawable(idx: Int): StateListDrawable? {
-        XpConfig.load()
+        XpConfig.xposedload()
         val stateList = StateListDrawable()
         val defaultColor = XpConfig.topColors[idx]
         val highlightColor = XpConfig.topPressColors[idx]

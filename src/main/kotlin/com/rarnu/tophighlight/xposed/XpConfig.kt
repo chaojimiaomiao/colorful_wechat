@@ -1,6 +1,9 @@
 package com.rarnu.tophighlight.xposed
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
+import android.preference.PreferenceManager
 import com.rarnu.tophighlight.R
 import de.robv.android.xposed.XSharedPreferences
 
@@ -9,9 +12,7 @@ import de.robv.android.xposed.XSharedPreferences
  */
 object XpConfig {
 
-    var editor : SharedPreferences.Editor ?= null //mainactivity oncreate时赋值
-
-    fun load() {
+    fun xposedload() {
 
         val prefs = XSharedPreferences(PKGNAME, PREF)
         prefs.makeWorldReadable()
@@ -30,11 +31,28 @@ object XpConfig {
         }
     }
 
-    fun save() {
-        editor?.putInt(KEY_STATUBAR_COLOR, statusBarColor)
-        editor?.putInt(KEY_MAC_COLOR, macColor)
-        editor?.putInt(KEY_TOP_READER_COLOR, readerColor)
-        editor?.commit()
+    fun load(ctx: Context) {
+        val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        statusBarColor = prefs.getInt(KEY_STATUBAR_COLOR, defaultStatusBarColor)
+        showDivider = prefs.getBoolean(KEY_SHOW_DIVIDER, defaultShowDivider)
+        dividerColor = prefs.getInt(KEY_DIVIDER_COLOR, defaultDividerColor)
+        darkerStatusBar = prefs.getBoolean(KEY_DARKER_STATUSBAR, defaultDarkerStatusBar)
+        darkStatusBarText = prefs.getBoolean(KEY_DARK_STATUSBAR_TEXT, defaultDarkStatusBarText)
+        macColor = prefs.getInt(KEY_MAC_COLOR, R.color.ll_gray)
+        readerColor = prefs.getInt(KEY_TOP_READER_COLOR, R.color.ll_gray)
+        (0..9).forEach {
+            topColors[it] = prefs.getInt("$KEY_TOP_COLOR$it", defaultTopColors[it])
+            topPressColors[it] = prefs.getInt("$KEY_TOP_PRESS_COLOR$it", defaultTopPressColors[it])
+        }
+    }
+
+    fun save(ctx: Context) {
+        val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        prefs.edit()
+                .putInt(KEY_STATUBAR_COLOR, statusBarColor)
+                .putInt(KEY_MAC_COLOR, macColor)
+                .putInt(KEY_TOP_READER_COLOR, readerColor)
+                .apply()
     }
 
     val PKGNAME = "com.rarnu.tophighlight"
@@ -48,8 +66,8 @@ object XpConfig {
     private val KEY_TOP_COLOR = "top_color_"
     private val KEY_TOP_PRESS_COLOR = "top_press_color_"
 
-    public val KEY_MAC_COLOR = "mac_color"
-    public val KEY_TOP_READER_COLOR = "top_reader_color"
+    val KEY_MAC_COLOR = "mac_color"
+    val KEY_TOP_READER_COLOR = "top_reader_color"
 
     // 状态栏颜色
     val defaultStatusBarColor = 0xffffc7c8.toInt()

@@ -19,7 +19,7 @@ object HookStatusbar {
         XposedHelpers.findAndHookMethod(Versions.mmFragmentActivity, classLoader, "onResume", object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                XpConfig.load()
+                XpConfig.xposedload()
                 val activity = param!!.thisObject as Activity
                 val activityName = activity.javaClass.name
                 if (!Versions.expectImmersionList.contains(activityName)) {

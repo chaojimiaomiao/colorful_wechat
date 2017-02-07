@@ -1,6 +1,7 @@
 package com.rarnu.tophighlight
 
 import android.content.Context
+import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
@@ -17,9 +18,10 @@ import com.rarnu.tophighlight.xposed.XpConfig
 
 class ColumnView(
         private val mContext: Context,
+        mAttributeSet: AttributeSet?,
         private val mResourceId: Int,
         private val mTextString: String,
-        private val mKey: String) : RelativeLayout(mContext) {
+        private val mKey: String) : RelativeLayout(mContext, mAttributeSet) {
 
     init {
         initView()
@@ -39,7 +41,6 @@ class ColumnView(
         (linearLayout.findViewById(R.id.item_text) as TextView).text = mTextString
         (linearLayout.findViewById(R.id.item_image) as ImageView).setImageResource(mResourceId)
 
-
         linearLayout.setOnClickListener {
             val pickerClickListener = getPickerClickListener(linearLayout)
             UIUtils.showDialog(mContext, pickerClickListener, false)
@@ -50,13 +51,14 @@ class ColumnView(
         }
     }
 
-    fun getPickerClickListener(view : View) : ColorPickerClickListener {
+    fun getPickerClickListener(view: View): ColorPickerClickListener {
         val pickerClickListener = ColorPickerClickListener { dialogInterface, selectColor, integers ->
             view.setBackgroundColor(selectColor)
             when (mKey) {
                 XpConfig.KEY_MAC_COLOR -> XpConfig.macColor = selectColor
                 XpConfig.KEY_TOP_READER_COLOR -> XpConfig.readerColor = selectColor
             }
+            XpConfig.save(mContext)
         }
         return pickerClickListener
     }
