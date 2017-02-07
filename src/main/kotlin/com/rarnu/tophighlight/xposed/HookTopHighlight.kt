@@ -7,11 +7,16 @@ import android.view.ViewGroup
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
 
+
+
 /**
  * Created by rarnu on 1/11/17.
  */
 object HookTopHighlight {
 
+    /**
+     * 此处是hook置顶的群
+     */
     fun hookTopHighlight(classLoader: ClassLoader?) {
         XposedHelpers.findAndHookMethod(Versions.conversationAdapter, classLoader, "getView", Integer.TYPE, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
@@ -22,6 +27,23 @@ object HookTopHighlight {
                 if (oLH) {
                     (pmethod.result as View).background = createSelectorDrawable(pmethod.args[0] as Int)
                 }
+            }
+        })
+    }
+
+    fun hookTopReaderAndMac(classLoader: ClassLoader?) {
+        XposedHelpers.findAndHookMethod(Versions.topMacActivity, classLoader, "aii", object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(pmethod: MethodHookParam) {
+                val ejD = XposedHelpers.getObjectField(pmethod.thisObject, "ejD") as View
+                ejD.setBackgroundColor(XpConfig.macColor)
+            }
+        })
+        XposedHelpers.findAndHookMethod(Versions.topReaderActivity, classLoader, "setVisibility", Integer.TYPE, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(pmethod: MethodHookParam) {
+                var view = XposedHelpers.getObjectField(pmethod.thisObject, "view") as View?
+                view?.findViewById(0x7f101472)?.setBackgroundColor(XpConfig.readerColor)
             }
         })
     }

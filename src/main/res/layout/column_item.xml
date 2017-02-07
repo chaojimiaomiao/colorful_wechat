@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/ll_gray"
-    android:padding="3dp"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="3dp"
+    android:paddingRight="3dp"
     android:layout_width="match_parent"
-    android:layout_height="50dp">
+    android:layout_height="51dp">
 
     <LinearLayout
-        android:gravity="center"
-        android:layout_width="50dp"
+        android:layout_weight="1"
+        android:padding="3dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <ImageView
-            android:src="@drawable/mac"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            />
+
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="50dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/item_image"
+                android:src="@drawable/mac"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_text"
+            android:paddingLeft="2dp"
+            android:text="Mac微信已登录"
+            android:textColor="@color/text_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 
-    <TextView
-        android:paddingLeft="2dp"
-        android:text="Mac微信已登录"
-        android:textColor="@color/text_gray"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+    <View
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
 
 </LinearLayout>
