@@ -25,6 +25,10 @@ object Versions {
     var customizeActionBar = ""
     var actionBarContainer = ""
 
+    // top mac or reader & etc.
+    var topMacActivity = ""
+    var topReaderActivity = ""
+
     // global resource
     var colorToChange = arrayListOf<Int>()
 
@@ -39,6 +43,9 @@ object Versions {
 
                 mmFragmentActivity = "com.tencent.mm.ui.MMFragmentActivity"
                 chatUIActivity = "com.tencent.mm.ui.chatting.ChattingUI\$a"
+
+                topMacActivity = "com.tencent.mm.ui.d.m"
+                topReaderActivity = "com.tencent.mm.ui.d.o"
 
                 expectImmersionList = arrayListOf(
                         "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyIndexUI",

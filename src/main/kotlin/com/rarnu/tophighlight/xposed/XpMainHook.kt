@@ -2,7 +2,6 @@ package com.rarnu.tophighlight.xposed
 
 import android.content.Context
 import de.robv.android.xposed.IXposedHookLoadPackage
-import de.robv.android.xposed.XSharedPreferences
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
@@ -37,6 +36,7 @@ class XpMainHook : IXposedHookLoadPackage {
         }
         if (Versions.inited) {
 
+            HookTopHighlight.hookTopReaderAndMac(param.classLoader)
             HookTopHighlight.hookTopHighlight(param.classLoader)
             HookStatusbar.hookStatusbar(param.classLoader)
             HookSettings.hookSettings(param.classLoader)

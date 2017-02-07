@@ -1,11 +1,15 @@
 package com.rarnu.tophighlight.xposed
 
+import android.content.SharedPreferences
+import com.rarnu.tophighlight.R
 import de.robv.android.xposed.XSharedPreferences
 
 /**
  * Created by rarnu on 2/5/17.
  */
 object XpConfig {
+
+    var editor : SharedPreferences.Editor ?= null //mainactivity oncreate时赋值
 
     fun load() {
 
@@ -18,11 +22,19 @@ object XpConfig {
         dividerColor = prefs.getInt(KEY_DIVIDER_COLOR, defaultDividerColor)
         darkerStatusBar = prefs.getBoolean(KEY_DARKER_STATUSBAR, defaultDarkerStatusBar)
         darkStatusBarText = prefs.getBoolean(KEY_DARK_STATUSBAR_TEXT, defaultDarkStatusBarText)
+        macColor = prefs.getInt(KEY_MAC_COLOR, R.color.ll_gray)
+        readerColor = prefs.getInt(KEY_TOP_READER_COLOR, R.color.ll_gray)
         (0..9).forEach {
             topColors[it] = prefs.getInt("$KEY_TOP_COLOR$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_TOP_PRESS_COLOR$it", defaultTopPressColors[it])
         }
+    }
 
+    fun save() {
+        editor?.putInt(KEY_STATUBAR_COLOR, statusBarColor)
+        editor?.putInt(KEY_MAC_COLOR, macColor)
+        editor?.putInt(KEY_TOP_READER_COLOR, readerColor)
+        editor?.commit()
     }
 
     val PKGNAME = "com.rarnu.tophighlight"
@@ -35,6 +47,9 @@ object XpConfig {
     private val KEY_DARK_STATUSBAR_TEXT = "dark_status_bar_text"
     private val KEY_TOP_COLOR = "top_color_"
     private val KEY_TOP_PRESS_COLOR = "top_press_color_"
+
+    public val KEY_MAC_COLOR = "mac_color"
+    public val KEY_TOP_READER_COLOR = "top_reader_color"
 
     // 状态栏颜色
     val defaultStatusBarColor = 0xffffc7c8.toInt()
@@ -55,6 +70,10 @@ object XpConfig {
     // 状态栏文字和图标颜色是否采用黑色，黑色为true，白色为false
     val defaultDarkStatusBarText = false
     var darkStatusBarText = defaultDarkStatusBarText
+
+    // Mac 和 置顶的reader颜色
+    var macColor = R.color.ll_gray
+    var readerColor = R.color.ll_gray
 
     // 默认的置顶项高亮颜色，可以修改
     val defaultTopColors = arrayOf(
