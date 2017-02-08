@@ -1,13 +1,9 @@
 package com.rarnu.tophighlight
 
 import android.content.Context
-import android.content.DialogInterface
 import android.graphics.Color
-import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.flask.colorpicker.builder.ColorPickerClickListener
@@ -36,7 +32,7 @@ class ColumnView(ctx: Context, private val resourceId: Int, private val textStri
             })
             (findViewById(R.id.item_text) as TextView?)?.text = textString
             (findViewById(R.id.item_image) as ImageView?)?.setImageResource(resourceId)
-            setOnClickListener { UIUtils.showDialog(context, getPickerClickListener(this@with), false) }
+            setOnClickListener { UIUtils.showDialog(context, getPickerClickListener(this@with)) }
             setOnLongClickListener {
                 UIUtils.showDialog(context, getPickerClickListener(this@with, true), true)
                 true

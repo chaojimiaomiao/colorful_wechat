@@ -1,15 +1,9 @@
 package com.rarnu.tophighlight
 
 import android.app.Activity
-import android.app.AlertDialog
-import android.content.SharedPreferences
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
-import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.Toolbar
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import android.widget.LinearLayout
