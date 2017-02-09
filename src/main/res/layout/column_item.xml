@@ -17,6 +17,7 @@
 
         <LinearLayout
             android:gravity="center"
+            android:layout_marginLeft="2dp"
             android:layout_width="50dp"
             android:layout_height="match_parent">
             <ImageView
@@ -29,7 +30,7 @@
 
         <TextView
             android:id="@+id/item_text"
-            android:paddingLeft="2dp"
+            android:paddingLeft="5dp"
             android:text="Mac微信已登录"
             android:textColor="@color/text_gray"
             android:layout_width="wrap_content"

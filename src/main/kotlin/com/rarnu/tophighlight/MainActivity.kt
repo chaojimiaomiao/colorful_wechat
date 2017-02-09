@@ -61,12 +61,23 @@ class MainActivity : Activity(), View.OnClickListener {
         initColumnView(R.drawable.mac, R.string.view_mac_login, XpConfig.KEY_MAC_COLOR)
         //替换掉R.id.d3o的背景色
         initColumnView(R.drawable.reader, R.string.view_top_reader, XpConfig.KEY_TOP_READER_COLOR)
+
+        initDingGroup()
     }
 
     private fun initColumnView(icon: Int, title: Int, key: String) {
         val columnView = ColumnView(this, icon, getString(title), key)
         columnView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         layMain?.addView(columnView)
+    }
+
+    private fun initDingGroup() {
+        (1..3).forEach {
+            val colorItem = GroupColumn(this, R.drawable.group_avatar, "置顶栏目  $it", "${XpConfig.KEY_DING}$it")
+            colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            layMain?.addView(colorItem)
+        }
+
     }
 
     override fun onClick(v: View) {
