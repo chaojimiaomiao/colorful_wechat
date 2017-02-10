@@ -25,7 +25,7 @@ object XpConfig {
         macPressColor = prefs.getInt(KEY_MAC_PRESS_COLOR, defaultMacPressColor)
         readerColor = prefs.getInt(KEY_TOP_READER_COLOR, defaultReaderColor)
         readerPressColor = prefs.getInt(KEY_TOP_READER_PRESS_COLOR, defaultReaderPressColor)
-        (1..3).forEach {
+        (0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
         }
@@ -42,7 +42,7 @@ object XpConfig {
         macPressColor = prefs.getInt(KEY_MAC_PRESS_COLOR, defaultMacPressColor)
         readerColor = prefs.getInt(KEY_TOP_READER_COLOR, defaultReaderColor)
         readerPressColor = prefs.getInt(KEY_TOP_READER_PRESS_COLOR, defaultReaderPressColor)
-        (1..3).forEach {
+        (0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("${KEY_PRESS_DING}$it", defaultTopPressColors[it])
         }
@@ -64,7 +64,7 @@ object XpConfig {
     fun saveGroup(ctx: Context) {
         val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         var editor = prefs.edit()
-        (1..3).forEach {
+        (0..3).forEach {
             editor.putInt("${XpConfig.KEY_DING}$it", topColors[it])
         }
         editor.apply()

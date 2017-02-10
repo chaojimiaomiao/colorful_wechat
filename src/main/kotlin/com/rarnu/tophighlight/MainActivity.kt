@@ -72,7 +72,7 @@ class MainActivity : Activity(), View.OnClickListener {
     }
 
     private fun initDingGroup() {
-        (1..3).forEach {
+        (0..3).forEach {
             val colorItem = GroupColumn(this, R.drawable.group_avatar, "置顶栏目  $it", "${XpConfig.KEY_DING}$it")
             colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             layMain?.addView(colorItem)
