@@ -25,6 +25,9 @@ object Versions {
     var customizeActionBar = ""
     var actionBarContainer = ""
 
+    // tab
+    var bottomTabView = ""
+
     // top mac or reader & etc.
     var topMacActivity = ""
     var topReaderActivity = ""
@@ -54,6 +57,9 @@ object Versions {
 
                 mmFragmentActivity = "com.tencent.mm.ui.MMFragmentActivity"
                 chatUIActivity = "com.tencent.mm.ui.chatting.ChattingUI\$a"
+
+                // bottomTab
+                bottomTabView = "com.tencent.mm.ui.LauncherUIBottomTabView"
 
                 // top mac or reader
                 topMacActivity = "com.tencent.mm.ui.d.m"

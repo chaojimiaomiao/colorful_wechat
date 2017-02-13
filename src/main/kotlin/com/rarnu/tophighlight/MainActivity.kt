@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.View
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.flask.colorpicker.builder.ColorPickerClickListener
@@ -23,6 +24,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private var chkDarkStatusBar: CheckBox? = null
     private var chkDarkStatusBarText: CheckBox? = null
     private var tvTitle: TextView? = null
+    private var bottomBar: ImageView? = null
     // private var scrollView: NestedScrollView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +50,8 @@ class MainActivity : Activity(), View.OnClickListener {
 
         tvTitle = findViewById(R.id.tvTitle) as TextView?
 
+        bottomBar = findViewById(R.id.first_bottom_bar) as ImageView?
+
         XpConfig.load(this)
         initScrollView()
         refreshStatusBar()
@@ -63,6 +67,17 @@ class MainActivity : Activity(), View.OnClickListener {
         initColumnView(R.drawable.reader, R.string.view_top_reader, XpConfig.KEY_TOP_READER_COLOR)
 
         initDingGroup()
+
+        initBottomBar()
+    }
+
+    private fun initBottomBar() {
+        bottomBar?.setBackgroundColor(XpConfig.bottomBarColor)
+        bottomBar?.setOnClickListener { UIUtils.showDialog(this, ColorPickerClickListener { dialogInterface, selectColor, ints ->
+            bottomBar?.setBackgroundColor(selectColor)
+            XpConfig.bottomBarColor = selectColor
+            XpConfig.saveBottomBar(this)
+        }) }
     }
 
     private fun initColumnView(icon: Int, title: Int, key: String) {

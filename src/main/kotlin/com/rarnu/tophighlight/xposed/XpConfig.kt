@@ -1,6 +1,7 @@
 package com.rarnu.tophighlight.xposed
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Build
 import de.robv.android.xposed.XSharedPreferences
 
@@ -25,6 +26,7 @@ object XpConfig {
         macPressColor = prefs.getInt(KEY_MAC_PRESS_COLOR, defaultMacPressColor)
         readerColor = prefs.getInt(KEY_TOP_READER_COLOR, defaultReaderColor)
         readerPressColor = prefs.getInt(KEY_TOP_READER_PRESS_COLOR, defaultReaderPressColor)
+        bottomBarColor = prefs.getInt(KEY_BOTTOMBAR_COLOR, Color.WHITE)
         (0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
@@ -42,6 +44,7 @@ object XpConfig {
         macPressColor = prefs.getInt(KEY_MAC_PRESS_COLOR, defaultMacPressColor)
         readerColor = prefs.getInt(KEY_TOP_READER_COLOR, defaultReaderColor)
         readerPressColor = prefs.getInt(KEY_TOP_READER_PRESS_COLOR, defaultReaderPressColor)
+        bottomBarColor = prefs.getInt(KEY_BOTTOMBAR_COLOR, Color.WHITE)
         (0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("${KEY_PRESS_DING}$it", defaultTopPressColors[it])
@@ -70,6 +73,14 @@ object XpConfig {
         editor.apply()
     }
 
+    fun saveBottomBar(ctx: Context) {
+        val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        var editor = prefs.edit()
+        editor.putInt(KEY_BOTTOMBAR_COLOR, bottomBarColor)
+                .apply()
+        editor.apply()
+    }
+
     val PKGNAME = "com.rarnu.tophighlight"
     val PREF = "settings"
 
@@ -81,6 +92,7 @@ object XpConfig {
     //private val KEY_TOP_COLOR = "top_color_"
     //private val KEY_TOP_PRESS_COLOR = "top_press_color_"
 
+    val KEY_BOTTOMBAR_COLOR = "bottom_color"
     val KEY_MAC_COLOR = "mac_color"
     val KEY_MAC_PRESS_COLOR = "mac_press_color"
     val KEY_TOP_READER_COLOR = "top_reader_color"
@@ -93,6 +105,9 @@ object XpConfig {
     // 状态栏颜色
     val defaultStatusBarColor = 0xffffc7c8.toInt()
     var statusBarColor = defaultStatusBarColor
+
+    // 底部tab
+    var bottomBarColor = 0xffffffff.toInt()
 
     // 是否显示ActionBar与ListView之间的分隔线，可以修改
     val defaultShowDivider = false

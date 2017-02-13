@@ -40,6 +40,7 @@ class XpMainHook : IXposedHookLoadPackage {
             HookTopHighlight.hookTopHighlight(param.classLoader)
             HookStatusbar.hookStatusbar(param.classLoader)
             HookSettings.hookSettings(param.classLoader)
+            HookTabView.hookTabView(param.classLoader)
         }
 
     }
