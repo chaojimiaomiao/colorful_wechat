@@ -71,6 +71,8 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
+project.gradle.startParameter.excludedTaskNames.add('compileDebugNdk')
+project.gradle.startParameter.excludedTaskNames.add('compileReleaseNdk')
 project.gradle.startParameter.excludedTaskNames.add('lint')
 project.gradle.startParameter.excludedTaskNames.add('lintVitalRelease')
 
