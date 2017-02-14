@@ -8,8 +8,8 @@ import java.io.Serializable
  */
 data class ThemeComment(
         var id: Int,
-        var theme: Int,
         var author: Int,
+        var nickname: String?,
         var publishdate: String?,
         var comment: String?) : Serializable {
 
@@ -25,7 +25,7 @@ data class ThemeComment(
             try {
                 if (jsonObj != null) {
                     with(jsonObj) {
-                        ret = ThemeComment(getInt("id"), getInt("theme"), getInt("author"), getString("publishdate"), getString("comment"))
+                        ret = ThemeComment(getInt("id"), getInt("author"), getString("nickname"), getString("publishdate"), getString("comment"))
                     }
                 }
             } catch (e: Exception) {

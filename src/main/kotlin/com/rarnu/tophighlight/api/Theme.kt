@@ -12,10 +12,8 @@ data class Theme(
         var author: Int,
         var publishdate: String?,
         var description: String?,
-        var filepath: String?,
         var downloadcount: Int,
         var starcount: Int,
-        var status: Int,
         var stared: Boolean) : Serializable {
 
     companion object {
@@ -31,7 +29,8 @@ data class Theme(
             try {
                 if (jsonObj != null) {
                     with(jsonObj) {
-                        ret = Theme(getInt("id"), getString("name"), getInt("author"), getString("publishdate"), getString("description"), getString("filepath"), getInt("downloadcount"), getInt("starcount"), getInt("status"), getInt("stared") == 1)
+
+                        ret = Theme(getInt("id"), getString("name"), getInt("author"), getString("publishdate"), getString("description"), getInt("downloadcount"), getInt("starcount"), getInt("stared") != 0)
                     }
                 }
             } catch (e: Exception) {
