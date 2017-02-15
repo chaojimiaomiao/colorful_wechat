@@ -7,11 +7,7 @@ import java.io.Serializable
  *
  * 全部的 API 在底层均是同步实现，因此在上层调用时，需要异步调用
  *
- * 例如：
- *
- * thread {
- *
- * }
+ * 例如: thread { ... }
  */
 object WthApi {
 
