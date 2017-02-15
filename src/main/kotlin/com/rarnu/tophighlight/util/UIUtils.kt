@@ -47,7 +47,7 @@ object UIUtils {
             ColorPickerDialogBuilder
                     .with(context)
                     .setTitle(if (!longClick) R.string.view_select_background_color else R.string.view_select_press_color)
-                    .initialColor(Color.WHITE)
+                    .initialColor(Color.RED)
                     .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
                     .density(12)
                     .setPositiveButton(R.string.alert_ok, pickerClickListener)

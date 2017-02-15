@@ -22,5 +22,15 @@
         <item name="android:background">@drawable/fab_label_background</item>
         <item name="android:textColor">@color/text</item>
     </style>
+    
+    <style name="PickerEditText">
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:layout_margin">4dp</item>
+		<item name="android:imeOptions">actionNext</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:textSize">22sp</item>
+	</style>
+
 
 </resources>
