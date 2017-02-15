@@ -4,8 +4,23 @@ import java.io.Serializable
 
 /**
  * Created by rarnu on 2/14/17.
+ *
+ * 全部的 API 在底层均是同步实现，因此在上层调用时，需要异步调用
+ *
+ * 例如：
+ *
+ * thread {
+ *
+ * }
  */
 object WthApi {
+
+    /**
+     * 加载 API 库，由于 Xposed 跨进程的原因，不能直接使用 init 进行加载，因此单独提供此加载功能，供需要时使用
+     */
+    fun load() {
+        System.loadLibrary("wthapi")
+    }
 
     data class User(
             /**
@@ -183,7 +198,7 @@ object WthApi {
      *
      * @return 主题列表，失败时返回 null
      */
-    external fun themeGetList(page: Int, pageSize: Int, sort: String?): MutableList<Theme>?
+    external fun themeGetList(page: Int, pageSize: Int, sort: String?): List<Theme>?
 
     /**
      * 获取指定用户上传的主题列表
@@ -195,7 +210,7 @@ object WthApi {
      *
      * @return 主题列表，失败时返回 null
      */
-    external fun themeGetListByUser(page: Int, pageSize: Int, author: Int, sort: String?): MutableList<Theme>?
+    external fun themeGetListByUser(page: Int, pageSize: Int, author: Int, sort: String?): List<Theme>?
 
     /**
      * 获取指定的主题信息
@@ -234,7 +249,7 @@ object WthApi {
      *
      * @return 是否加星成功
      */
-    external fun themeRemoveStarme(id: Int, user: Int): Boolean
+    external fun themeRemoveStar(id: Int, user: Int): Boolean
 
     /**
      * 发布主题
@@ -288,7 +303,7 @@ object WthApi {
      *
      * @return 主题的评论，失败时返回 null
      */
-    external fun commentGetList(id: Int): MutableList<ThemeComment>?
+    external fun commentGetList(id: Int): List<ThemeComment>?
 
     /**
      * 发布评论

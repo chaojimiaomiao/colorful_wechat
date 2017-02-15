@@ -5,10 +5,7 @@ unit http_utils;
 interface
 
 uses
-  Classes, SysUtils, fphttpclient, fphttp, fgl, strutils;
-
-type
-  TParamMap = specialize TFPGMap<string, string>;
+  Classes, SysUtils, fphttpclient, fphttp, strutils, wth_classes;
 
 function HttpGet(AUrl: string; AParam: TParamMap = nil): string;
 function HttpPost(AUrl: string; AParam: TParamMap = nil): string;
