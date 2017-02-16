@@ -15,7 +15,7 @@ import de.robv.android.xposed.XposedHelpers
  * Created by rarnu on 1/31/17.
  */
 object HookSettings {
-    
+
     fun hookSettings(classLoader: ClassLoader?) {
 
         XposedHelpers.findAndHookMethod("com.tencent.mm.ui.base.MMListPopupWindow", classLoader, "setAdapter", ListAdapter::class.java, object : XC_MethodHook() {
