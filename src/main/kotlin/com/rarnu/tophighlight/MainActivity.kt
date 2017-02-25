@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
+import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.ThemeListActivity
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
@@ -36,6 +37,7 @@ class MainActivity : Activity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         UIUtils.initDisplayMetrics(this, windowManager)
+        WthApi.load()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.firstpage) //main
 
