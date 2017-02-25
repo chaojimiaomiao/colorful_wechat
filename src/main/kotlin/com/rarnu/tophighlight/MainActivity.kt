@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.flask.colorpicker.builder.ColorPickerClickListener
+import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
@@ -27,10 +28,14 @@ class MainActivity : Activity(), View.OnClickListener {
     private var bottomBar: ImageView? = null
     // private var scrollView: NestedScrollView? = null
 
+    private var fabTheme: FloatingActionButton? = null
+    private var fabFeedback: FloatingActionButton? = null
+    private var fabAbout: FloatingActionButton? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         UIUtils.initDisplayMetrics(this, windowManager)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.firstpage)//main
+        setContentView(R.layout.firstpage) //main
 
         layMain = findViewById(R.id.layMain) as LinearLayout?
         toolBar = findViewById(R.id.first_toolbar) as Toolbar?
@@ -47,10 +52,15 @@ class MainActivity : Activity(), View.OnClickListener {
         chkDarkStatusBarText = findViewById(R.id.chkDarkStatusBarText) as CheckBox?
         chkDarkStatusBar?.setOnClickListener(this)
         chkDarkStatusBarText?.setOnClickListener(this)
-
         tvTitle = findViewById(R.id.tvTitle) as TextView?
-
         bottomBar = findViewById(R.id.first_bottom_bar) as ImageView?
+        fabTheme = findViewById(R.id.fabThemes) as FloatingActionButton?
+        fabFeedback = findViewById(R.id.fabFeedback) as FloatingActionButton?
+        fabAbout = findViewById(R.id.fabAbout) as FloatingActionButton?
+
+        fabTheme?.setOnClickListener(this)
+        fabFeedback?.setOnClickListener(this)
+        fabAbout?.setOnClickListener(this)
 
         XpConfig.load(this)
         initScrollView()
@@ -65,9 +75,7 @@ class MainActivity : Activity(), View.OnClickListener {
         initColumnView(R.drawable.mac, R.string.view_mac_login, XpConfig.KEY_MAC_COLOR)
         //替换掉R.id.d3o的背景色
         initColumnView(R.drawable.reader, R.string.view_top_reader, XpConfig.KEY_TOP_READER_COLOR)
-
         initDingGroup()
-
         initBottomBar()
     }
 
@@ -99,6 +107,9 @@ class MainActivity : Activity(), View.OnClickListener {
         when (v.id) {
             R.id.chkDarkStatusBar -> XpConfig.darkerStatusBar = chkDarkStatusBar!!.isChecked
             R.id.chkDarkStatusBarText -> XpConfig.darkStatusBarText = chkDarkStatusBarText!!.isChecked
+            R.id.fabThemes -> {}
+            R.id.fabFeedback -> {}
+            R.id.fabAbout -> {}
         }
         XpConfig.save(this)
         refreshStatusBar()

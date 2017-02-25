@@ -74,22 +74,32 @@
             fab:fab_labelsPosition="left">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_1"
+                android:id="@+id/fabThemes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/colorAccent_black"
-                fab:fab_icon="@drawable/ic_timer_24dp"
+                fab:fab_icon="@android:drawable/ic_menu_crop"
                 fab:fab_size="mini"
-                fab:fab_title="第一个FAB" />
+                fab:fab_title="@string/view_themes" />
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_2"
+                android:id="@+id/fabFeedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 fab:fab_colorNormal="@color/colorAccent_black"
-                fab:fab_icon="@drawable/ic_accessibility_24dp"
+                fab:fab_icon="@android:drawable/ic_menu_send"
                 fab:fab_size="mini"
-                fab:fab_title="第二个FAB" />
+                fab:fab_title="@string/view_feedback" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAbout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    fab:fab_colorNormal="@color/colorAccent_black"
+                    fab:fab_icon="@android:drawable/ic_menu_info_details"
+                    fab:fab_size="mini"
+                    fab:fab_title="@string/view_about" />
+
         </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
     </RelativeLayout>
