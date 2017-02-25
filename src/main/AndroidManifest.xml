@@ -33,6 +33,20 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".market.ThemeListActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Material.Light">
+        </activity>
+        <activity android:name=".market.UserProfileActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Material.Light">
+        </activity>
+        <activity android:name=".market.UserLoginRegisterActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Material.Light">
+        </activity>
+
+
         <meta-data
                 android:name="xposedmodule"
                 android:value="true"/>

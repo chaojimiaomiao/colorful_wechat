@@ -1,6 +1,7 @@
 package com.rarnu.tophighlight
 
 import android.app.Activity
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
@@ -11,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
+import com.rarnu.tophighlight.market.ThemeListActivity
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
@@ -107,7 +109,7 @@ class MainActivity : Activity(), View.OnClickListener {
         when (v.id) {
             R.id.chkDarkStatusBar -> XpConfig.darkerStatusBar = chkDarkStatusBar!!.isChecked
             R.id.chkDarkStatusBarText -> XpConfig.darkStatusBarText = chkDarkStatusBarText!!.isChecked
-            R.id.fabThemes -> {}
+            R.id.fabThemes -> { startActivity(Intent(this, ThemeListActivity::class.java)) }
             R.id.fabFeedback -> {}
             R.id.fabAbout -> {}
         }
@@ -129,5 +131,4 @@ class MainActivity : Activity(), View.OnClickListener {
             SystemUtils.setDarkStatusIcon(this, XpConfig.darkStatusBarText)
         }
     }
-
 }

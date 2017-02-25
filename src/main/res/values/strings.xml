@@ -8,7 +8,18 @@
     <string name="view_about">关于</string>
     
     <string name="view_themes">主题商店</string>
+    <string name="view_user_profile">用户信息</string>
     <string name="view_feedback">反馈</string>
+
+    <string name="view_account">帐号</string>
+    <string name="view_password">密码</string>
+    <string name="view_repeat_password">重复密码</string>
+    <string name="view_nickname">昵称</string>
+    <string name="view_email">邮箱</string>
+    <string name="view_login">登录</string>
+    <string name="view_register">注册</string>
+    <string name="view_account_operation">用户帐户</string>
+    <string name="view_switch">&gt;&gt;</string>
 
     <string name="view_select_theme_color">选择主题色</string>
     <string name="view_dark_statusbar">暗状态栏</string>
@@ -19,10 +30,15 @@
     <string name="view_select_background_color">选择背景色</string>
     <string name="view_select_press_color">选择选中时的颜色</string>
 
+    <string name="menu_profile">用户信息</string>
+
     <string name="alert_hint">提示</string>
     <string name="alert_text_about">喵~</string>
     <string name="alert_ok">确定</string>
     <string name="alert_cancel">取消</string>
     <string name="alert_text_placeholder">手动输入颜色值，以#号开头</string>
+
+    <string name="toast_register_failed">注册失败，可能是用户名、昵称或邮箱已被占用</string>
+    <string name="toast_login_failed">登录失败</string>
 
 </resources>
