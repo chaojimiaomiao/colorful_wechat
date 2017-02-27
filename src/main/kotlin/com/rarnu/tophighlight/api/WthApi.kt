@@ -100,6 +100,39 @@ object WthApi {
              */
             var comment: String?) : Serializable
 
+    data class ThemeINI(
+            var statusBarColor: Int,
+            var showDivider: Boolean,
+            var dividerColor: Int,
+            var darkerStatusBar: Boolean,
+            var darkStatusBarText: Boolean,
+            var macColor: Int,
+            var macPressColor: Int,
+            var readerColor: Int,
+            var readerPressColor: Int,
+            var bottomBarColor: Int,
+            var topColors0: Int,
+            var topColors1: Int,
+            var topColors2: Int,
+            var topColors3: Int,
+            var topColors4: Int,
+            var topColors5: Int,
+            var topColors6: Int,
+            var topColors7: Int,
+            var topColors8: Int,
+            var topColors9: Int,
+            var topPressColors0: Int,
+            var topPressColors1: Int,
+            var topPressColors2: Int,
+            var topPressColors3: Int,
+            var topPressColors4: Int,
+            var topPressColors5: Int,
+            var topPressColors6: Int,
+            var topPressColors7: Int,
+            var topPressColors8: Int,
+            var topPressColors9: Int
+    ) : Serializable
+
     /**
      * 新用户注册
      *
@@ -321,4 +354,24 @@ object WthApi {
      * @return 是否删除评论成功
      */
     external fun commentRemove(id: Int, author: Int): Boolean
+
+    /**
+     * 将主题文件转化为类格式
+     *
+     * @param themeFile 主题文件路径
+     *
+     * @return 主题类，转化失败返回 null
+     */
+    external fun readThemeFromINI(themeFile: String?): ThemeINI?
+
+    /**
+     * 将主题类保存至主题文件
+     *
+     * @param themeFile 要保存到的文件路径
+     * @param theme 主题类
+     *
+     * @return 是否保存成功
+     */
+    external fun writeThemeToINI(themeFile: String?, theme: ThemeINI?): Boolean
+
 }

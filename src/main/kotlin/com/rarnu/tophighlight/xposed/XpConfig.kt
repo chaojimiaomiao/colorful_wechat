@@ -47,7 +47,7 @@ object XpConfig {
         bottomBarColor = prefs.getInt(KEY_BOTTOMBAR_COLOR, Color.WHITE)
         (0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
-            topPressColors[it] = prefs.getInt("${KEY_PRESS_DING}$it", defaultTopPressColors[it])
+            topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
         }
     }
 

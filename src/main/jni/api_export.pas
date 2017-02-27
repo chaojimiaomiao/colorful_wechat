@@ -34,6 +34,10 @@ function Java_com_rarnu_tophighlight_api_WthApi_commentAdd(env: PJNIEnv; obj: jo
 function Java_com_rarnu_tophighlight_api_WthApi_commentRemove(env: PJNIEnv; obj: jobject; id: jint; author: jint): jboolean; stdcall;
 function Java_com_rarnu_tophighlight_api_WthApi_commentGetList(env: PJNIEnv; obj: jobject; id: jint): jobject; stdcall;
 
+// theme file
+function Java_com_rarnu_tophighlight_api_WthApi_readThemeFromINI(env: PJNIEnv; obj: jobject; themeFile: jstring): jobject; stdcall;
+function Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI(env: PJNIEnv; obj: jobject; themeFile: jstring; theme: jobject): jboolean; stdcall;
+
 implementation
 
 
@@ -271,6 +275,26 @@ begin
   Result := nil;
   if (list <> nil) then Result := CommentListToJObject(env, list);
   if (list <> nil) then list.Free;
+end;
+
+function Java_com_rarnu_tophighlight_api_WthApi_readThemeFromINI(env: PJNIEnv;
+  obj: jobject; themeFile: jstring): jobject; stdcall;
+var
+  ti: ThemeIni;
+begin
+  Result := nil;
+  ti := ThemeIni.fromINI(jstringToString(env, themeFile));
+  if (ti <> nil) then Result := ti.toJObject(env);
+end;
+
+function Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI(env: PJNIEnv;
+  obj: jobject; themeFile: jstring; theme: jobject): jboolean; stdcall;
+var
+  ti: ThemeIni;
+begin
+  Result := JNI_FALSE;
+  ti := ThemeIni.fromJObject(env, theme);
+  if (ti <> nil) then Result := ifthen(ti.toINI(jstringToString(env, themeFile)), JNI_TRUE, JNI_FALSE);
 end;
 
 end.

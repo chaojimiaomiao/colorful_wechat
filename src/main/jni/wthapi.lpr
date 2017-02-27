@@ -34,7 +34,11 @@ exports
   // comment
   Java_com_rarnu_tophighlight_api_WthApi_commentAdd,
   Java_com_rarnu_tophighlight_api_WthApi_commentRemove,
-  Java_com_rarnu_tophighlight_api_WthApi_commentGetList;
+  Java_com_rarnu_tophighlight_api_WthApi_commentGetList,
+
+  // theme ini
+  Java_com_rarnu_tophighlight_api_WthApi_readThemeFromINI,
+  Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI;
 
 {$ENDIF}
 
