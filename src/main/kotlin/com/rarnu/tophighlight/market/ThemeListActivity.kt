@@ -3,11 +3,17 @@ package com.rarnu.tophighlight.market
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Message
+import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.GridView
 import android.widget.ListView
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
+import com.rarnu.tophighlight.api.WthApi
+import kotlin.concurrent.thread
 
 /**
  * Created by rarnu on 2/25/17.
@@ -19,15 +25,38 @@ class ThemeListActivity : BaseMarkerActivity() {
     }
 
     private var miProfile: MenuItem? = null
-    private var lvThemeList: ListView? = null
+    private var listTheme: MutableList<WthApi.ThemeINI>? = null
+    private var gvTheme: GridView? = null
+    private var adapterTheme: ThemeListAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         LocalApi.ctx = this
         setContentView(R.layout.activity_themelist)
         actionBar.setTitle(R.string.view_themes)
+        gvTheme = findViewById(R.id.gvTheme) as GridView?
 
-        lvThemeList = findViewById(R.id.lvThemeList) as ListView?
+        listTheme = arrayListOf()
+        adapterTheme = ThemeListAdapter(this, listTheme)
+        gvTheme?.adapter = adapterTheme
+
+        loadThemeList()
+    }
+
+    private fun loadThemeList() {
+        val hTheme = object : Handler() {
+            override fun handleMessage(msg: Message?) {
+                adapterTheme?.setList(listTheme)
+                super.handleMessage(msg)
+            }
+        }
+        thread {
+            val list = WthApi.themeGetList(1, 20, "date")
+            println("list = $list")
+
+            // TODO: download theme file and make preview
+            hTheme.sendEmptyMessage(0)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
