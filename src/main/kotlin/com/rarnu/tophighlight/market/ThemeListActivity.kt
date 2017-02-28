@@ -51,9 +51,13 @@ class ThemeListActivity : BaseMarkerActivity() {
             }
         }
         thread {
+            listTheme?.clear()
             val list = WthApi.themeGetList(1, 20, "date")
             println("list = $list")
-
+            val ini = WthApi.readThemeFromINI("/sdcard/theme.ini")
+            if (ini != null) {
+                listTheme?.add(ini)
+            }
             // TODO: download theme file and make preview
             hTheme.sendEmptyMessage(0)
         }

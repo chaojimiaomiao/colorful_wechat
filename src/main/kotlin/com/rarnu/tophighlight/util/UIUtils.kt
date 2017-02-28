@@ -31,6 +31,9 @@ object UIUtils {
         return (dip * dm!!.density + 0.5f).toInt()
     }
 
+    fun width(): Int = dm!!.widthPixels
+    fun height(): Int = dm!!.heightPixels
+
     fun getDarkerColor(color: Int, factor: Float): Int {
         val hsv = FloatArray(3)
         Color.colorToHSV(color, hsv)

@@ -7,21 +7,21 @@
     <RelativeLayout
             android:id="@+id/layStatusbar"
             android:layout_width="match_parent"
-            android:layout_height="14dip"
+            android:layout_height="9dip"
             android:background="@android:color/black">
         <TextView
                 android:id="@+id/tvStatusbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@android:color/white"
-                android:textSize="10sp"
+                android:textSize="6sp"
                 android:text="statusbar"
                 android:gravity="center"/>
     </RelativeLayout>
     <RelativeLayout
             android:id="@+id/layActionbar"
             android:layout_width="match_parent"
-            android:layout_height="24dip"
+            android:layout_height="16dip"
             android:layout_below="@+id/layStatusbar"
             android:background="#ffffc7c8">
         <TextView
@@ -31,7 +31,7 @@
                 android:textColor="@android:color/white"
                 android:text="微信"
                 android:paddingStart="8dip"
-                android:textSize="12sp"/>
+                android:textSize="8sp"/>
     </RelativeLayout>
 
 
@@ -39,15 +39,15 @@
             android:id="@+id/layMac"
             android:background="@color/ll_gray"
             android:orientation="vertical"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="17dp"
             android:layout_below="@+id/layActionbar">
 
         <LinearLayout
                 android:layout_weight="1"
-                android:padding="3dp"
+                android:padding="2dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -56,24 +56,25 @@
             <LinearLayout
                     android:gravity="center"
                     android:layout_marginLeft="2dp"
-                    android:layout_width="25dp"
+                    android:layout_width="17dp"
                     android:layout_height="match_parent">
                 <ImageView
                         android:id="@+id/mac_image"
                         android:src="@drawable/mac"
-                        android:layout_width="30dp"
-                        android:layout_height="15dp"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:scaleType="centerInside"
                 />
             </LinearLayout>
 
             <TextView
                     android:id="@+id/mac_text"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="3dp"
                     android:text="Mac 微信已登录"
                     android:textColor="@color/text_gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="8sp"/>
+                    android:textSize="6sp"/>
 
         </LinearLayout>
         <View
@@ -86,15 +87,15 @@
             android:id="@+id/layReading"
             android:background="@color/ll_gray"
             android:orientation="vertical"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="17dp"
             android:layout_below="@+id/layMac">
 
         <LinearLayout
                 android:layout_weight="1"
-                android:padding="3dp"
+                android:padding="2dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
@@ -103,24 +104,25 @@
             <LinearLayout
                     android:gravity="center"
                     android:layout_marginLeft="2dp"
-                    android:layout_width="25dp"
+                    android:layout_width="17dp"
                     android:layout_height="match_parent">
                 <ImageView
                         android:id="@+id/reading_image"
                         android:src="@drawable/reader"
-                        android:layout_width="30dp"
-                        android:layout_height="15dp"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:scaleType="centerInside"
                 />
             </LinearLayout>
 
             <TextView
                     android:id="@+id/reading_text"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="3dp"
                     android:text="正在浏览 置顶文章"
                     android:textColor="@color/text_gray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="8sp"/>
+                    android:textSize="6sp"/>
 
         </LinearLayout>
         <View
@@ -134,14 +136,15 @@
                 android:layout_above="@+id/bottom_bar">
 
         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+
             <LinearLayout
                     android:id="@+id/layTop0"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp">
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp">
 
                 <LinearLayout
                         android:layout_width="match_parent"
@@ -152,13 +155,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -166,7 +169,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -174,14 +177,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
                     </LinearLayout>
 
@@ -190,10 +186,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor0"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -206,11 +202,11 @@
             <LinearLayout
                     android:id="@+id/layTop1"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop0">
 
                 <LinearLayout
@@ -222,13 +218,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -236,7 +232,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -244,14 +240,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -260,10 +250,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor1"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -276,11 +266,11 @@
             <LinearLayout
                     android:id="@+id/layTop2"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop1">
 
                 <LinearLayout
@@ -292,13 +282,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -306,7 +296,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -314,14 +304,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -330,10 +314,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor2"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -346,11 +330,11 @@
             <LinearLayout
                     android:id="@+id/layTop3"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop2">
 
                 <LinearLayout
@@ -362,13 +346,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -376,7 +360,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -384,14 +368,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -400,10 +378,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor3"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -416,11 +394,11 @@
             <LinearLayout
                     android:id="@+id/layTop4"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop3">
 
                 <LinearLayout
@@ -432,13 +410,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -446,7 +424,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -454,14 +432,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -470,10 +442,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor4"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -486,11 +458,11 @@
             <LinearLayout
                     android:id="@+id/layTop5"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop4">
 
                 <LinearLayout
@@ -502,13 +474,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -516,7 +488,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -524,14 +496,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -540,10 +506,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor5"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -553,15 +519,14 @@
                         android:background="@color/gray"/>
             </LinearLayout>
 
-
             <LinearLayout
                     android:id="@+id/layTop6"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop5">
 
                 <LinearLayout
@@ -573,13 +538,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -587,7 +552,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -595,14 +560,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -611,10 +570,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor6"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -627,11 +586,11 @@
             <LinearLayout
                     android:id="@+id/layTop7"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop6">
 
                 <LinearLayout
@@ -643,13 +602,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -657,7 +616,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -665,14 +624,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -681,10 +634,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor7"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -697,11 +650,11 @@
             <LinearLayout
                     android:id="@+id/layTop8"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop7">
 
                 <LinearLayout
@@ -713,13 +666,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -727,7 +680,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -735,14 +688,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -751,10 +698,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor8"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -767,11 +714,11 @@
             <LinearLayout
                     android:id="@+id/layTop9"
                     android:layout_width="match_parent"
-                    android:layout_height="33dp"
+                    android:layout_height="22dp"
                     android:background="@color/ll_gray"
                     android:orientation="vertical"
-                    android:paddingLeft="3dp"
-                    android:paddingRight="3dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
                     android:layout_below="@+id/layTop8">
 
                 <LinearLayout
@@ -783,13 +730,13 @@
                         android:padding="5dp">
 
                     <LinearLayout
-                            android:layout_width="25dp"
+                            android:layout_width="17dp"
                             android:layout_height="match_parent"
                             android:gravity="center">
 
                         <ImageView
-                                android:layout_width="25dp"
-                                android:layout_height="25dp"
+                                android:layout_width="17dp"
+                                android:layout_height="17dp"
                                 android:src="@drawable/group_avatar"/>
                     </LinearLayout>
 
@@ -797,7 +744,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center_vertical"
-                            android:paddingLeft="7dp"
+                            android:paddingLeft="5dp"
                             android:orientation="vertical">
 
                         <TextView
@@ -805,14 +752,8 @@
                                 android:layout_height="wrap_content"
                                 android:text="Group Name"
                                 android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
+                                android:textSize="6sp"/>
 
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Group Chat"
-                                android:textColor="@color/text_gray"
-                                android:textSize="8sp"/>
 
                     </LinearLayout>
 
@@ -821,10 +762,10 @@
                             android:layout_height="match_parent">
                         <View
                                 android:id="@+id/view_highcolor9"
-                                android:layout_width="14dip" android:layout_height="14dip"
+                                android:layout_width="9dip" android:layout_height="9dip"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
-                                android:layout_marginEnd="8dip"/>
+                                android:layout_marginEnd="4dip"/>
                     </RelativeLayout>
 
                 </LinearLayout>
@@ -834,6 +775,7 @@
                         android:background="@color/gray"/>
             </LinearLayout>
 
+
         </RelativeLayout>
 
     </ScrollView>
@@ -842,7 +784,7 @@
             android:id="@+id/bottom_bar"
             android:background="@android:color/white"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="17dp"
             android:layout_alignParentBottom="true"
             android:scaleType="centerInside"
             android:src="@drawable/bottombar"/>

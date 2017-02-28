@@ -7,6 +7,7 @@ import android.widget.BaseAdapter
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.ThemePreviewView
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.util.UIUtils
 
 /**
  * Created by rarnu on 2/28/17.
@@ -31,6 +32,7 @@ class ThemeListAdapter : BaseAdapter {
         if (v == null) {
             v = View.inflate(_ctx, R.layout.adapter_preview, null)
         }
+        v?.layoutParams?.height = UIUtils.height() / 3
         (v?.findViewById(R.id.vPreview) as ThemePreviewView?)?.setThemePreview(_list!![position])
         return v
     }

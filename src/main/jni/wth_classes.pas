@@ -275,6 +275,7 @@ begin
     Result.readerPressColor:= env^^.CallIntMethod(env, obj, m);
     m := env^^.GetMethodID(env, cls, 'getBottomBarColor', '()I');
     Result.bottomBarColor:= env^^.CallIntMethod(env, obj ,m);
+
     m := env^^.GetMethodID(env, cls, 'getTopColors0', '()I');
     Result.topColors0:= env^^.CallIntMethod(env, obj, m);
     m := env^^.GetMethodID(env, cls, 'getTopColors1', '()I');
@@ -295,6 +296,7 @@ begin
     Result.topColors8:= env^^.CallIntMethod(env, obj, m);
     m := env^^.GetMethodID(env, cls, 'getTopColors9', '()I');
     Result.topColors9:= env^^.CallIntMethod(env, obj, m);
+
     m := env^^.GetMethodID(env, cls, 'getTopPressColors0', '()I');
     Result.topPressColors0:= env^^.CallIntMethod(env, obj, m);
     m := env^^.GetMethodID(env, cls, 'getTopPressColors1', '()I');
@@ -377,23 +379,23 @@ begin
 
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [0]), topColors0);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [0]), topPressColors0);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [1]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [1]), topColors1);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [1]), topPressColors1);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [2]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [2]), topColors2);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [2]), topPressColors2);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [3]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [3]), topColors3);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [3]), topPressColors3);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [4]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [4]), topColors4);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [4]), topPressColors4);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [5]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [5]), topColors5);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [5]), topPressColors5);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [6]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [6]), topColors6);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [6]), topPressColors6);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [7]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [7]), topColors7);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [7]), topPressColors7);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [8]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [8]), topColors8);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [8]), topPressColors8);
-      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [9]), topColors0);
+      WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [9]), topColors9);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [9]), topPressColors9);
 
       Free;

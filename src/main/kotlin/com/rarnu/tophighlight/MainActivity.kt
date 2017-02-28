@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -69,6 +70,8 @@ class MainActivity : Activity(), View.OnClickListener {
         XpConfig.load(this)
         initScrollView()
         refreshStatusBar()
+
+        sampleINI()
     }
 
     private fun initScrollView() {
@@ -85,11 +88,13 @@ class MainActivity : Activity(), View.OnClickListener {
 
     private fun initBottomBar() {
         bottomBar?.setBackgroundColor(XpConfig.bottomBarColor)
-        bottomBar?.setOnClickListener { UIUtils.showDialog(this, ColorPickerClickListener { dialogInterface, selectColor, ints ->
-            bottomBar?.setBackgroundColor(selectColor)
-            XpConfig.bottomBarColor = selectColor
-            XpConfig.saveBottomBar(this)
-        }) }
+        bottomBar?.setOnClickListener {
+            UIUtils.showDialog(this, ColorPickerClickListener { dialogInterface, selectColor, ints ->
+                bottomBar?.setBackgroundColor(selectColor)
+                XpConfig.bottomBarColor = selectColor
+                XpConfig.saveBottomBar(this)
+            })
+        }
     }
 
     private fun initColumnView(icon: Int, title: Int, key: String) {
@@ -111,9 +116,13 @@ class MainActivity : Activity(), View.OnClickListener {
         when (v.id) {
             R.id.chkDarkStatusBar -> XpConfig.darkerStatusBar = chkDarkStatusBar!!.isChecked
             R.id.chkDarkStatusBarText -> XpConfig.darkStatusBarText = chkDarkStatusBarText!!.isChecked
-            R.id.fabThemes -> { startActivity(Intent(this, ThemeListActivity::class.java)) }
-            R.id.fabFeedback -> {}
-            R.id.fabAbout -> {}
+            R.id.fabThemes -> {
+                startActivity(Intent(this, ThemeListActivity::class.java))
+            }
+            R.id.fabFeedback -> {
+            }
+            R.id.fabAbout -> {
+            }
         }
         XpConfig.save(this)
         refreshStatusBar()
@@ -132,5 +141,17 @@ class MainActivity : Activity(), View.OnClickListener {
         } else {
             SystemUtils.setDarkStatusIcon(this, XpConfig.darkStatusBarText)
         }
+    }
+
+    private fun sampleINI() {
+        val ini = WthApi.ThemeINI(XpConfig.statusBarColor, XpConfig.showDivider, XpConfig.dividerColor, XpConfig.darkerStatusBar, XpConfig.darkStatusBarText,
+                XpConfig.macColor, XpConfig.macPressColor, XpConfig.readerColor, XpConfig.readerPressColor, XpConfig.bottomBarColor,
+                XpConfig.topColors[0], XpConfig.topColors[1], XpConfig.topColors[2], XpConfig.topColors[3], XpConfig.topColors[4],
+                XpConfig.topColors[5], XpConfig.topColors[6], XpConfig.topColors[7], XpConfig.topColors[8], XpConfig.topColors[9],
+                XpConfig.topPressColors[0], XpConfig.topPressColors[1], XpConfig.topPressColors[2], XpConfig.topPressColors[3], XpConfig.topPressColors[4],
+                XpConfig.topPressColors[5], XpConfig.topPressColors[6], XpConfig.topPressColors[7], XpConfig.topPressColors[8], XpConfig.topPressColors[9])
+        val b = WthApi.writeThemeToINI("/sdcard/theme.ini", ini)
+        Log.e("ThemeINI", "save ini => $b")
+
     }
 }
