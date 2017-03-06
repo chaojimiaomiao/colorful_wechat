@@ -16,7 +16,7 @@ class XpMainHook : IXposedHookLoadPackage {
     override fun handleLoadPackage(param: XC_LoadPackage.LoadPackageParam) {
 
         val pkgName = param.packageName
-        if (!(pkgName.contains("com.tencen") && pkgName.contains("mm"))) {
+        if (!pkgName.contains("com.tencent.mm")) {
             return
         }
         try {
