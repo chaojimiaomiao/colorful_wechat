@@ -104,7 +104,7 @@ public class ColorPickerView extends View {
 	private void initWith(Context context, AttributeSet attrs) {
 		final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ColorPickerPreference);
 
-		density = typedArray.getInt(R.styleable.ColorPickerPreference_density, 10);
+		density = typedArray.getInt(R.styleable.ColorPickerPreference_density, 12);
 		initialColor = typedArray.getInt(R.styleable.ColorPickerPreference_initialColor, 0xffffffff);
 
 		pickerTextColor = typedArray.getInt(R.styleable.ColorPickerPreference_pickerColorEditTextColor, 0xffffffff);
@@ -179,7 +179,7 @@ public class ColorPickerView extends View {
 		colorWheelRenderOption.density = this.density;
 		colorWheelRenderOption.maxRadius = maxRadius;
 		colorWheelRenderOption.cSize = cSize;
-		colorWheelRenderOption.strokeWidth = strokeWidth;
+		colorWheelRenderOption.strokeWidth = strokeWidth * 1.2f;
 		colorWheelRenderOption.alpha = alpha;
 		colorWheelRenderOption.lightness = lightness;
 		colorWheelRenderOption.targetCanvas = colorWheelCanvas;

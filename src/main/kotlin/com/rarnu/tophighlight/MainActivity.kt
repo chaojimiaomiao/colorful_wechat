@@ -46,7 +46,7 @@ class MainActivity : Activity(), View.OnClickListener {
         toolBar = findViewById(R.id.first_toolbar) as Toolbar?
         toolBar?.setBackgroundColor(XpConfig.statusBarColor)
         toolBar?.setOnClickListener {
-            UIUtils.showDialog(this, ColorPickerClickListener { dialogInterface, selectColor, integers ->
+            UIUtils.showDialog(this, ColorPickerClickListener {selectColor, integers ->
                 it.setBackgroundColor(selectColor)
                 XpConfig.statusBarColor = selectColor
                 XpConfig.save(this@MainActivity)
@@ -89,7 +89,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private fun initBottomBar() {
         bottomBar?.setBackgroundColor(XpConfig.bottomBarColor)
         bottomBar?.setOnClickListener {
-            UIUtils.showDialog(this, ColorPickerClickListener { dialogInterface, selectColor, ints ->
+            UIUtils.showDialog(this, ColorPickerClickListener { selectColor, ints ->
                 bottomBar?.setBackgroundColor(selectColor)
                 XpConfig.bottomBarColor = selectColor
                 XpConfig.saveBottomBar(this)

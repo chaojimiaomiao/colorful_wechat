@@ -40,7 +40,7 @@ public class ColorPickerDialogBuilder {
 	private Integer[] initialColor = new Integer[]{null, null, null, null, null};
 
 	private ColorPickerDialogBuilder(Context context) {
-		this(context, 0);
+		this(context, R.style.miaoDialog);
 	}
 
 	private ColorPickerDialogBuilder(Context context, int theme) {
@@ -282,6 +282,6 @@ public class ColorPickerDialogBuilder {
 	private void positiveButtonOnClick(DialogInterface dialog, ColorPickerClickListener onClickListener) {
 		int selectedColor = colorPickerView.getSelectedColor();
 		Integer[] allColors = colorPickerView.getAllColors();
-		onClickListener.onClick(dialog, selectedColor, allColors);
+		onClickListener.onClick(selectedColor, allColors);
 	}
 }

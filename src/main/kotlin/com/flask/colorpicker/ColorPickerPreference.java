@@ -1,7 +1,6 @@
 package com.flask.colorpicker;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -57,7 +56,7 @@ public class ColorPickerPreference extends Preference {
 			alphaSlider = typedArray.getBoolean(R.styleable.ColorPickerPreference_alphaSlider, false);
 			lightSlider = typedArray.getBoolean(R.styleable.ColorPickerPreference_lightnessSlider, false);
 
-			density = typedArray.getInt(R.styleable.ColorPickerPreference_density, 10);
+			density = typedArray.getInt(R.styleable.ColorPickerPreference_density, 12);
 			wheelType = ColorPickerView.WHEEL_TYPE.indexOf(typedArray.getInt(R.styleable.ColorPickerPreference_wheelType, 0));
 
 			selectedColor = typedArray.getInt(R.styleable.ColorPickerPreference_initialColor, 0xffffffff);
@@ -138,7 +137,7 @@ public class ColorPickerPreference extends Preference {
 			.density(density)
 			.setPositiveButton(pickerButtonOk, new ColorPickerClickListener() {
 				@Override
-				public void onClick(DialogInterface dialog, int selectedColorFromPicker, Integer[] allColors) {
+				public void onClick(int selectedColorFromPicker, Integer[] allColors) {
 					setValue(selectedColorFromPicker);
 				}
 			})

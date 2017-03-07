@@ -32,15 +32,17 @@ public class FlowerColorWheelRenderer extends AbsColorWheelRenderer {
 		//i的取值范围[0, density-1]。
 		for (int i = 0; i < density - 6; i++) {//根据密度决定画几周
 			float p = (float) i / (density - 1); // 0~1
+			float p1 = (float) i / (density - 7); // 0~1
 			float jitter = (i - density / 2f) / density; // -0.5 ~ 0.5
 			float radius = maxRadius * p;
+			float radius1 = maxRadius * p1;
 			float size = Math.max(1.5f + strokeWidth, cSize + (i == 0 ? 0 : cSize * sizeJitter * jitter));
 			int total = Math.min(calcTotalCount(radius, size), density * 2);
 
 			for (int j = 0; j < total; j++) {//色轮一周,每周的饱和度固定
 				double angle = Math.PI * 2 * j / total + (Math.PI / total) * ((i + 1) % 2);
-				float x = half + (float) (radius * Math.cos(angle));
-				float y = half + (float) (radius * Math.sin(angle));
+				float x = half + (float) (radius1 * Math.cos(angle));
+				float y = half + (float) (radius1 * Math.sin(angle));
 				hsv[0] = (float) (angle * 180 / Math.PI);
 				hsv[1] = radius / maxRadius;
 				Log.e("有没有重复的饱和度值","hsv[1]: " + hsv[1]);

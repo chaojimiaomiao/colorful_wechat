@@ -39,7 +39,7 @@ class GroupColumn (ctx: Context, private val resourceId: Int, private val textSt
         }
     }
 
-    fun getPickerClickListener(view: View, longClick: Boolean = false): ColorPickerClickListener = ColorPickerClickListener { dialogInterface, selectColor, integers ->
+    fun getPickerClickListener(view: View, longClick: Boolean = false): ColorPickerClickListener = ColorPickerClickListener {selectColor, integers ->
         view.setBackgroundColor(selectColor)
         if (!longClick) {
             if (key.contains(XpConfig.KEY_DING)) {

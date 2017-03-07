@@ -7,6 +7,7 @@ import android.view.WindowManager
 import com.flask.colorpicker.ColorPickerView
 import com.flask.colorpicker.builder.ColorPickerClickListener
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder
+import com.flask.colorpicker.builder.MiaoDialog
 import com.rarnu.tophighlight.R
 
 
@@ -47,6 +48,11 @@ object UIUtils {
     }
 
     fun showDialog(context: Context, pickerClickListener: ColorPickerClickListener, longClick: Boolean = false) =
+            MiaoDialog(context, R.style.miaoDialog, longClick)
+                    .setPositiveButton(pickerClickListener)
+                    .show()
+
+    fun showDialog1(context: Context, pickerClickListener: ColorPickerClickListener, longClick: Boolean = false) =
             ColorPickerDialogBuilder
                     .with(context)
                     .setTitle(if (!longClick) R.string.view_select_background_color else R.string.view_select_press_color)
