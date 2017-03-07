@@ -5,7 +5,7 @@ unit api_export;
 interface
 
 uses
-  Classes, SysUtils, jni2, jni_utils, caller, wth_classes, math;
+  Classes, SysUtils, JNI2, caller, wth_classes, math;
 
 // user
 function Java_com_rarnu_tophighlight_api_WthApi_userRegister(env: PJNIEnv; obj: jobject; account: jstring; password: jstring; nickname: jstring; email: jstring): jint; stdcall;
@@ -46,10 +46,10 @@ function Java_com_rarnu_tophighlight_api_WthApi_userRegister(env: PJNIEnv;
   email: jstring): jint; stdcall;
 begin
   Result := userRegister(
-    jstringToString(env, account),
-    jstringToString(env, password),
-    jstringToString(env, nickname),
-    jstringToString(env, email)
+    TJNIEnv.jstringToString(env, account),
+    TJNIEnv.jstringToString(env, password),
+    TJNIEnv.jstringToString(env, nickname),
+    TJNIEnv.jstringToString(env, email)
   );
 end;
 
@@ -59,8 +59,8 @@ var
   u: User;
 begin
   u := userLogin(
-    jstringToString(env, account),
-    jstringToString(env, password)
+    TJNIEnv.jstringToString(env, account),
+    TJNIEnv.jstringToString(env, password)
   );
   Result := nil;
   if (u <> nil) then Result := u.toJObject(env);
@@ -73,8 +73,8 @@ var
   b: Boolean;
 begin
   b := userValidateEmail(
-    jstringToString(env, account),
-    jstringToString(env, email)
+    TJNIEnv.jstringToString(env, account),
+    TJNIEnv.jstringToString(env, email)
   );
   Result := ifthen(b, JNI_TRUE, JNI_FALSE);
 end;
@@ -86,9 +86,9 @@ var
   b: Boolean;
 begin
   b := userForgetPassword(
-    jstringToString(env, account),
-    jstringToString(env, email),
-    jstringToString(env, newPassword)
+    TJNIEnv.jstringToString(env, account),
+    TJNIEnv.jstringToString(env, email),
+    TJNIEnv.jstringToString(env, newPassword)
   );
   Result := ifthen(b, JNI_TRUE, JNI_FALSE);
 end;
@@ -100,9 +100,9 @@ var
   b: Boolean;
 begin
   b := userChangePassword(
-    jstringToString(env, account),
-    jstringToString(env, oldPassword),
-    jstringToString(env, newPassword)
+    TJNIEnv.jstringToString(env, account),
+    TJNIEnv.jstringToString(env, oldPassword),
+    TJNIEnv.jstringToString(env, newPassword)
   );
   Result := ifthen(b, JNI_TRUE, JNI_FALSE);
 end;
@@ -115,9 +115,9 @@ var
 begin
   b := userChangeInfo(
     id,
-    jstringToString(env, nickname),
-    jstringToString(env, email),
-    jstringToString(env, comment)
+    TJNIEnv.jstringToString(env, nickname),
+    TJNIEnv.jstringToString(env, email),
+    TJNIEnv.jstringToString(env, comment)
   );
   Result := ifthen(b, JNI_TRUE, JNI_FALSE);
 end;
@@ -129,7 +129,7 @@ var
 begin
   b := userUploadHead(
     id,
-    jstringToString(env, head)
+    TJNIEnv.jstringToString(env, head)
   );
   Result := ifthen(b, JNI_TRUE, JNI_FALSE);
 end;
@@ -169,9 +169,9 @@ function Java_com_rarnu_tophighlight_api_WthApi_themeUpload(env: PJNIEnv;
 begin
   Result := themeUpload(
     author,
-    jstringToString(env, name),
-    jstringToString(env, description),
-    jstringToString(env, themeFile)
+    TJNIEnv.jstringToString(env, name),
+    TJNIEnv.jstringToString(env, description),
+    TJNIEnv.jstringToString(env, themeFile)
   );
 end;
 
@@ -180,7 +180,7 @@ function Java_com_rarnu_tophighlight_api_WthApi_themeChangeFile(env: PJNIEnv;
 var
   b: Boolean;
 begin
-  b := themeChangeFile(id, author, jstringToString(env, themeFile));
+  b := themeChangeFile(id, author, TJNIEnv.jstringToString(env, themeFile));
   Result := ifthen(b, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -200,8 +200,8 @@ var
   b: Boolean;
 begin
   b := themeChangeInfo(id, author,
-    jstringToString(env, name),
-    jstringToString(env, description));
+    TJNIEnv.jstringToString(env, name),
+    TJNIEnv.jstringToString(env, description));
   Result := ifthen(b, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -222,7 +222,7 @@ var
   s: string;
 begin
   s := themeGetDownloadUrl(id);
-  Result := stringToJString(env, s);
+  Result := TJNIEnv.stringToJString(env, s);
 end;
 
 function Java_com_rarnu_tophighlight_api_WthApi_themeGetList(env: PJNIEnv;
@@ -230,7 +230,7 @@ function Java_com_rarnu_tophighlight_api_WthApi_themeGetList(env: PJNIEnv;
 var
   list: TThemeList;
 begin
-  list := themeGetList(page, pageSize, jstringToString(env, sort));
+  list := themeGetList(page, pageSize, TJNIEnv.jstringToString(env, sort));
   Result := nil;
   if (list <> nil) then Result := ThemeListToJobject(env, list);
   if (list <> nil) then list.Free;
@@ -242,7 +242,7 @@ function Java_com_rarnu_tophighlight_api_WthApi_themeGetListByUser(
 var
   list: TThemeList;
 begin
-  list := themeGetListByUser(page, pageSize, author, jstringToString(env, sort));
+  list := themeGetListByUser(page, pageSize, author, TJNIEnv.jstringToString(env, sort));
   Result := nil;
   if (list <> nil) then Result := ThemeListToJobject(env, list);
   if (list <> nil) then list.Free;
@@ -253,7 +253,7 @@ function Java_com_rarnu_tophighlight_api_WthApi_commentAdd(env: PJNIEnv;
 var
   b: Boolean;
 begin
-  b := commentAdd(id, author, jstringToString(env, comment));
+  b := commentAdd(id, author, TJNIEnv.jstringToString(env, comment));
   Result := ifthen(b, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -283,7 +283,7 @@ var
   ti: ThemeIni;
 begin
   Result := nil;
-  ti := ThemeIni.fromINI(jstringToString(env, themeFile));
+  ti := ThemeIni.fromINI(TJNIEnv.jstringToString(env, themeFile));
   if (ti <> nil) then Result := ti.toJObject(env);
 end;
 
@@ -294,7 +294,7 @@ var
 begin
   Result := JNI_FALSE;
   ti := ThemeIni.fromJObject(env, theme);
-  if (ti <> nil) then Result := ifthen(ti.toINI(jstringToString(env, themeFile)), JNI_TRUE, JNI_FALSE);
+  if (ti <> nil) then Result := ifthen(ti.toINI(TJNIEnv.jstringToString(env, themeFile)), JNI_TRUE, JNI_FALSE);
 end;
 
 end.

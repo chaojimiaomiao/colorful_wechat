@@ -5,7 +5,7 @@
 {$mode objfpc}{$H+}
 
 uses
-  Classes, sysutils, jni2, jni_utils, api_export, http_utils, test, wth_classes;
+  Classes, sysutils, JNI2, api_export, http_utils, test, wth_classes;
 
 {$IFNDEF DEBUG}
 exports
