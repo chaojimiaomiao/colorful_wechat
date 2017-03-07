@@ -5,7 +5,7 @@ unit wth_classes;
 interface
 
 uses
-  Classes, SysUtils, jni2, jni_utils, fpjson, strutils, fgl, IniFiles;
+  Classes, SysUtils, JNI2, fpjson, strutils, fgl, IniFiles;
 
 const
   SEC_THEME = 'theme';
@@ -209,7 +209,7 @@ begin
   clsListAdd:= env^^.GetMethodID(env, clsList, 'add', '(Ljava/lang/Object;)Z');
   objList:= env^^.NewObjectA(env, clsList, clsListMethod, nil);
   if (list <> nil) then for i := 0 to list.Count - 1 do begin
-    env^^.CallBooleanMethodA(env, objList, clsListAdd, argsToJValues(env, [list[i].toJObject(env)]));
+    env^^.CallBooleanMethodA(env, objList, clsListAdd, TJNIEnv.argsToJValues(env, [list[i].toJObject(env)]));
   end;
   Result := objList;
 end;
@@ -239,7 +239,7 @@ begin
   clsListAdd:= env^^.GetMethodID(env, clsList, 'add', '(Ljava/lang/Object;)Z');
   objList:= env^^.NewObjectA(env, clsList, clsListMethod, nil);
   if (list <> nil) then for i := 0 to list.Count - 1 do begin
-    env^^.CallBooleanMethodA(env, objList, clsListAdd, argsToJValues(env, [list[i].toJObject(env)]));
+    env^^.CallBooleanMethodA(env, objList, clsListAdd, TJNIEnv.argsToJValues(env, [list[i].toJObject(env)]));
   end;
   Result := objList;
 end;
@@ -413,7 +413,7 @@ var
 begin
   cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeINI');
   m := env^^.GetMethodID(env, cls, '<init>', '(IZIZZIIIIIIIIIIIIIIIIIIIIIIIII)V');
-  args := argsToJValues(env, [statusBarColor, showDivider, dividerColor, darkerStatusBar, darkStatusBarText,
+  args := TJNIEnv.argsToJValues(env, [statusBarColor, showDivider, dividerColor, darkerStatusBar, darkStatusBarText,
     macColor, macPressColor, readerColor, readerPressColor, bottomBarColor,
     topColors0, topColors1, topColors2, topColors3, topColors4, topColors5, topColors6, topColors7, topColors8, topColors9,
     topPressColors0, topPressColors1, topPressColors2, topPressColors3, topPressColors4, topPressColors5, topPressColors6, topPressColors7, topPressColors8, topPressColors9]);
@@ -430,7 +430,7 @@ var
 begin
   cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeComment');
   clsMethod:= env^^.GetMethodID(env, cls, '<init>', '(IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
-  jParam:= argsToJValues(env, [Fid, Fauthor, Fnickname, Fpublishdate, Fcomment]);
+  jParam:= TJNIEnv.argsToJValues(env, [Fid, Fauthor, Fnickname, Fpublishdate, Fcomment]);
   Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
 end;
 
@@ -462,7 +462,7 @@ var
 begin
   cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$Theme');
   clsMethod:= env^^.GetMethodID(env, cls, '<init>', '(ILjava/lang/String;ILjava/lang/String;Ljava/lang/String;IIZ)V');
-  jParam:= argsToJValues(env, [Fid, Fname, Fauthor, Fpublishdate, Fdescription, Fdownloadcount, Fstarcount, Fstared]);
+  jParam:= TJNIEnv.argsToJValues(env, [Fid, Fname, Fauthor, Fpublishdate, Fdescription, Fdownloadcount, Fstarcount, Fstared]);
   Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
 end;
 
@@ -497,7 +497,7 @@ var
 begin
   cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$User');
   clsMethod := env^^.GetMethodID(env, cls, '<init>', '(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
-  jParam:= argsToJValues(env, [Fid, Faccount, Fnickname, Femail, Fhead, Fcomment]);
+  jParam:= TJNIEnv.argsToJValues(env, [Fid, Faccount, Fnickname, Femail, Fhead, Fcomment]);
   Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
 end;
 
