@@ -1,11 +1,11 @@
-package com.flask.colorpicker.renderer;
+package com.bingjie.colorpicker.renderer;
 
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 
-import com.flask.colorpicker.ColorCircle;
-import com.flask.colorpicker.builder.PaintBuilder;
+import com.bingjie.colorpicker.ColorCircle;
+import com.bingjie.colorpicker.builder.PaintBuilder;
 
 /**
  * HSV是 色相hue,饱和度saturation,明度value

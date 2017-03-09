@@ -4,10 +4,10 @@ import android.content.Context
 import android.graphics.Color
 import android.util.DisplayMetrics
 import android.view.WindowManager
-import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.builder.ColorPickerClickListener
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder
-import com.flask.colorpicker.builder.MiaoDialog
+import com.bingjie.colorpicker.ColorPickerView
+import com.bingjie.colorpicker.builder.ColorPickerClickListener
+import com.bingjie.colorpicker.builder.ColorPickerDialogBuilder
+import com.bingjie.colorpicker.builder.MiaoDialog
 import com.rarnu.tophighlight.R
 
 

@@ -1,9 +1,9 @@
-package com.flask.colorpicker.builder;
+package com.bingjie.colorpicker.builder;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.renderer.ColorWheelRenderer;
-import com.flask.colorpicker.renderer.FlowerColorWheelRenderer;
-import com.flask.colorpicker.renderer.SimpleColorWheelRenderer;
+import com.bingjie.colorpicker.ColorPickerView;
+import com.bingjie.colorpicker.renderer.ColorWheelRenderer;
+import com.bingjie.colorpicker.renderer.FlowerColorWheelRenderer;
+import com.bingjie.colorpicker.renderer.SimpleColorWheelRenderer;
 
 public class ColorWheelRendererBuilder {
 	public static ColorWheelRenderer getRenderer(ColorPickerView.WHEEL_TYPE wheelType) {

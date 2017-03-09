@@ -1,4 +1,4 @@
-package com.flask.colorpicker;
+package com.bingjie.colorpicker;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -13,8 +13,8 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.flask.colorpicker.builder.ColorPickerClickListener;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.bingjie.colorpicker.builder.ColorPickerClickListener;
+import com.bingjie.colorpicker.builder.ColorPickerDialogBuilder;
 import com.rarnu.tophighlight.R;
 
 public class ColorPickerPreference extends Preference {

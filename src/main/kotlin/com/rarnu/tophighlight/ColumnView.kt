@@ -6,8 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.flask.colorpicker.builder.ColorPickerClickListener
-import com.flask.colorpicker.builder.MiaoDialog
+import com.bingjie.colorpicker.builder.ColorPickerClickListener
+import com.bingjie.colorpicker.builder.MiaoDialog
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
 

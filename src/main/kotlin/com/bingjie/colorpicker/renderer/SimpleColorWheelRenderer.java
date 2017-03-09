@@ -1,10 +1,10 @@
-package com.flask.colorpicker.renderer;
+package com.bingjie.colorpicker.renderer;
 
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.flask.colorpicker.ColorCircle;
-import com.flask.colorpicker.builder.PaintBuilder;
+import com.bingjie.colorpicker.ColorCircle;
+import com.bingjie.colorpicker.builder.PaintBuilder;
 
 public class SimpleColorWheelRenderer extends AbsColorWheelRenderer {
 	private Paint selectorFill = PaintBuilder.newPaint().build();

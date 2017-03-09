@@ -1,4 +1,4 @@
-package com.flask.colorpicker;
+package com.bingjie.colorpicker;
 
 public interface OnColorSelectedListener {
 	void onColorSelected(int selectedColor);

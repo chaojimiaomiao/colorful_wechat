@@ -1,6 +1,6 @@
-package com.flask.colorpicker.renderer;
+package com.bingjie.colorpicker.renderer;
 
-import com.flask.colorpicker.ColorCircle;
+import com.bingjie.colorpicker.ColorCircle;
 
 import java.util.ArrayList;
 import java.util.List;

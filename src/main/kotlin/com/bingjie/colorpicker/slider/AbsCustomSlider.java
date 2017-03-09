@@ -1,4 +1,4 @@
-package com.flask.colorpicker.slider;
+package com.bingjie.colorpicker.slider;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,4 +1,4 @@
-package com.flask.colorpicker.builder;
+package com.bingjie.colorpicker.builder;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,13 +13,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorChangedListener;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.Utils;
-import com.flask.colorpicker.renderer.ColorWheelRenderer;
-import com.flask.colorpicker.slider.AlphaSlider;
-import com.flask.colorpicker.slider.LightnessSlider;
+import com.bingjie.colorpicker.ColorPickerView;
+import com.bingjie.colorpicker.OnColorChangedListener;
+import com.bingjie.colorpicker.OnColorSelectedListener;
+import com.bingjie.colorpicker.Utils;
+import com.bingjie.colorpicker.renderer.ColorWheelRenderer;
+import com.bingjie.colorpicker.slider.AlphaSlider;
+import com.bingjie.colorpicker.slider.LightnessSlider;
 import com.rarnu.tophighlight.R;
 
 public class ColorPickerDialogBuilder {

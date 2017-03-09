@@ -1,4 +1,4 @@
-package com.flask.colorpicker.renderer;
+package com.bingjie.colorpicker.renderer;
 
 import android.graphics.Canvas;
 

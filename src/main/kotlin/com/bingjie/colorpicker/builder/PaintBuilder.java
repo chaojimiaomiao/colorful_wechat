@@ -1,4 +1,4 @@
-package com.flask.colorpicker.builder;
+package com.bingjie.colorpicker.builder;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

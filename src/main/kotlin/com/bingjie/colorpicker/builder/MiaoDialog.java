@@ -1,7 +1,8 @@
-package com.flask.colorpicker.builder;
+package com.bingjie.colorpicker.builder;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.slider.AlphaSlider;
-import com.flask.colorpicker.slider.LightnessSlider;
+import com.bingjie.colorpicker.ColorPickerView;
+import com.bingjie.colorpicker.slider.LightnessSlider;
 import com.rarnu.tophighlight.R;
 
 /**
@@ -24,7 +24,6 @@ public class MiaoDialog extends Dialog implements View.OnClickListener {
     private LinearLayout pickerContainer;
     private ColorPickerView colorPickerView;
     private LightnessSlider lightnessSlider;
-    private AlphaSlider alphaSlider;
     private EditText colorEdit;
     private LinearLayout colorPreview;
     private TextView sureText, cancelText, titleText;
@@ -35,7 +34,7 @@ public class MiaoDialog extends Dialog implements View.OnClickListener {
     private boolean isPreviewEnabled = false;
     private int pickerCount = 1;
     private int defaultMargin = 0;
-    private Integer[] initialColor = new Integer[]{null, null, null, null, null};
+    private Integer[] initialColor = new Integer[]{Color.WHITE, null, null, null, null};
 
     private MiaoDialog(Context context) {
         this(context, R.style.miaoDialog);
@@ -59,8 +58,17 @@ public class MiaoDialog extends Dialog implements View.OnClickListener {
         layoutParamsForColorPickerView.weight = 1;
         colorPickerView = new ColorPickerView(context);
 
+        lightnessSlider = new LightnessSlider(context);
+        LinearLayout.LayoutParams layoutParamsForLightnessBar = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getDimensionAsPx(context, R.dimen.default_slider_height));
+        lightnessSlider.setLayoutParams(layoutParamsForLightnessBar);
+
         pickerContainer =  (LinearLayout) findViewById(R.id.picker_dialog);
         pickerContainer.addView(colorPickerView, 0, layoutParamsForColorPickerView);
+        pickerContainer.addView(lightnessSlider, 1);
+
+        colorPickerView.setInitialColors(initialColor, getStartOffset(initialColor));
+        colorPickerView.setLightnessSlider(lightnessSlider);
+        lightnessSlider.setColor(getStartColor(initialColor));
 
         titleText = (TextView) findViewById(R.id.id_title);
         titleText.setText(isLongClick ? "点击时的背景色":"栏目背景色");
@@ -98,5 +106,25 @@ public class MiaoDialog extends Dialog implements View.OnClickListener {
         int selectedColor = colorPickerView.getSelectedColor();
         Integer[] allColors = colorPickerView.getAllColors();
         onClickListener.onClick(selectedColor, allColors);
+    }
+
+    private Integer getStartOffset(Integer[] colors) {
+        Integer start = 0;
+        for (int i = 0; i < colors.length; i++) {
+            if (colors[i] == null) {
+                return start;
+            }
+            start = (i + 1) / 2;
+        }
+        return start;
+    }
+
+    private static int getDimensionAsPx(Context context, int rid) {
+        return (int) (context.getResources().getDimension(rid) + .5f);
+    }
+
+    private int getStartColor(Integer[] colors) {
+        Integer startColor = getStartOffset(colors);
+        return startColor == null ? Color.WHITE : colors[startColor];
     }
 }

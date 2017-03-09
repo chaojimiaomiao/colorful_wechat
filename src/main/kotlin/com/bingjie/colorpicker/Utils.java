@@ -1,4 +1,4 @@
-package com.flask.colorpicker;
+package com.bingjie.colorpicker;
 
 import android.graphics.Color;
 

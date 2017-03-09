@@ -1,4 +1,4 @@
-package com.flask.colorpicker.builder;
+package com.bingjie.colorpicker.builder;
 
 /**
  * Created by Charles Anderson on 4/17/15.

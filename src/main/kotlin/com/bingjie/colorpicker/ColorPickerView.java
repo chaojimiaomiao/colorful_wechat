@@ -1,4 +1,4 @@
-package com.flask.colorpicker;
+package com.bingjie.colorpicker;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -17,12 +17,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.flask.colorpicker.builder.ColorWheelRendererBuilder;
-import com.flask.colorpicker.builder.PaintBuilder;
-import com.flask.colorpicker.renderer.ColorWheelRenderOption;
-import com.flask.colorpicker.renderer.ColorWheelRenderer;
-import com.flask.colorpicker.slider.AlphaSlider;
-import com.flask.colorpicker.slider.LightnessSlider;
+import com.bingjie.colorpicker.builder.ColorWheelRendererBuilder;
+import com.bingjie.colorpicker.builder.PaintBuilder;
+import com.bingjie.colorpicker.renderer.ColorWheelRenderOption;
+import com.bingjie.colorpicker.renderer.ColorWheelRenderer;
+import com.bingjie.colorpicker.slider.AlphaSlider;
+import com.bingjie.colorpicker.slider.LightnessSlider;
 import com.rarnu.tophighlight.R;
 
 import java.util.ArrayList;

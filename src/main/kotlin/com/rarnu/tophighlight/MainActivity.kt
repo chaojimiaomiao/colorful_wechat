@@ -11,7 +11,7 @@ import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.flask.colorpicker.builder.ColorPickerClickListener
+import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.ThemeListActivity
