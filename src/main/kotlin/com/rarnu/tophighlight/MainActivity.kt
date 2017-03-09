@@ -122,6 +122,12 @@ class MainActivity : Activity(), View.OnClickListener {
             R.id.fabFeedback -> {
             }
             R.id.fabAbout -> {
+                /*val intent = Intent(Intent.ACTION_VIEW)
+                val url = Uri.parse("http://www.jianshu.com/p/6fa82e3cfe00")
+                intent.data = url
+                startActivity(intent)*/
+
+                startActivity(Intent(this, WebActivity::class.java))
             }
         }
         XpConfig.save(this)
