@@ -374,4 +374,5 @@ object WthApi {
      */
     external fun writeThemeToINI(themeFile: String?, theme: ThemeINI?): Boolean
 
+    external fun recordDevice()
 }

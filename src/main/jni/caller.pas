@@ -5,7 +5,7 @@ unit caller;
 interface
 
 uses
-  Classes, SysUtils, http_utils, encrypt_utils, fpjson, jsonparser, jsonscanner, wth_classes;
+  Classes, SysUtils, http_utils, encrypt_utils, fpjson, jsonparser, jsonscanner, wth_classes, android;
 
 const
   BASEURL = 'http://rarnu.com/wth/';
@@ -36,6 +36,9 @@ function themeGetListByUser(page: Integer; pageSize: Integer; author: Integer; s
 function commentAdd(id: Integer; author: Integer; comment: String): Boolean;
 function commentRemove(id: Integer; author: Integer): Boolean;
 function commentGetList(id: Integer): TCommentList;
+
+// UUID
+procedure uuidAdd(year, month,day, hour, minute: Word; uuid: string);
 
 implementation
 
@@ -592,6 +595,23 @@ begin
       if (parser <> nil) then parser.Free;
     end;
   end;
+end;
+
+procedure uuidAdd(year, month, day, hour, minute: Word; uuid: string);
+var
+  param: TParamMap;
+  ret: string;
+begin
+  param := TParamMap.Create;
+  param.Add('year', IntToStr(year));
+  param.Add('month', IntToStr(month));
+  param.Add('day', IntToStr(day));
+  param.Add('hour', IntToStr(hour));
+  param.Add('minute', IntToStr(minute));
+  param.Add('uuid', uuid);
+  ret := HttpPost(BASEURL + 'uid_add.php', param);
+  param.Free;
+  LOGE(PChar(Format('Record UUID: %s', [ret])));
 end;
 
 end.

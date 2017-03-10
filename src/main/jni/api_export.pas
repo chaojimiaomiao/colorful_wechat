@@ -5,7 +5,7 @@ unit api_export;
 interface
 
 uses
-  Classes, SysUtils, JNI2, caller, wth_classes, math;
+  Classes, SysUtils, JNI2, caller, wth_classes, math, android;
 
 // user
 function Java_com_rarnu_tophighlight_api_WthApi_userRegister(env: PJNIEnv; obj: jobject; account: jstring; password: jstring; nickname: jstring; email: jstring): jint; stdcall;
@@ -37,6 +37,9 @@ function Java_com_rarnu_tophighlight_api_WthApi_commentGetList(env: PJNIEnv; obj
 // theme file
 function Java_com_rarnu_tophighlight_api_WthApi_readThemeFromINI(env: PJNIEnv; obj: jobject; themeFile: jstring): jobject; stdcall;
 function Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI(env: PJNIEnv; obj: jobject; themeFile: jstring; theme: jobject): jboolean; stdcall;
+
+// UUID
+procedure Java_com_rarnu_tophighlight_api_WthApi_recordDevice(env: PJNIEnv; obj: jobject); stdcall;
 
 implementation
 
@@ -295,6 +298,40 @@ begin
   Result := JNI_FALSE;
   ti := ThemeIni.fromJObject(env, theme);
   if (ti <> nil) then Result := ifthen(ti.toINI(TJNIEnv.jstringToString(env, themeFile)), JNI_TRUE, JNI_FALSE);
+end;
+
+procedure Java_com_rarnu_tophighlight_api_WthApi_recordDevice(env: PJNIEnv;
+  obj: jobject); stdcall;
+var
+  path: string;
+  utxt: string = '';
+  dt: TDateTime;
+  y, m, d, h, mm, s, ss: Word;
+begin
+  LOGE('Record Device Start');
+  // record uuid
+  dt := Now;
+  DecodeDate(dt, y, m, d);
+  DecodeTime(dt, h, mm, s, ss);
+  path := 'data/data/com.rarnu.tophighlight/uuid';
+  if (FileExists(path)) then begin
+    with TStringList.Create do begin
+      LoadFromFile(path);
+      utxt:= Text;
+      Free;
+    end;
+  end else begin
+    utxt := TGuid.NewGuid.ToString();
+    with TStringList.Create do begin
+      Text:= utxt;
+      SaveToFile(path);
+      Free;
+    end;
+  end;
+  utxt:= utxt.Trim;
+  LOGE(PChar(Format('Record Device (%d, %d, %d, %d, %d, %s)', [y, m, d, h, mm, utxt])));
+  if (utxt <> '') then uuidAdd(y, m, d, h, mm, utxt);
+  LOGE('Record Device End');
 end;
 
 end.

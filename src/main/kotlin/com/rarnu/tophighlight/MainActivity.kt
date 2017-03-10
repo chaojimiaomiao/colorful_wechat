@@ -18,6 +18,7 @@ import com.rarnu.tophighlight.market.ThemeListActivity
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
+import kotlin.concurrent.thread
 
 
 class MainActivity : Activity(), View.OnClickListener {
@@ -71,7 +72,8 @@ class MainActivity : Activity(), View.OnClickListener {
         initScrollView()
         refreshStatusBar()
 
-        sampleINI()
+        thread { WthApi.recordDevice() }
+
     }
 
     private fun initScrollView() {
@@ -149,15 +151,4 @@ class MainActivity : Activity(), View.OnClickListener {
         }
     }
 
-    private fun sampleINI() {
-        val ini = WthApi.ThemeINI(XpConfig.statusBarColor, XpConfig.showDivider, XpConfig.dividerColor, XpConfig.darkerStatusBar, XpConfig.darkStatusBarText,
-                XpConfig.macColor, XpConfig.macPressColor, XpConfig.readerColor, XpConfig.readerPressColor, XpConfig.bottomBarColor,
-                XpConfig.topColors[0], XpConfig.topColors[1], XpConfig.topColors[2], XpConfig.topColors[3], XpConfig.topColors[4],
-                XpConfig.topColors[5], XpConfig.topColors[6], XpConfig.topColors[7], XpConfig.topColors[8], XpConfig.topColors[9],
-                XpConfig.topPressColors[0], XpConfig.topPressColors[1], XpConfig.topPressColors[2], XpConfig.topPressColors[3], XpConfig.topPressColors[4],
-                XpConfig.topPressColors[5], XpConfig.topPressColors[6], XpConfig.topPressColors[7], XpConfig.topPressColors[8], XpConfig.topPressColors[9])
-        val b = WthApi.writeThemeToINI("/sdcard/theme.ini", ini)
-        Log.e("ThemeINI", "save ini => $b")
-
-    }
 }

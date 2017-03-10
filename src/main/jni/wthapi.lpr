@@ -38,7 +38,10 @@ exports
 
   // theme ini
   Java_com_rarnu_tophighlight_api_WthApi_readThemeFromINI,
-  Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI;
+  Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI,
+
+  // UUID
+  Java_com_rarnu_tophighlight_api_WthApi_recordDevice;
 
 {$ENDIF}
 
