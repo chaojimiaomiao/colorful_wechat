@@ -41,7 +41,10 @@ exports
   Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI,
 
   // UUID
-  Java_com_rarnu_tophighlight_api_WthApi_recordDevice;
+  Java_com_rarnu_tophighlight_api_WthApi_recordDevice,
+
+  // feedback
+  Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd;
 
 {$ENDIF}
 

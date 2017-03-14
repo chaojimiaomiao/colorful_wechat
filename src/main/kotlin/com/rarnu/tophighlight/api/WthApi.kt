@@ -1,5 +1,6 @@
 package com.rarnu.tophighlight.api
 
+import android.support.annotation.IntegerRes
 import java.io.Serializable
 
 /**
@@ -374,5 +375,24 @@ object WthApi {
      */
     external fun writeThemeToINI(themeFile: String?, theme: ThemeINI?): Boolean
 
+    /**
+     * 记录设备信息，仅当程序启动时调用一次
+     */
     external fun recordDevice()
+
+    /**
+     * 发送反馈信息
+     *
+     * @param appVer 当前软件版本，从 AndroidManifest.xml 获取
+     * @param userId 已登录用户的唯一序列号，未登录时传0
+     * @param nickname 用户昵称，仅当未登录时有效，已登录时传""
+     * @param email 邮箱地址，仅当未登录时有效，已登录时传""
+     * @param content 反馈内容，不能为空
+     * @param img1
+     * @param img2
+     * @param img3 附加的图片，若是有图则传图片的绝对路径，若是没有则传""，最多三张图
+     *
+     */
+    external fun feedbackAdd(appVer: Int, userId: Int, nickname: String?, email: String?, content: String?, img1: String?, img2: String?, img3: String?): Boolean
+
 }

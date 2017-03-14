@@ -40,6 +40,9 @@ function commentGetList(id: Integer): TCommentList;
 // UUID
 procedure uuidAdd(year, month,day, hour, minute: Word; uuid: string);
 
+// feedback
+function feedbackAdd(appVer: Integer; userId: Integer; deviceId: string; nickname: string; email: string; content: string; img1: string; img2: string; img3: string): Boolean;
+
 implementation
 
 function userRegister(account: string; password: string; nickname: string;
@@ -612,6 +615,63 @@ begin
   ret := HttpPost(BASEURL + 'uid_add.php', param);
   param.Free;
   LOGE(PChar(Format('Record UUID: %s', [ret])));
+end;
+
+procedure uploadFeedbackImage(fid: Integer; uid: Integer; imgid: Integer; f: string);
+var
+  param: TParamMap;
+  fileParam: TParamMap;
+  ret: string;
+begin
+  param := TParamMap.Create;
+  param.Add('fid', IntToStr(fid));
+  param.Add('uid', IntToStr(uid));
+  param.Add('imgid', IntToStr(imgid));
+  fileParam := TParamMap.Create;
+  fileParam.Add('file', f);
+  ret := HttpPostFile(BASEURL + 'feedback_upload_img.php', param, fileParam);
+  fileParam.Free;
+  param.Free;
+  LOGE(PChar(Format('Upload feedback image => %s', [ret])));
+end;
+
+function feedbackAdd(appVer: Integer; userId: Integer; deviceId: string;
+  nickname: string; email: string; content: string; img1: string; img2: string;
+  img3: string): Boolean;
+var
+  param: TParamMap;
+  ret: string;
+  json: TJSONObject;
+  parser: TJSONParser;
+  fid: Integer = -1;
+begin
+  Result := False;
+  param := TParamMap.Create;
+  param.Add('appver', IntToStr(appVer));
+  param.Add('userid', IntToStr(userId));
+  param.Add('deviceid', deviceId);
+  param.Add('nickname', nickname);
+  param.Add('email', email);
+  param.Add('content', content);
+  ret := HttpPost(BASEURL + 'feedback_add.php', param);
+  param.Free;
+  if (ret.Trim <> '') then begin
+    try
+      parser := TJSONParser.Create(ret, [joUTF8]);
+      json := TJSONObject(parser.Parse);
+      fid:= json.Integers['result'];
+      if (fid <> -1) then Result := True;
+    finally
+      if (json <> nil) then json.Free;
+      if (parser <> nil) then parser.Free;
+    end;
+  end;
+  // upload
+  if (Result) then begin
+    if (img1.Trim <> '') then uploadFeedbackImage(fid, userId, 1, img1);
+    if (img2.Trim <> '') then uploadFeedbackImage(fid, userId, 2, img2);
+    if (img3.Trim <> '') then uploadFeedbackImage(fid, userId, 3, img3);
+  end;
 end;
 
 end.

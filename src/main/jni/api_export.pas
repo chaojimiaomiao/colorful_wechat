@@ -41,6 +41,9 @@ function Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI(env: PJNIEnv; ob
 // UUID
 procedure Java_com_rarnu_tophighlight_api_WthApi_recordDevice(env: PJNIEnv; obj: jobject); stdcall;
 
+// feedack
+function Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd(env: PJNIEnv; obj: jobject; appVer: jint; userId: jint; nickname: jstring; email: jstring; content: jstring; img1: jstring; img2: jstring; img3: jstring): jboolean; stdcall;
+
 implementation
 
 
@@ -229,7 +232,7 @@ begin
 end;
 
 function Java_com_rarnu_tophighlight_api_WthApi_themeGetList(env: PJNIEnv;
-  obj: jobject; page: jint; pageSize: jint; sort: jstring): jobject;
+  obj: jobject; page: jint; pageSize: jint; sort: jstring): jobject; stdcall;
 var
   list: TThemeList;
 begin
@@ -332,6 +335,41 @@ begin
   LOGE(PChar(Format('Record Device (%d, %d, %d, %d, %d, %s)', [y, m, d, h, mm, utxt])));
   if (utxt <> '') then uuidAdd(y, m, d, h, mm, utxt);
   LOGE('Record Device End');
+end;
+
+function Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd(env: PJNIEnv;
+  obj: jobject; appVer: jint; userId: jint; nickname: jstring; email: jstring;
+  content: jstring; img1: jstring; img2: jstring; img3: jstring): jboolean;
+  stdcall;
+var
+  ret: Boolean;
+  deviceId: string = '';
+  path: string;
+begin
+  path := 'data/data/com.rarnu.tophighlight/uuid';
+  if (FileExists(path)) then begin
+    with TStringList.Create do begin
+      LoadFromFile(path);
+      deviceId:= Text;
+      Free;
+    end;
+  end else begin
+    deviceId := TGuid.NewGuid.ToString();
+    with TStringList.Create do begin
+      Text:= deviceId;
+      SaveToFile(path);
+      Free;
+    end;
+  end;
+
+  ret := feedbackAdd(appVer, userId, deviceId,
+    TJNIEnv.JStringToString(env, nickname),
+    TJNIEnv.JStringToString(env, email),
+    TJNIEnv.JStringToString(env, content),
+    TJNIEnv.JStringToString(env, img1),
+    TJNIEnv.JStringToString(env, img2),
+    TJNIEnv.JStringToString(env, img3));
+  Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
 end.
