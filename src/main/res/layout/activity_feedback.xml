@@ -58,18 +58,42 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center"
+        <RelativeLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_weight="1"
+                    android:id="@+id/pic1"
+                    android:scaleType="centerInside"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp" />
+                <ImageView
+                    android:id="@+id/pic2"
+                    android:layout_weight="1"
+                    android:scaleType="centerInside"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp" />
+                <ImageView
+                    android:id="@+id/pic3"
+                    android:layout_weight="1"
+                    android:scaleType="centerInside"
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp" />
+            </LinearLayout>
 
             <ImageView
+                android:id="@+id/add_pic"
+                android:layout_centerInParent="true"
                 android:src="@drawable/movie_circle_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

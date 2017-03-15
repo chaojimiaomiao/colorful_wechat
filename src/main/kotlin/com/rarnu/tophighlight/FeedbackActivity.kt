@@ -1,16 +1,22 @@
 package com.rarnu.tophighlight
 
+import android.app.Activity
+import android.content.ContentResolver
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import com.rarnu.tophighlight.api.WthApi
 
 class FeedbackActivity : AppCompatActivity() {
-
     var feedbackBtn : Button ?= null
     var feedbackEdit : EditText ?= null
     var feedbackStr: String ?= null
@@ -20,6 +26,10 @@ class FeedbackActivity : AppCompatActivity() {
     var emailEdit : EditText ?= null
     var email :String ? = null
     var nickname :String ? = null
+    var addPic : ImageView ?= null
+    var pic1 :ImageView ?= null
+    var pic2 :ImageView ?= null
+    var pic3 :ImageView ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +39,14 @@ class FeedbackActivity : AppCompatActivity() {
         feedbackEdit = findViewById(R.id.feedback_edit) as EditText
         nickNameEdit = findViewById(R.id.feedback_edit) as EditText
         emailEdit  = findViewById(R.id.feedback_edit) as EditText
+        addPic = findViewById(R.id.add_pic) as ImageView
+        addPic?.setOnClickListener {
+            choosePic()
+        }
+
+        pic1 = findViewById(R.id.pic1) as ImageView
+        pic2 = findViewById(R.id.pic2) as ImageView
+        pic3 = findViewById(R.id.pic3) as ImageView
 
         feedbackEdit!!.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -65,5 +83,66 @@ class FeedbackActivity : AppCompatActivity() {
         var pinfo = packageManager.getPackageInfo("com.rarnu.tophighlight", PackageManager.GET_CONFIGURATIONS)
         versionCode = pinfo.versionCode
         versionName = pinfo.versionName
+    }
+
+    fun choosePic() {
+        val intent = Intent(Intent.ACTION_PICK, null)
+        intent.setDataAndType(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*")
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, 2)
+    }
+
+    public override fun onActivityResult(requestCode: Int,
+                                         resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == 2) {
+                try {
+                    val uri = data.data
+                    val absolutePath = getAbsolutePath(this, uri)
+                    if (pic1?.tag == null) {
+                        pic1?.setImageURI(uri)
+                        pic1?.tag = absolutePath
+                    } else if (pic2?.tag == null) {
+                        pic2?.setImageURI(uri)
+                        pic2?.tag = absolutePath
+                    } else if (pic3?.tag == null) {
+                        pic3?.setImageURI(uri)
+                        pic3?.tag = absolutePath
+                    }
+
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    fun getAbsolutePath(context: Context,
+                        uri: Uri?): String? {
+        if (null == uri) return null
+        val scheme = uri.scheme
+        var data: String? = null
+        if (scheme == null)
+            data = uri.path
+        else if (ContentResolver.SCHEME_FILE == scheme) {
+            data = uri.path
+        } else if (ContentResolver.SCHEME_CONTENT == scheme) {
+            val cursor = context.contentResolver.query(uri,
+                    arrayOf(MediaStore.Images.ImageColumns.DATA),
+                    null, null, null)
+            if (null != cursor) {
+                if (cursor.moveToFirst()) {
+                    val index = cursor.getColumnIndex(
+                            MediaStore.Images.ImageColumns.DATA)
+                    if (index > -1) {
+                        data = cursor.getString(index)
+                    }
+                }
+                cursor.close()
+            }
+        }
+        return data
     }
 }
