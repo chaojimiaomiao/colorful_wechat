@@ -44,15 +44,15 @@
         <activity
             android:name=".market.ThemeListActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Material.Light"></activity>
+            android:theme="@android:style/Theme.Material.Light" />
         <activity
             android:name=".market.UserProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Material.Light"></activity>
+            android:theme="@android:style/Theme.Material.Light" />
         <activity
             android:name=".market.UserLoginRegisterActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Material.Light"></activity>
+            android:theme="@android:style/Theme.Material.Light" />
 
         <meta-data
             android:name="xposedmodule"
@@ -64,7 +64,8 @@
             android:name="xposedminversion"
             android:value="53" />
 
-        <activity android:name=".WebActivity"></activity>
+        <activity android:name=".WebActivity" />
+        <activity android:name=".FeedbackActivity"></activity>
     </application>
 
 </manifest>

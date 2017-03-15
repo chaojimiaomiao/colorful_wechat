@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -122,6 +121,7 @@ class MainActivity : Activity(), View.OnClickListener {
                 startActivity(Intent(this, ThemeListActivity::class.java))
             }
             R.id.fabFeedback -> {
+                startActivity(Intent(this, FeedbackActivity::class.java))
             }
             R.id.fabAbout -> {
                 /*val intent = Intent(Intent.ACTION_VIEW)

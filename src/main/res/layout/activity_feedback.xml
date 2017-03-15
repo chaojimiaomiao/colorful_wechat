@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_feedback"
+    android:background="@color/ll_gray"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rarnu.tophighlight.FeedbackActivity">
+
+    <EditText
+        android:id="@+id/nickname"
+        android:padding="10dp"
+        android:hint="填个名字吧~"
+        android:textColorHint="#666"
+        android:textColor="#333"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/email"
+        android:padding="10dp"
+        android:hint="留下邮箱或手机号方便联系"
+        android:textColorHint="#666"
+        android:textColor="#333"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="填写反馈(必填项):"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="#333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/feedback_edit"
+            android:textColor="#333"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="#fff"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:text="添加图片(非必填项,最多三张):"
+            android:textSize="16sp"
+            android:padding="10dp"
+            android:textColor="#333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/movie_circle_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+        <View
+            android:background="#d8d8d8"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+        <Button
+            android:id="@+id/btn_feedback_sure"
+            android:clickable="false"
+            android:layout_centerInParent="true"
+            android:text="提交"
+            android:textSize="17sp"
+            android:textColor="#bebebe"
+            android:background="@drawable/bg_button_lg_radius"
+            android:layout_width="220dp"
+            android:layout_height="41dp" />
+
+    </RelativeLayout>
+</LinearLayout>
