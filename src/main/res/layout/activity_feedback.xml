@@ -64,6 +64,7 @@
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_centerInParent="true"
+                android:gravity="left"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">

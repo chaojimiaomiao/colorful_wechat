@@ -11,9 +11,11 @@ import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Toast
 import com.rarnu.tophighlight.api.WthApi
 
 class FeedbackActivity : AppCompatActivity() {
@@ -59,8 +61,16 @@ class FeedbackActivity : AppCompatActivity() {
         })
         feedbackBtn = findViewById(R.id.btn_feedback_sure) as Button
         feedbackBtn?.setOnClickListener {
-            WthApi.feedbackAdd(versionCode!!, 0, nickname, email, feedbackStr, "", "","")
-            finish()
+            var path1 = pic1?.tag as String?
+            var path2 = pic2?.tag as String?
+            var path3 = pic3?.tag as String?
+            var success = WthApi.feedbackAdd(versionCode!!, 0, nickname, email, feedbackStr, path1, path2, path3) as Boolean
+            if (success) {
+                Toast.makeText(this, "反馈成功!谢谢^_^", Toast.LENGTH_LONG).show()
+                finish()
+            } else {
+                Toast.makeText(this, "反馈失败,重新试试(⊙﹏⊙)b", Toast.LENGTH_LONG).show()
+            }
         }
     }
 
@@ -110,6 +120,7 @@ class FeedbackActivity : AppCompatActivity() {
                     } else if (pic3?.tag == null) {
                         pic3?.setImageURI(uri)
                         pic3?.tag = absolutePath
+                        addPic?.visibility = View.INVISIBLE
                     }
 
                 } catch (e: Exception) {
