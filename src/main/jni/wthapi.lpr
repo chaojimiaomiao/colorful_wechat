@@ -44,7 +44,10 @@ exports
   Java_com_rarnu_tophighlight_api_WthApi_recordDevice,
 
   // feedback
-  Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd;
+  Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd,
+
+  // system
+  Java_com_rarnu_tophighlight_api_WthApi_xposedInstalled;
 
 {$ENDIF}
 

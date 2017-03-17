@@ -392,7 +392,15 @@ object WthApi {
      * @param img2
      * @param img3 附加的图片，若是有图则传图片的绝对路径，若是没有则传""，最多三张图
      *
+     * @return 是否发送成功
      */
     external fun feedbackAdd(appVer: Int, userId: Int, nickname: String?, email: String?, content: String?, img1: String?, img2: String?, img3: String?): Boolean
+
+    /**
+     * 检查 Xposed 是否已安装
+     *
+     * @return 是否已安装
+     */
+    external fun xposedInstalled(): Boolean
 
 }

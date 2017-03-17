@@ -44,6 +44,9 @@ procedure Java_com_rarnu_tophighlight_api_WthApi_recordDevice(env: PJNIEnv; obj:
 // feedack
 function Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd(env: PJNIEnv; obj: jobject; appVer: jint; userId: jint; nickname: jstring; email: jstring; content: jstring; img1: jstring; img2: jstring; img3: jstring): jboolean; stdcall;
 
+// system
+function Java_com_rarnu_tophighlight_api_WthApi_xposedInstalled(env: PJNIEnv; obj: jobject): jboolean; stdcall;
+
 implementation
 
 
@@ -369,6 +372,15 @@ begin
     TJNIEnv.JStringToString(env, img1),
     TJNIEnv.JStringToString(env, img2),
     TJNIEnv.JStringToString(env, img3));
+  Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
+end;
+
+function Java_com_rarnu_tophighlight_api_WthApi_xposedInstalled(env: PJNIEnv;
+  obj: jobject): jboolean; stdcall;
+var
+  ret: Boolean;
+begin
+  ret := xposedInstalled();
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
