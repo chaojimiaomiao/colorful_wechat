@@ -1,10 +1,14 @@
 package com.rarnu.tophighlight
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
+import android.text.SpannableString
+import android.text.util.Linkify
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -73,6 +77,17 @@ class MainActivity : Activity(), View.OnClickListener {
 
         thread { WthApi.recordDevice() }
 
+        if (!WthApi.xposedInstalled()) {
+            var s = SpannableString(getText(R.string.alert_xposed));
+            Linkify.addLinks(s, Linkify.WEB_URLS);
+            AlertDialog.Builder(this, R.style.whiteDialogNoFrame)//android.R.style.ThemeOverlay
+                    .setMessage(s)
+                    .setPositiveButton(R.string.alert_ok, {
+                        dialogInterface, i ->
+                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.coolapk.com/apk/de.robv.android.xposed.installer")))
+                    })
+                    .show()
+        }
     }
 
     private fun initScrollView() {

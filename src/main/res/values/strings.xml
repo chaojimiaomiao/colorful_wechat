@@ -41,4 +41,12 @@
     <string name="toast_register_failed">注册失败，可能是用户名、昵称或邮箱已被占用</string>
     <string name="toast_login_failed">登录失败</string>
 
+    <string name="alert_xposed">
+        <font color='#555'>
+            Hi~ 此软件需要root并安装xposed插件才能使用哟。你还未安装xposed框架,可以去酷安下载。无需root的版本请耐心等待。\n
+            Xposed框架功能确实强大，没有这个东东，玩机都少了很多乐趣。
+            <a color='#4455cc' href='http://www.coolapk.com/apk/de.robv.android.xposed.installer'>http://www.coolapk.com</a>
+        </font>
+    </string>
+
 </resources>
