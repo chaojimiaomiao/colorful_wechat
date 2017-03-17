@@ -64,7 +64,7 @@ class FeedbackActivity : AppCompatActivity() {
             var path1 = pic1?.tag as String?
             var path2 = pic2?.tag as String?
             var path3 = pic3?.tag as String?
-            var success = WthApi.feedbackAdd(versionCode!!, 0, nickname, email, feedbackStr, path1, path2, path3) as Boolean
+            var success = WthApi.feedbackAdd(versionCode!!, 0, nickname, email, feedbackStr, path1, path2, path3)
             if (success) {
                 Toast.makeText(this, "反馈成功!谢谢^_^", Toast.LENGTH_LONG).show()
                 finish()
