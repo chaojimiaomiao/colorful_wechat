@@ -43,6 +43,9 @@ procedure uuidAdd(year, month,day, hour, minute: Word; uuid: string);
 // feedback
 function feedbackAdd(appVer: Integer; userId: Integer; deviceId: string; nickname: string; email: string; content: string; img1: string; img2: string; img3: string): Boolean;
 
+// system
+function xposedInstalled(): Boolean;
+
 implementation
 
 function userRegister(account: string; password: string; nickname: string;
@@ -672,6 +675,26 @@ begin
     if (img2.Trim <> '') then uploadFeedbackImage(fid, userId, 2, img2);
     if (img3.Trim <> '') then uploadFeedbackImage(fid, userId, 3, img3);
   end;
+end;
+
+function xposedInstalled: Boolean;
+const
+  LIB1 = '/system/lib/libxposed_art.so';
+  LIB2 = '/system/lib64/libxposed_art.so';
+  PROP = '/system/xposed.prop';
+  APK1 = '/data/app/de.robv.android.xposed.installer-1/base.apk';
+  APK2 = '/data/app/de.robv.android.xposed.installer-2/base.apk';
+var
+  libExists: Boolean = False;
+  propExists: Boolean = False;
+  apkExists: Boolean = False;
+begin
+  if (FileExists(LIB1)) then libExists:= True;
+  if (FileExists(LIB2)) then libExists:= True;
+  if (FileExists(PROP)) then propExists:= True;
+  if (FileExists(APK1)) then apkExists:= True;
+  if (FileExists(APK2)) then apkExists:= True;
+  Exit(libExists and propExists and apkExists);
 end;
 
 end.
