@@ -11,12 +11,14 @@ import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.xposed.XpConfig
 
 class FeedbackActivity : AppCompatActivity() {
     var feedbackBtn : Button ?= null
@@ -114,6 +116,8 @@ class FeedbackActivity : AppCompatActivity() {
                     if (pic1?.tag == null) {
                         pic1?.setImageURI(uri)
                         pic1?.tag = absolutePath
+                        XpConfig.bottomBarPath = absolutePath!!
+                        Log.i("Feedback", "path = " + absolutePath)
                     } else if (pic2?.tag == null) {
                         pic2?.setImageURI(uri)
                         pic2?.tag = absolutePath

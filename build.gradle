@@ -13,13 +13,23 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 23
+    buildToolsVersion '23.0.0'
 
     defaultConfig {
         applicationId "com.rarnu.tophighlight"
         minSdkVersion 21
-        targetSdkVersion 25
+        targetSdkVersion 23
+        ndk{
+            abiFilters "armeabi", "armeabi-v7a"
+        }
+        packagingOptions {
+            exclude "lib/arm64-v8a/libgifimage.so"
+            exclude "lib/arm64-v8a/libimagepipeline.so"
+            exclude "lib/arm64-v8a/libmemchunk.so"
+            exclude "lib/arm64-v8a/libwebp.so"
+            exclude "lib/arm64-v8a/libwebpimage.so"
+        }
     }
 
     signingConfigs {
@@ -61,11 +71,22 @@ repositories {
     }
 }
 
+allprojects {
+    repositories {
+        jcenter()
+        maven {
+            // All of React Native (JS, Android binaries) is installed from npm
+            url "$rootDir/node_modules/react-native/android"
+        }
+    }
+}
+
 dependencies {
     //compile(name:'library-release', ext:'aar')
+    compile "com.facebook.react:react-native:+" // From node_modules.
     compile 'com.getbase:floatingactionbutton:1.10.1'
-    compile 'com.android.support:design:25.0.0' //最新
-    compile 'com.android.support:support-v4:25.1.0'
+    compile 'com.android.support:design:23.0.1' //最新
+    compile 'com.android.support:support-v4:23.0.1'
     compile fileTree(include: ['*.jar'], dir: 'libs')
     provided fileTree(include: ['*.jar'], dir: 'xposed')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
