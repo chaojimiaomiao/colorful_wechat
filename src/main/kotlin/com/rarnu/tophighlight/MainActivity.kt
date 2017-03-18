@@ -107,6 +107,9 @@ class MainActivity : Activity(), View.OnClickListener {
 
     private fun initBottomBar() {
         bottomBar?.setBackgroundColor(XpConfig.bottomBarColor)
+        var backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
+        val drawable = BitmapDrawable(backBitmap)
+        bottomBar?.background = drawable
         bottomBar?.setOnClickListener {
             UIUtils.showDialog(this, ColorPickerClickListener { selectColor, ints ->
                 bottomBar?.setBackgroundColor(selectColor)

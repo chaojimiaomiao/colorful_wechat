@@ -116,8 +116,10 @@ class FeedbackActivity : AppCompatActivity() {
                     if (pic1?.tag == null) {
                         pic1?.setImageURI(uri)
                         pic1?.tag = absolutePath
-                        XpConfig.bottomBarPath = absolutePath!!
                         Log.i("Feedback", "path = " + absolutePath)
+
+                        XpConfig.bottomBarPath = absolutePath!!
+                        XpConfig.saveBottomBar(this)
                     } else if (pic2?.tag == null) {
                         pic2?.setImageURI(uri)
                         pic2?.tag = absolutePath

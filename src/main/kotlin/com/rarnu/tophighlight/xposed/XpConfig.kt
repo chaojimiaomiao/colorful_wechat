@@ -31,6 +31,7 @@ object XpConfig {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
         }
+        bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
     }
 
     fun load(ctx: Context) {
@@ -49,6 +50,8 @@ object XpConfig {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
         }
+
+        bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
     }
 
     fun save(ctx: Context) {
@@ -77,6 +80,7 @@ object XpConfig {
         val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         var editor = prefs.edit()
         editor.putInt(KEY_BOTTOMBAR_COLOR, bottomBarColor)
+                .putString(KEY_BTBAR_PICPATH, bottomBarPath)
                 .apply()
         editor.apply()
     }
@@ -98,6 +102,8 @@ object XpConfig {
     val KEY_TOP_READER_COLOR = "top_reader_color"
     val KEY_TOP_READER_PRESS_COLOR = "top_reader_press_color"
 
+    val KEY_BTBAR_PICPATH = "bottom_path"
+
     val KEY_DING = "ding"
 
     val KEY_PRESS_DING = "ding_press"
@@ -108,6 +114,7 @@ object XpConfig {
 
     // 底部tab
     var bottomBarColor = 0xffffffff.toInt()
+    var bottomBarPath = ""
 
     // 是否显示ActionBar与ListView之间的分隔线，可以修改
     val defaultShowDivider = false
