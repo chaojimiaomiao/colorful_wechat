@@ -51,3 +51,6 @@ libwthapi.so
 *.ppu
 *.rsj
 
+# React
+node_module/
+
