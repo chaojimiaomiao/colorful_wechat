@@ -8,6 +8,8 @@ object Versions {
     // global
     var inited = false
 
+    var listviewAct = ""
+
     // top highlight color
     var conversationAdapter = ""
     var userInfoMethod = ""
@@ -49,6 +51,7 @@ object Versions {
     fun initVersion(idx: Int) {
         when (idx) {
             0 -> {
+                listviewAct = "com.tencent.mm.ui.conversation.d"
                 // 654
                 conversationAdapter = "com.tencent.mm.ui.conversation.b"
                 userInfoMethod = "en"

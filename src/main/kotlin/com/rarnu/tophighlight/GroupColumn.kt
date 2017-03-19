@@ -1,7 +1,6 @@
 package com.rarnu.tophighlight
 
 import android.content.Context
-import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -12,8 +11,9 @@ import com.rarnu.tophighlight.xposed.XpConfig
 
 /**
  * Created by zhaibingjie on 17/2/9.
+ *  private val backDraw: BitmapDrawable,
  */
-class GroupColumn (ctx: Context, private val backDraw: BitmapDrawable, private val textString: String, private val key: String) : RelativeLayout(ctx) {
+class GroupColumn (ctx: Context, private val textString: String, private val key: String) : RelativeLayout(ctx) {
     init {
         initView()
     }
@@ -27,7 +27,7 @@ class GroupColumn (ctx: Context, private val backDraw: BitmapDrawable, private v
             if (key.contains(XpConfig.KEY_DING)) {
                 var number = key.last().toInt()
                 setBackgroundColor(XpConfig.topColors[number - 48])
-                background = backDraw
+                //if (backDraw != null) background = backDraw
                 this@with.findViewById(R.id.view_highcolor).setBackgroundColor(XpConfig.topPressColors[number - 48])
             }
 

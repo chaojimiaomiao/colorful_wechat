@@ -3,17 +3,16 @@ package com.rarnu.tophighlight
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.Toolbar
 import android.text.SpannableString
 import android.text.util.Linkify
-import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -27,10 +26,7 @@ import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
-import java.util.*
 import kotlin.concurrent.thread
-
-
 
 
 class MainActivity : Activity(), View.OnClickListener {
@@ -42,7 +38,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private var chkDarkStatusBarText: CheckBox? = null
     private var tvTitle: TextView? = null
     private var bottomBar: ImageView? = null
-    // private var scrollView: NestedScrollView? = null
+    private var scrollView: NestedScrollView? = null
 
     private var fabTheme: FloatingActionButton? = null
     private var fabFeedback: FloatingActionButton? = null
@@ -98,20 +94,20 @@ class MainActivity : Activity(), View.OnClickListener {
         }
 
         thread {
-            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.yinghua)
-            ImageUtil.saveImage(bitmap, "yinghua")
-            XpConfig.bottomBarPath = Environment.getExternalStorageDirectory().absolutePath + "/colorful/yinghua.jpg"
-            Log.d("", "path: " + XpConfig.bottomBarPath)
-            XpConfig.saveBottomBar(this)
-            runOnUiThread { toolBar?.setBackground(BitmapDrawable(bitmap)) }
+            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
+            ImageUtil.saveImage(bitmap, "baiyinghua")
+            XpConfig.listviewPath = Environment.getExternalStorageDirectory().absolutePath + "/colorful/baiyinghua.jpg"
+            XpConfig.saveList(this)
+            //XpConfig.saveBottomBar(this)
+            //runOnUiThread { toolBar?.setBackground(BitmapDrawable(bitmap)) }
 
-            var bitmap2 = BitmapFactory.decodeResource(resources, R.drawable.fivecolumn)
+            /*var bitmap2 = BitmapFactory.decodeResource(resources, R.drawable.fivecolumn)
             ImageUtil.saveImage(bitmap2, "fivecolumn")
             var bitList = ImageUtil.picToDrawables("fivecolumn", 5)
 
             runOnUiThread {
                 initDingGroup(bitList, 5)
-            }
+            }*/
         }
     }
 
@@ -123,7 +119,7 @@ class MainActivity : Activity(), View.OnClickListener {
         initColumnView(R.drawable.mac, R.string.view_mac_login, XpConfig.KEY_MAC_COLOR)
         //替换掉R.id.d3o的背景色
         initColumnView(R.drawable.reader, R.string.view_top_reader, XpConfig.KEY_TOP_READER_COLOR)
-        //initDingGroup()
+        initDingGroup(10)
         initBottomBar()
     }
 
@@ -147,9 +143,10 @@ class MainActivity : Activity(), View.OnClickListener {
         layMain?.addView(columnView)
     }
 
-    private fun initDingGroup(bitmapList : ArrayList<Bitmap>, nums :Int) {
+    private fun initDingGroup(nums :Int) {//bitmapList : ArrayList<Bitmap>,
         (0..(nums -1)).forEach {
-            val colorItem = GroupColumn(this, BitmapDrawable(bitmapList[it]), getString(R.string.ding_column) +"  $it", "${XpConfig.KEY_DING}$it")
+            // BitmapDrawable(bitmapList[it]),
+            val colorItem = GroupColumn(this, getString(R.string.ding_column) +"  $it", "${XpConfig.KEY_DING}$it")
             colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             layMain?.addView(colorItem)
         }

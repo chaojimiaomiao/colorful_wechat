@@ -13,7 +13,7 @@ import de.robv.android.xposed.XposedHelpers
 object HookTopHighlight {
 
     /**
-     * 此处是hook置顶的群
+     * 此处是hook置顶的群和普通的群
      */
     fun hookTopHighlight(classLoader: ClassLoader?) {
         XposedHelpers.findAndHookMethod(Versions.conversationAdapter, classLoader, "getView", Integer.TYPE, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {

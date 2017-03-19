@@ -41,6 +41,7 @@ class XpMainHook : IXposedHookLoadPackage {
             HookStatusbar.hookStatusbar(param.classLoader)
             HookSettings.hookSettings(param.classLoader)
             HookTabView.hookTabView(param.classLoader)
+            HookListBack.hookFirstPageBackground(param.classLoader)
         }
 
     }

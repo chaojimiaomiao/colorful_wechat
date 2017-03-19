@@ -31,11 +31,13 @@ object XpConfig {
         normalColor = prefs.getInt(KEY_NORMAL_COLOR, defaultNormalColor)
         normalPressColor = prefs.getInt(KEY_NORMAL_PRESS_COLOR, defaultNormalPressColor)
 
-        (0..3).forEach {
+        /*(0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
-        }
+        }*/
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
+
+        listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
     }
 
     fun load(ctx: Context) {
@@ -104,6 +106,14 @@ object XpConfig {
         editor.apply()
     }
 
+    fun saveList(ctx: Context) {
+        val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        var editor = prefs.edit()
+        editor.putString(KEY_LIST_PICPATH, listviewPath)
+                .apply()
+        editor.apply()
+    }
+
     val PKGNAME = "com.rarnu.tophighlight"
     val PREF = "settings"
 
@@ -121,6 +131,7 @@ object XpConfig {
     val KEY_TOP_READER_COLOR = "top_reader_color"
     val KEY_TOP_READER_PRESS_COLOR = "top_reader_press_color"
 
+    val KEY_LIST_PICPATH = "list_path"
     val KEY_BTBAR_PICPATH = "bottom_path"
     val KEY_STATUBAR_PICPATH = "status_bar_path"
     val KEY_NORMAL_COLOR = "normal_color"
@@ -129,6 +140,8 @@ object XpConfig {
     val KEY_DING = "ding"
 
     val KEY_PRESS_DING = "ding_press"
+
+    var listviewPath = ""
 
     // 状态栏颜色
     val defaultStatusBarColor = 0xffffc7c8.toInt()
@@ -184,7 +197,18 @@ object XpConfig {
             0xffeeeeee.toInt(),
             0xffeeeeee.toInt(),
             0xffeeeeee.toInt())
-    var topColors = defaultTopColors
+    val transTopColors = arrayOf(
+            0x00ffffff,
+            0x00ffffff,
+            0x00ffffff,
+            0x00ffffff,
+            0x00ffffff,
+            0x00ffffff,
+            0x00ffffff,
+            0x00ffffff,
+            0x00ffffff,
+            0x00ffffff)
+    var topColors = transTopColors
 
     // 默认的置顶项点击时的高亮颜色，可以修改
     val defaultTopPressColors = arrayOf(

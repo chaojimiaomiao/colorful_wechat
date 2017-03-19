@@ -1,7 +1,5 @@
 package com.rarnu.tophighlight.xposed
 
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.view.ViewGroup
 import de.robv.android.xposed.XC_MethodHook
@@ -22,9 +20,9 @@ object HookTabView {
                 var aVar = param?.result
                 var ohU = XposedHelpers.getObjectField(aVar, "ohU") as View
                 ohU.setBackgroundColor(XpConfig.bottomBarColor)
-                var backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
+                /*var backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
                 val drawable = BitmapDrawable(backBitmap)
-                ohU.background = drawable
+                ohU.background = drawable*/
             }
         })
     }
