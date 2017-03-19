@@ -27,6 +27,10 @@ object XpConfig {
         readerColor = prefs.getInt(KEY_TOP_READER_COLOR, defaultReaderColor)
         readerPressColor = prefs.getInt(KEY_TOP_READER_PRESS_COLOR, defaultReaderPressColor)
         bottomBarColor = prefs.getInt(KEY_BOTTOMBAR_COLOR, Color.WHITE)
+
+        normalColor = prefs.getInt(KEY_NORMAL_COLOR, defaultNormalColor)
+        normalPressColor = prefs.getInt(KEY_NORMAL_PRESS_COLOR, defaultNormalPressColor)
+
         (0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
@@ -46,6 +50,10 @@ object XpConfig {
         readerColor = prefs.getInt(KEY_TOP_READER_COLOR, defaultReaderColor)
         readerPressColor = prefs.getInt(KEY_TOP_READER_PRESS_COLOR, defaultReaderPressColor)
         bottomBarColor = prefs.getInt(KEY_BOTTOMBAR_COLOR, Color.WHITE)
+
+        normalColor = prefs.getInt(KEY_NORMAL_COLOR, defaultNormalColor)
+        normalPressColor = prefs.getInt(KEY_NORMAL_PRESS_COLOR, defaultNormalPressColor)
+
         (0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
@@ -64,6 +72,9 @@ object XpConfig {
                 .putInt(KEY_MAC_PRESS_COLOR, macPressColor)
                 .putInt(KEY_TOP_READER_COLOR, readerColor)
                 .putInt(KEY_TOP_READER_PRESS_COLOR, readerPressColor)
+                .putInt(KEY_NORMAL_COLOR, normalColor)
+                .putInt(KEY_NORMAL_PRESS_COLOR, normalPressColor)
+                .putInt(KEY_BOTTOMBAR_COLOR, bottomBarColor)
                 .apply()
     }
 
@@ -112,6 +123,8 @@ object XpConfig {
 
     val KEY_BTBAR_PICPATH = "bottom_path"
     val KEY_STATUBAR_PICPATH = "status_bar_path"
+    val KEY_NORMAL_COLOR = "normal_color"
+    val KEY_NORMAL_PRESS_COLOR = "normal_press_color"
 
     val KEY_DING = "ding"
 
@@ -152,6 +165,12 @@ object XpConfig {
     var readerColor = defaultReaderColor
     var defaultReaderPressColor = 0xffd9d9d9.toInt()
     var readerPressColor = defaultReaderPressColor
+
+    // 普通的群或个人
+    var defaultNormalColor = 0xfff5f5f5.toInt()
+    var normalColor = defaultNormalColor
+    var defaultNormalPressColor = 0xffd9d9d9.toInt()
+    var normalPressColor = defaultNormalPressColor
 
     // 置顶的群或者个人
     val defaultTopColors = arrayOf(
