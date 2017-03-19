@@ -80,6 +80,14 @@ object XpConfig {
         val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         var editor = prefs.edit()
         editor.putInt(KEY_BOTTOMBAR_COLOR, bottomBarColor)
+                .apply()
+        editor.apply()
+    }
+
+    fun saveYinghua(ctx: Context) {
+        val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        var editor = prefs.edit()
+        editor.putString(KEY_STATUBAR_COLOR, statusBarPath)
                 .putString(KEY_BTBAR_PICPATH, bottomBarPath)
                 .apply()
         editor.apply()
@@ -103,6 +111,7 @@ object XpConfig {
     val KEY_TOP_READER_PRESS_COLOR = "top_reader_press_color"
 
     val KEY_BTBAR_PICPATH = "bottom_path"
+    val KEY_STATUBAR_PICPATH = "status_bar_path"
 
     val KEY_DING = "ding"
 
@@ -111,6 +120,7 @@ object XpConfig {
     // 状态栏颜色
     val defaultStatusBarColor = 0xffffc7c8.toInt()
     var statusBarColor = defaultStatusBarColor
+    var statusBarPath = ""
 
     // 底部tab
     var bottomBarColor = 0xffffffff.toInt()

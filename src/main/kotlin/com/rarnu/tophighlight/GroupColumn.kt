@@ -1,6 +1,7 @@
 package com.rarnu.tophighlight
 
 import android.content.Context
+import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
@@ -12,7 +13,7 @@ import com.rarnu.tophighlight.xposed.XpConfig
 /**
  * Created by zhaibingjie on 17/2/9.
  */
-class GroupColumn (ctx: Context, private val resourceId: Int, private val textString: String, private val key: String) : RelativeLayout(ctx) {
+class GroupColumn (ctx: Context, private val backDraw: BitmapDrawable, private val textString: String, private val key: String) : RelativeLayout(ctx) {
     init {
         initView()
     }
@@ -26,11 +27,12 @@ class GroupColumn (ctx: Context, private val resourceId: Int, private val textSt
             if (key.contains(XpConfig.KEY_DING)) {
                 var number = key.last().toInt()
                 setBackgroundColor(XpConfig.topColors[number - 48])
+                background = backDraw
                 this@with.findViewById(R.id.view_highcolor).setBackgroundColor(XpConfig.topPressColors[number - 48])
             }
 
             (findViewById(R.id.group_name) as TextView?)?.text = textString
-            (findViewById(R.id.group_image) as ImageView?)?.setImageResource(resourceId)
+            (findViewById(R.id.group_image) as ImageView?)?.setImageResource(R.drawable.group_avatar)
             setOnClickListener { UIUtils.showDialog(context, getPickerClickListener(this@with)) }
             setOnLongClickListener {
                 UIUtils.showDialog(context, getPickerClickListener(this@with.findViewById(R.id.view_highcolor), true), true)

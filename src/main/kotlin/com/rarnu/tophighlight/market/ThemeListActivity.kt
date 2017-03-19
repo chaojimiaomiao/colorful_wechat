@@ -5,11 +5,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.GridView
-import android.widget.ListView
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.WthApi
@@ -40,7 +38,13 @@ class ThemeListActivity : BaseMarkerActivity() {
         adapterTheme = ThemeListAdapter(this, listTheme)
         gvTheme?.adapter = adapterTheme
 
-        loadThemeList()
+        //loadThemeList()
+        loadLocalThemeList()
+    }
+
+    private fun loadLocalThemeList() {
+        listTheme?.add(LocalTheme.themePurple)
+        adapterTheme?.setList(listTheme)
     }
 
     private fun loadThemeList() {

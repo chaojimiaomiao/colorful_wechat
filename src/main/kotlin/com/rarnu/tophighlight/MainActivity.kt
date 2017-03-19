@@ -3,14 +3,17 @@ package com.rarnu.tophighlight
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.support.v7.widget.Toolbar
 import android.text.SpannableString
 import android.text.util.Linkify
+import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
@@ -19,16 +22,18 @@ import android.widget.TextView
 import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.market.ThemeListActivity
+import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
+import java.util.*
 import kotlin.concurrent.thread
 
 
 
 
 class MainActivity : Activity(), View.OnClickListener {
-
 
     private var layMain: LinearLayout? = null
 
@@ -91,6 +96,23 @@ class MainActivity : Activity(), View.OnClickListener {
                     })
                     .show()
         }
+
+        thread {
+            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.yinghua)
+            ImageUtil.saveImage(bitmap, "yinghua")
+            XpConfig.bottomBarPath = Environment.getExternalStorageDirectory().absolutePath + "/colorful/yinghua.jpg"
+            Log.d("", "path: " + XpConfig.bottomBarPath)
+            XpConfig.saveBottomBar(this)
+            runOnUiThread { toolBar?.setBackground(BitmapDrawable(bitmap)) }
+
+            var bitmap2 = BitmapFactory.decodeResource(resources, R.drawable.fivecolumn)
+            ImageUtil.saveImage(bitmap2, "fivecolumn")
+            var bitList = ImageUtil.picToDrawables("fivecolumn", 5)
+
+            runOnUiThread {
+                initDingGroup(bitList, 5)
+            }
+        }
     }
 
     private fun initScrollView() {
@@ -101,7 +123,7 @@ class MainActivity : Activity(), View.OnClickListener {
         initColumnView(R.drawable.mac, R.string.view_mac_login, XpConfig.KEY_MAC_COLOR)
         //替换掉R.id.d3o的背景色
         initColumnView(R.drawable.reader, R.string.view_top_reader, XpConfig.KEY_TOP_READER_COLOR)
-        initDingGroup()
+        //initDingGroup()
         initBottomBar()
     }
 
@@ -125,9 +147,9 @@ class MainActivity : Activity(), View.OnClickListener {
         layMain?.addView(columnView)
     }
 
-    private fun initDingGroup() {
-        (0..3).forEach {
-            val colorItem = GroupColumn(this, R.drawable.group_avatar, "置顶栏目  $it", "${XpConfig.KEY_DING}$it")
+    private fun initDingGroup(bitmapList : ArrayList<Bitmap>, nums :Int) {
+        (0..(nums -1)).forEach {
+            val colorItem = GroupColumn(this, BitmapDrawable(bitmapList[it]), getString(R.string.ding_column) +"  $it", "${XpConfig.KEY_DING}$it")
             colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
             layMain?.addView(colorItem)
         }
@@ -139,8 +161,8 @@ class MainActivity : Activity(), View.OnClickListener {
             R.id.chkDarkStatusBar -> XpConfig.darkerStatusBar = chkDarkStatusBar!!.isChecked
             R.id.chkDarkStatusBarText -> XpConfig.darkStatusBarText = chkDarkStatusBarText!!.isChecked
             R.id.fabThemes -> {
-                //startActivity(Intent(this, ThemeListActivity::class.java))
-                startActivity(Intent(this, MyReactActivity::class.java))
+                startActivity(Intent(this, ThemeListActivity::class.java))
+                //startActivity(Intent(this, MyReactActivity::class.java))
             }
             R.id.fabFeedback -> {
                 startActivity(Intent(this, FeedbackActivity::class.java))
