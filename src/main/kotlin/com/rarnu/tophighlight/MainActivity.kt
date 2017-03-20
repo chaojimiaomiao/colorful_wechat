@@ -14,15 +14,11 @@ import android.support.v7.widget.Toolbar
 import android.text.SpannableString
 import android.text.util.Linkify
 import android.view.View
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.ThemeListActivity
-import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
@@ -93,22 +89,26 @@ class MainActivity : Activity(), View.OnClickListener {
                     .show()
         }
 
-        thread {
+        XpConfig.listviewPath = Environment.getExternalStorageDirectory().absolutePath + "/colorful/baiyinghua.jpg"
+        XpConfig.saveList(this)
+        scrollView = findViewById(R.id.first_scroll) as NestedScrollView
+        scrollView?.setBackground(getDrawable(R.drawable.baiyinghua));
+
+        /*thread {
             var bitmap = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
             ImageUtil.saveImage(bitmap, "baiyinghua")
-            XpConfig.listviewPath = Environment.getExternalStorageDirectory().absolutePath + "/colorful/baiyinghua.jpg"
-            XpConfig.saveList(this)
+
             //XpConfig.saveBottomBar(this)
             //runOnUiThread { toolBar?.setBackground(BitmapDrawable(bitmap)) }
 
-            /*var bitmap2 = BitmapFactory.decodeResource(resources, R.drawable.fivecolumn)
+            *//*var bitmap2 = BitmapFactory.decodeResource(resources, R.drawable.fivecolumn)
             ImageUtil.saveImage(bitmap2, "fivecolumn")
             var bitList = ImageUtil.picToDrawables("fivecolumn", 5)
 
             runOnUiThread {
                 initDingGroup(bitList, 5)
-            }*/
-        }
+            }*//*
+        }*/
     }
 
     private fun initScrollView() {
@@ -119,8 +119,24 @@ class MainActivity : Activity(), View.OnClickListener {
         initColumnView(R.drawable.mac, R.string.view_mac_login, XpConfig.KEY_MAC_COLOR)
         //替换掉R.id.d3o的背景色
         initColumnView(R.drawable.reader, R.string.view_top_reader, XpConfig.KEY_TOP_READER_COLOR)
-        initDingGroup(10)
+
+        initDingGroupEntry()
+
         initBottomBar()
+    }
+
+    private fun initDingGroupEntry() {
+        val linearLayout = View.inflate(this, R.layout.group_item, null)
+        val layoutParams = LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(66))
+        (linearLayout.findViewById(R.id.group_name) as TextView?)?.text = getString(R.string.ding_group_entry)
+        (linearLayout.findViewById(R.id.group_image) as ImageView?)?.setImageResource(R.drawable.group_avatar)
+        linearLayout.setOnClickListener { startActivity(Intent(this, TopListActivity::class.java)) }
+        /*with(linearLayout) {
+            layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(66))
+            linearLayout.addView(this@with)
+        }*/
+        //colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        layMain?.addView(linearLayout, layoutParams)
     }
 
     private fun initBottomBar() {
@@ -141,16 +157,6 @@ class MainActivity : Activity(), View.OnClickListener {
         val columnView = ColumnView(this, icon, getString(title), key)
         columnView.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         layMain?.addView(columnView)
-    }
-
-    private fun initDingGroup(nums :Int) {//bitmapList : ArrayList<Bitmap>,
-        (0..(nums -1)).forEach {
-            // BitmapDrawable(bitmapList[it]),
-            val colorItem = GroupColumn(this, getString(R.string.ding_column) +"  $it", "${XpConfig.KEY_DING}$it")
-            colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            layMain?.addView(colorItem)
-        }
-
     }
 
     override fun onClick(v: View) {

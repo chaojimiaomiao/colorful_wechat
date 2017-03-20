@@ -42,7 +42,6 @@
 
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/first_scroll"
-            android:background="@drawable/baiyinghua"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/first_toolbar">

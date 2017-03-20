@@ -56,10 +56,10 @@ object XpConfig {
         normalColor = prefs.getInt(KEY_NORMAL_COLOR, defaultNormalColor)
         normalPressColor = prefs.getInt(KEY_NORMAL_PRESS_COLOR, defaultNormalPressColor)
 
-        (0..3).forEach {
+        /*(0..3).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
-        }
+        }*/
 
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
     }
@@ -83,7 +83,7 @@ object XpConfig {
     fun saveGroup(ctx: Context) {
         val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         var editor = prefs.edit()
-        (0..3).forEach {
+        (0..9).forEach {
             editor.putInt("${XpConfig.KEY_DING}$it", topColors[it])
         }
         editor.apply()
@@ -180,7 +180,7 @@ object XpConfig {
     var readerPressColor = defaultReaderPressColor
 
     // 普通的群或个人
-    var defaultNormalColor = 0xfff5f5f5.toInt()
+    var defaultNormalColor = 0x00ffffff
     var normalColor = defaultNormalColor
     var defaultNormalPressColor = 0xffd9d9d9.toInt()
     var normalPressColor = defaultNormalPressColor

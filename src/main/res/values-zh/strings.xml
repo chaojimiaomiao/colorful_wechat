@@ -30,6 +30,8 @@
     <string name="view_select_background_color">选择背景色</string>
     <string name="view_select_press_color">选择选中时的颜色</string>
 
+    <string name="view_select_top_color">选择置顶色</string>
+
     <string name="menu_profile">用户信息</string>
 
     <string name="alert_hint">提示</string>
