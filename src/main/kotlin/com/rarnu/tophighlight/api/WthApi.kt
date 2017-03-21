@@ -1,6 +1,5 @@
 package com.rarnu.tophighlight.api
 
-import android.support.annotation.IntegerRes
 import java.io.Serializable
 
 /**
@@ -102,6 +101,15 @@ object WthApi {
             var comment: String?) : Serializable
 
     data class ThemeINI(
+            //新增的
+            var type: Int,
+            var normalColor: Int,
+            var normalPressColor: Int,
+            var statusBarPath: String,
+            var bottomBarPath: String,
+            var listPath: String,
+
+            //原有的
             var statusBarColor: Int,
             var showDivider: Boolean,
             var dividerColor: Int,

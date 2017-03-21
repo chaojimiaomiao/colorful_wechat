@@ -45,6 +45,9 @@
     <string name="ding_column">Ding Column</string>
     <string name="ding_group_entry">Ding Group Entry</string>
 
+
+    <string name="normal_group">Normal Group</string>
+
     <string name="alert_xposed">
         <font color='#555'>
             Hi~ This software need root and xposed。If you havent xposed, you can goto download by\n

@@ -123,6 +123,8 @@ class FeedbackActivity : AppCompatActivity() {
                     } else if (pic2?.tag == null) {
                         pic2?.setImageURI(uri)
                         pic2?.tag = absolutePath
+                        XpConfig.listviewPath = absolutePath!!
+                        XpConfig.saveList(this)
                     } else if (pic3?.tag == null) {
                         pic3?.setImageURI(uri)
                         pic3?.tag = absolutePath

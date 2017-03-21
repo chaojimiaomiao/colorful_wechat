@@ -44,6 +44,8 @@
     <string name="toast_login_failed">登录失败</string>
     <string name="ding_column">置顶栏目</string>
 
+    <string name="normal_group">普通栏目</string>
+
     <string name="alert_xposed">
         <font color='#555'>
             Hi~ 此软件需要root并安装xposed插件才能使用哟。你还未安装xposed框架,可以去酷安下载。无需root的版本请耐心等待。\n

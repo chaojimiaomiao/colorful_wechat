@@ -1,11 +1,11 @@
 package com.rarnu.tophighlight.xposed
 
 import android.app.Activity
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.graphics.drawable.InsetDrawable
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import com.rarnu.tophighlight.util.SystemUtils
@@ -75,7 +75,10 @@ object HookStatusbar {
                 val actionBarContainer = XposedHelpers.getObjectField(param.thisObject, Versions.actionBarContainer) as ViewGroup?
                 if (actionBarContainer != null) {
                     val actionbarView = actionBarContainer.findViewById(Versions.actionBarViewId) as ViewGroup
-                    actionbarView.setBackgroundColor(XpConfig.statusBarColor)
+                    var backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
+                    val drawable = BitmapDrawable(backBitmap)
+                    actionbarView.background = drawable
+                    //actionbarView.setBackgroundColor(XpConfig.statusBarColor)
 
                     val divider = actionbarView.findViewById(Versions.dividerId)
                     divider.visibility = if (XpConfig.showDivider) View.VISIBLE else View.INVISIBLE

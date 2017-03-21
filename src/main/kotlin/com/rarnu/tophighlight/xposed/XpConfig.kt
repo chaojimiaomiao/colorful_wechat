@@ -36,7 +36,6 @@ object XpConfig {
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
         }*/
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
-
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
     }
 
@@ -60,8 +59,8 @@ object XpConfig {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
         }*/
-
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
+        listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
     }
 
     fun save(ctx: Context) {
@@ -134,6 +133,8 @@ object XpConfig {
     val KEY_LIST_PICPATH = "list_path"
     val KEY_BTBAR_PICPATH = "bottom_path"
     val KEY_STATUBAR_PICPATH = "status_bar_path"
+
+    val KEY_NORMAL = "normal"
     val KEY_NORMAL_COLOR = "normal_color"
     val KEY_NORMAL_PRESS_COLOR = "normal_press_color"
 
@@ -180,7 +181,7 @@ object XpConfig {
     var readerPressColor = defaultReaderPressColor
 
     // 普通的群或个人
-    var defaultNormalColor = 0x00ffffff
+    var defaultNormalColor = 0x00ffffff.toInt()
     var normalColor = defaultNormalColor
     var defaultNormalPressColor = 0xffd9d9d9.toInt()
     var normalPressColor = defaultNormalPressColor

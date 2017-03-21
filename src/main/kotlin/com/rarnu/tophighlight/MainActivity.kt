@@ -19,6 +19,7 @@ import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.ThemeListActivity
+import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
@@ -91,8 +92,15 @@ class MainActivity : Activity(), View.OnClickListener {
 
         XpConfig.listviewPath = Environment.getExternalStorageDirectory().absolutePath + "/colorful/baiyinghua.jpg"
         XpConfig.saveList(this)
+        var listviewBitmap = BitmapFactory.decodeFile(XpConfig.listviewPath)
+        val drawable = BitmapDrawable(listviewBitmap)
         scrollView = findViewById(R.id.first_scroll) as NestedScrollView
-        scrollView?.setBackground(getDrawable(R.drawable.baiyinghua));
+        scrollView?.setBackground(drawable)
+
+        thread {
+            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
+            ImageUtil.saveImage(bitmap, "baiyinghua")
+        }
 
         /*thread {
             var bitmap = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
@@ -122,6 +130,8 @@ class MainActivity : Activity(), View.OnClickListener {
 
         initDingGroupEntry()
 
+        initNormalGroup(5)
+
         initBottomBar()
     }
 
@@ -137,6 +147,15 @@ class MainActivity : Activity(), View.OnClickListener {
         }*/
         //colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         layMain?.addView(linearLayout, layoutParams)
+    }
+
+    private fun initNormalGroup(nums :Int) {
+        (0..(nums -1)).forEach {
+            val colorItem = GroupColumn(this, getString(R.string.normal_group) +"  $it", XpConfig.KEY_NORMAL_COLOR)
+            colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            layMain?.addView(colorItem)
+        }
+
     }
 
     private fun initBottomBar() {

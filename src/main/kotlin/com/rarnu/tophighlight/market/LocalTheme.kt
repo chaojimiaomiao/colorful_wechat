@@ -8,6 +8,12 @@ import com.rarnu.tophighlight.api.WthApi
 object LocalTheme {
 
     var themePurple = WthApi.ThemeINI(
+            2,
+            0xffffc7c8.toInt(),
+            0xffffc7c8.toInt(),
+            "",
+            "",
+            "",
             0xffffc7c8.toInt(),//var statusBarColo
             false, //var showDivider: Boolean,
             0xffffc7c8.toInt(),//var dividerColor: Int,

@@ -23,6 +23,7 @@ object ImageUtil {
         }
         val fileName = name + ".jpg"
         val file = File(appDir, fileName)
+        if (file.exists()) return
         try {
             val fos = FileOutputStream(file)
             bmp.compress(CompressFormat.JPEG, 100, fos)
