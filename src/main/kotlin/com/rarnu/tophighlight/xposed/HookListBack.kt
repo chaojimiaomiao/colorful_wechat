@@ -14,11 +14,11 @@ object HookListBack {
 
     //bCn
     fun hookFirstPageBackground(classLoader: ClassLoader?) {
-        XposedHelpers.findAndHookMethod(Versions.listviewAct, classLoader, "bCn", object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(Versions.listviewAct, classLoader, Versions.listviewBackMethod, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
                 XpConfig.xposedload()
-                val pqm = XposedHelpers.getObjectField(param?.thisObject, "pqm") as ListView?
+                val pqm = XposedHelpers.getObjectField(param?.thisObject, Versions.listviewBackField) as ListView?
                 var backBitmap = BitmapFactory.decodeFile(XpConfig.listviewPath)
                 val drawable = BitmapDrawable(backBitmap)
                 pqm?.background = drawable

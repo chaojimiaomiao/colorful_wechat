@@ -18,26 +18,26 @@ object HookSettings {
 
     fun hookSettings(classLoader: ClassLoader?) {
 
-        XposedHelpers.findAndHookMethod("com.tencent.mm.ui.base.MMListPopupWindow", classLoader, "setAdapter", ListAdapter::class.java, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(Versions.popupWindowClass, classLoader, "setAdapter", ListAdapter::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun beforeHookedMethod(param: MethodHookParam) {
                 val count = XposedHelpers.callMethod(param.args[0], "getCount") as Int
                 if (count == 5) {
                     // add menu item
-                    val ole = XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.args[0], "olj"), "ole")
-                    val d = XposedHelpers.newInstance(XposedHelpers.findClass("com.tencent.mm.ui.t\$d", classLoader), 99, "多彩微信", "", 0x7f07027d, 0)
-                    val c = XposedHelpers.newInstance(XposedHelpers.findClass("com.tencent.mm.ui.t\$c", classLoader), d)
+                    val ole = XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.args[0], Versions.popupField), Versions.popupMenuField)
+                    val d = XposedHelpers.newInstance(XposedHelpers.findClass(Versions.popupMenuItemClass, classLoader), 99, "多彩微信", "", Versions.popupMenuItemId, 0)
+                    val c = XposedHelpers.newInstance(XposedHelpers.findClass(Versions.popupMenuItemContainer, classLoader), d)
                     XposedHelpers.callMethod(ole, "put", 5, c)
                 }
             }
         })
 
-        XposedHelpers.findAndHookMethod("com.tencent.mm.ui.t\$a", classLoader, "getView", Integer.TYPE, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(Versions.popupWindowAdapter, classLoader, "getView", Integer.TYPE, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: MethodHookParam) {
                 val v = param.result as View
                 val txt = v.findViewById(0x7f1000dd) as TextView?
-                val ctx = XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, "olj"), "mContext") as Context?
+                val ctx = XposedHelpers.getObjectField(XposedHelpers.getObjectField(param.thisObject, Versions.popupField), "mContext") as Context?
                 if (txt?.text.toString() == "多彩微信") {
                     v.setOnClickListener {
                         val inMain = Intent("com.rarnu.tophighlight.MAIN")

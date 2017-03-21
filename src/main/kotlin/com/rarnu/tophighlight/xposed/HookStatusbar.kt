@@ -92,12 +92,12 @@ object HookStatusbar {
             }
         })
 
-        XposedHelpers.findAndHookMethod("com.tencent.mm.ui.tools.q", classLoader, "dQ", object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(Versions.toolClass, classLoader, Versions.toolMethod, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: MethodHookParam) {
                 val padding = (12 * density + 0.5f).toInt()
                 val d = InsetDrawable(ColorDrawable(XpConfig.statusBarColor), padding, padding, padding, padding)
-                XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, "oQs"), "setBackgroundDrawable", d)
+                XposedHelpers.callMethod(XposedHelpers.getObjectField(param.thisObject, Versions.toolField), "setBackgroundDrawable", d)
             }
         })
 

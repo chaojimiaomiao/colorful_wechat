@@ -10,7 +10,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
  */
 class XpMainHook : IXposedHookLoadPackage {
 
-    private val _supportVersions = arrayOf("6.5.4")
+    private val _supportVersions = arrayOf("6.5.4", "6.5.6")
 
     @Throws(Throwable::class)
     override fun handleLoadPackage(param: XC_LoadPackage.LoadPackageParam) {
