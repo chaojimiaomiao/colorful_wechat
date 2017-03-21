@@ -77,8 +77,8 @@ object HookStatusbar {
                     val actionbarView = actionBarContainer.findViewById(Versions.actionBarViewId) as ViewGroup
                     var backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
                     val drawable = BitmapDrawable(backBitmap)
-                    actionbarView.background = drawable
-                    //actionbarView.setBackgroundColor(XpConfig.statusBarColor)
+                    // actionbarView.background = drawable
+                    actionbarView.setBackgroundColor(XpConfig.statusBarColor)
 
                     val divider = actionbarView.findViewById(Versions.dividerId)
                     divider.visibility = if (XpConfig.showDivider) View.VISIBLE else View.INVISIBLE
