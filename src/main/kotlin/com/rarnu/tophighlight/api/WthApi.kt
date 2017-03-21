@@ -102,6 +102,8 @@ object WthApi {
 
     data class ThemeINI(
             //新增的
+            var themeId: Int,
+            var themeName: String?,
             var type: Int,
             var normalColor: Int,
             var normalPressColor: Int,
