@@ -1,13 +1,11 @@
 package com.rarnu.tophighlight.market
 
-import com.rarnu.tophighlight.api.WthApi
-
 /**
  * Created by zhaibingjie on 17/3/19.
  */
 object LocalTheme {
 
-    var themePurple = WthApi.ThemeINI(
+    /*var themePurple = WthApi.ThemeINI(
             2,
             0xffffc7c8.toInt(),
             0xffffc7c8.toInt(),
@@ -44,5 +42,5 @@ object LocalTheme {
             0xffffc7c8.toInt(),//var topPressColors7: Int,
             0xffffc7c8.toInt(),//var topPressColors8: Int,
             0xffffc7c8.toInt()//var topPressColors9: Int
-    )
+    )*/
 }

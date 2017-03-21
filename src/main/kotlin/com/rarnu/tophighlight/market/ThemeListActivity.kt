@@ -43,8 +43,8 @@ class ThemeListActivity : BaseMarkerActivity() {
     }
 
     private fun loadLocalThemeList() {
-        listTheme?.add(LocalTheme.themePurple)
-        adapterTheme?.setList(listTheme)
+        //listTheme?.add(LocalTheme.themePurple)
+        //adapterTheme?.setList(listTheme)
     }
 
     private fun loadThemeList() {

@@ -8,7 +8,6 @@ import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.Toolbar
 import android.text.SpannableString
@@ -90,16 +89,21 @@ class MainActivity : Activity(), View.OnClickListener {
                     .show()
         }
 
-        XpConfig.listviewPath = Environment.getExternalStorageDirectory().absolutePath + "/colorful/baiyinghua.jpg"
-        XpConfig.saveList(this)
-        var listviewBitmap = BitmapFactory.decodeFile(XpConfig.listviewPath)
-        val drawable = BitmapDrawable(listviewBitmap)
-        scrollView = findViewById(R.id.first_scroll) as NestedScrollView
-        scrollView?.setBackground(drawable)
-
         thread {
-            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
-            ImageUtil.saveImage(bitmap, "baiyinghua")
+            //写入
+            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.lanbojini)
+            ImageUtil.saveImagePrivate(bitmap, "lanbojini", this)
+            //存
+            XpConfig.listviewPath = filesDir.absolutePath + "/colorful/lanbojini.jpg"
+            XpConfig.saveList(this)
+
+            runOnUiThread {
+                //读取
+                var listviewBitmap = BitmapFactory.decodeFile(XpConfig.listviewPath)
+                val drawable = BitmapDrawable(listviewBitmap)
+                scrollView = findViewById(R.id.first_scroll) as NestedScrollView
+                scrollView?.setBackground(drawable)
+            }
         }
 
         /*thread {

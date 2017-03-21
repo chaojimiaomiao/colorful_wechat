@@ -1,5 +1,6 @@
 package com.rarnu.tophighlight.util
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
@@ -16,8 +17,17 @@ import java.util.*
 
 object ImageUtil {
 
-    fun saveImage(bmp: Bitmap, name:String) {
+    fun saveImagePrivate(bmp: Bitmap, name:String, activity: Activity) {
+        val appDir = File(activity.filesDir, "colorful")
+        saveImage(bmp, name, appDir)
+    }
+
+    fun saveImagePublic(bmp: Bitmap, name:String) {
         val appDir = File(Environment.getExternalStorageDirectory(), "colorful")
+        saveImage(bmp, name, appDir)
+    }
+
+    fun saveImage(bmp: Bitmap, name:String, appDir :File ) {
         if (!appDir.exists()) {
             appDir.mkdir()
         }

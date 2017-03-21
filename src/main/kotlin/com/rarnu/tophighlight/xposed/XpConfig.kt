@@ -85,6 +85,8 @@ object XpConfig {
         (0..9).forEach {
             editor.putInt("${XpConfig.KEY_DING}$it", topColors[it])
         }
+        editor.putInt(XpConfig.KEY_NORMAL_COLOR, XpConfig.normalColor)
+        editor.putInt(XpConfig.KEY_NORMAL_PRESS_COLOR, XpConfig.normalPressColor)
         editor.apply()
     }
 
