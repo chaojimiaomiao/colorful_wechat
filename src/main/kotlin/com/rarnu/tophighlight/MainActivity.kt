@@ -17,6 +17,7 @@ import android.widget.*
 import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.market.LocalTheme
 import com.rarnu.tophighlight.market.ThemeListActivity
 import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
@@ -92,35 +93,24 @@ class MainActivity : Activity(), View.OnClickListener {
         thread {
             //写入
             var bitmap = BitmapFactory.decodeResource(resources, R.drawable.lanbojini)
-            ImageUtil.saveImagePrivate(bitmap, "lanbojini", this)
-            //存
-            XpConfig.listviewPath = filesDir.absolutePath + "/colorful/lanbojini.jpg"
-            XpConfig.saveList(this)
+            if (ImageUtil.saveImagePrivate(bitmap, "lanbojini", this))
+                WthApi.writeThemeToINI(filesDir.absolutePath + "/colorful/car", LocalTheme.themeCar)
+
+            var bitmapF = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
+            if (ImageUtil.saveImagePrivate(bitmapF, "baiyinghua", this))
+                WthApi.writeThemeToINI(filesDir.absolutePath + "/colorful/flower", LocalTheme.themeFlower)
 
             runOnUiThread {
                 //读取
-                var listviewBitmap = BitmapFactory.decodeFile(XpConfig.listviewPath)
-                val drawable = BitmapDrawable(listviewBitmap)
-                scrollView = findViewById(R.id.first_scroll) as NestedScrollView
-                scrollView?.setBackground(drawable)
+                if (XpConfig.ini != null) {
+                    var listviewBitmap = BitmapFactory.decodeFile(XpConfig.ini!!.listPath)//XpConfig.listviewPath
+                    val drawable = BitmapDrawable(listviewBitmap)
+                    scrollView = findViewById(R.id.first_scroll) as NestedScrollView
+                    scrollView?.setBackground(drawable)
+                }
+
             }
         }
-
-        /*thread {
-            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
-            ImageUtil.saveImage(bitmap, "baiyinghua")
-
-            //XpConfig.saveBottomBar(this)
-            //runOnUiThread { toolBar?.setBackground(BitmapDrawable(bitmap)) }
-
-            *//*var bitmap2 = BitmapFactory.decodeResource(resources, R.drawable.fivecolumn)
-            ImageUtil.saveImage(bitmap2, "fivecolumn")
-            var bitList = ImageUtil.picToDrawables("fivecolumn", 5)
-
-            runOnUiThread {
-                initDingGroup(bitList, 5)
-            }*//*
-        }*/
     }
 
     private fun initScrollView() {
@@ -136,6 +126,7 @@ class MainActivity : Activity(), View.OnClickListener {
 
         initNormalGroup(5)
 
+        initLocalTheme()
         initBottomBar()
     }
 
@@ -145,21 +136,54 @@ class MainActivity : Activity(), View.OnClickListener {
         (linearLayout.findViewById(R.id.group_name) as TextView?)?.text = getString(R.string.ding_group_entry)
         (linearLayout.findViewById(R.id.group_image) as ImageView?)?.setImageResource(R.drawable.group_avatar)
         linearLayout.setOnClickListener { startActivity(Intent(this, TopListActivity::class.java)) }
-        /*with(linearLayout) {
-            layoutParams = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(66))
-            linearLayout.addView(this@with)
-        }*/
-        //colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         layMain?.addView(linearLayout, layoutParams)
     }
 
     private fun initNormalGroup(nums :Int) {
-        (0..(nums -1)).forEach {
-            val colorItem = GroupColumn(this, getString(R.string.normal_group) +"  $it", XpConfig.KEY_NORMAL_COLOR)
-            colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            layMain?.addView(colorItem)
-        }
+        val colorItem = GroupColumn(this, getString(R.string.normal_group), XpConfig.KEY_NORMAL_COLOR)
+        colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        layMain?.addView(colorItem)
+    }
 
+    private fun initLocalTheme() {
+        //val ini = WthApi.readThemeFromINI("/sdcard/theme.ini")
+
+        val linearLayoutF = View.inflate(this, R.layout.group_item, null)
+        val layoutParamsF = LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(66))
+        (linearLayoutF.findViewById(R.id.group_name) as TextView?)?.text = "十里桃林"
+        (linearLayoutF.findViewById(R.id.group_image) as ImageView?)?.setImageResource(R.drawable.baiyinghua)
+        var checkboxF = linearLayoutF.findViewById(R.id.view_checkbox) as CheckBox
+        checkboxF.visibility = View.VISIBLE
+        layMain?.addView(linearLayoutF, layoutParamsF)
+        checkboxF.setOnCheckedChangeListener({compoundButton, b ->
+            //存
+            if (b) {
+                XpConfig.listviewPath = filesDir.absolutePath + "/colorful/baiyinghua.jpg"
+                XpConfig.saveList(this)
+                XpConfig.themePath = filesDir.absolutePath + "/colorful/flower"
+            } else {
+                XpConfig.themePath = ""
+            }
+            XpConfig.saveTheme(this)
+        })
+
+        val linearLayout = View.inflate(this, R.layout.group_item, null)
+        val layoutParams = LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(66))
+        (linearLayout.findViewById(R.id.group_name) as TextView?)?.text = "我心飞扬"
+        (linearLayout.findViewById(R.id.group_image) as ImageView?)?.setImageResource(R.drawable.lanbojini)
+        linearLayout.findViewById(R.id.view_checkbox).visibility = View.VISIBLE
+        layMain?.addView(linearLayout, layoutParams)
+        checkboxF.setOnCheckedChangeListener({compoundButton, b ->
+            //存
+            if (b) {
+                XpConfig.listviewPath = filesDir.absolutePath + "/colorful/lanbojini.jpg"
+                XpConfig.saveList(this)
+                XpConfig.themePath = filesDir.absolutePath + "/colorful/car"
+            } else {
+                XpConfig.themePath = ""
+            }
+            XpConfig.saveTheme(this)
+        })
     }
 
     private fun initBottomBar() {

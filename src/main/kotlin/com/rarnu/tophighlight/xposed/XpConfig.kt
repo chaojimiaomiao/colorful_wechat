@@ -3,6 +3,7 @@ package com.rarnu.tophighlight.xposed
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import com.rarnu.tophighlight.api.WthApi
 import de.robv.android.xposed.XSharedPreferences
 
 /**
@@ -17,6 +18,7 @@ object XpConfig {
         prefs.makeWorldReadable()
         prefs.reload()
         // load
+        themePath = prefs.getString(KEY_THEME_PATH, "")
         statusBarColor = prefs.getInt(KEY_STATUBAR_COLOR, defaultStatusBarColor)
         showDivider = prefs.getBoolean(KEY_SHOW_DIVIDER, defaultShowDivider)
         dividerColor = prefs.getInt(KEY_DIVIDER_COLOR, defaultDividerColor)
@@ -37,10 +39,13 @@ object XpConfig {
         }*/
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
+
+        ini = WthApi.readThemeFromINI(themePath)
     }
 
     fun load(ctx: Context) {
         val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        themePath = prefs.getString(KEY_THEME_PATH, "")
         statusBarColor = prefs.getInt(KEY_STATUBAR_COLOR, defaultStatusBarColor)
         showDivider = prefs.getBoolean(KEY_SHOW_DIVIDER, defaultShowDivider)
         dividerColor = prefs.getInt(KEY_DIVIDER_COLOR, defaultDividerColor)
@@ -61,6 +66,7 @@ object XpConfig {
         }*/
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
+        ini = WthApi.readThemeFromINI(themePath)
     }
 
     fun save(ctx: Context) {
@@ -115,8 +121,18 @@ object XpConfig {
         editor.apply()
     }
 
+    fun saveTheme(ctx: Context) {
+        val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        var editor = prefs.edit()
+        editor.putString(KEY_THEME_PATH, themePath)
+                .apply()
+        editor.apply()
+    }
+
     val PKGNAME = "com.rarnu.tophighlight"
     val PREF = "settings"
+
+    private val KEY_THEME_PATH = "theme_path"
 
     private val KEY_STATUBAR_COLOR = "status_bar_color"
     private val KEY_SHOW_DIVIDER = "show_divider"
@@ -144,7 +160,9 @@ object XpConfig {
 
     val KEY_PRESS_DING = "ding_press"
 
+    var ini :WthApi.ThemeINI ?= null
     var listviewPath = ""
+    var themePath = ""
 
     // 状态栏颜色
     val defaultStatusBarColor = 0xffffc7c8.toInt()

@@ -22,6 +22,12 @@ object HookListBack {
                 var backBitmap = BitmapFactory.decodeFile(XpConfig.listviewPath)
                 val drawable = BitmapDrawable(backBitmap)
                 pqm?.background = drawable
+
+                if (XpConfig.ini != null) {
+                    var backBitmap = BitmapFactory.decodeFile(XpConfig.ini!!.listPath)
+                    val drawable = BitmapDrawable(backBitmap)
+                    pqm?.background = drawable
+                }
             }
         })
     }

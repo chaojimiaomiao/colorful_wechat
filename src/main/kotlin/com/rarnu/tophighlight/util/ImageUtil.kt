@@ -17,9 +17,9 @@ import java.util.*
 
 object ImageUtil {
 
-    fun saveImagePrivate(bmp: Bitmap, name:String, activity: Activity) {
+    fun saveImagePrivate(bmp: Bitmap, name:String, activity: Activity) :Boolean {
         val appDir = File(activity.filesDir, "colorful")
-        saveImage(bmp, name, appDir)
+        return saveImage(bmp, name, appDir)
     }
 
     fun saveImagePublic(bmp: Bitmap, name:String) {
@@ -27,13 +27,13 @@ object ImageUtil {
         saveImage(bmp, name, appDir)
     }
 
-    fun saveImage(bmp: Bitmap, name:String, appDir :File ) {
+    fun saveImage(bmp: Bitmap, name:String, appDir :File) :Boolean {
         if (!appDir.exists()) {
             appDir.mkdir()
         }
         val fileName = name + ".jpg"
         val file = File(appDir, fileName)
-        if (file.exists()) return
+        if (file.exists()) return false
         try {
             val fos = FileOutputStream(file)
             bmp.compress(CompressFormat.JPEG, 100, fos)
@@ -44,6 +44,7 @@ object ImageUtil {
         } catch (e: IOException) {
             e.printStackTrace()
         }
+        return true
     }
 
     fun picToDrawables(name:String, nums :Int) : ArrayList<Bitmap> {

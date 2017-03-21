@@ -43,6 +43,9 @@
     <string name="toast_register_failed">注册失败，可能是用户名、昵称或邮箱已被占用</string>
     <string name="toast_login_failed">登录失败</string>
     <string name="ding_column">置顶栏目</string>
+    <string name="ding_group_entry">置顶栏目入口</string>
+
+    <string name="group_chat">群聊</string>
 
     <string name="normal_group">普通栏目</string>
 

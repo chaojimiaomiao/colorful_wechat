@@ -45,6 +45,7 @@
     <string name="ding_column">Ding Column</string>
     <string name="ding_group_entry">Ding Group Entry</string>
 
+    <string name="group_chat">Group Chat</string>
 
     <string name="normal_group">Normal Group</string>
 
@@ -54,5 +55,8 @@
             <a color='#4455cc' href='http://www.coolapk.com/apk/de.robv.android.xposed.installer'>http://www.coolapk.com</a>
         </font>
     </string>
+
+    <string name="theme1">Peach Blossom</string>
+    <string name="theme2">The Car</string>
 
 </resources>
