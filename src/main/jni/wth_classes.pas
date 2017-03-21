@@ -5,7 +5,7 @@ unit wth_classes;
 interface
 
 uses
-  Classes, SysUtils, JNI2, fpjson, strutils, fgl, IniFiles;
+  Classes, SysUtils, JNI2, fpjson, strutils, fgl, IniFiles, FileUtil;
 
 const
   SEC_THEME = 'theme';
@@ -21,6 +21,15 @@ const
   KEY_THEME_BOTTOMBAR_COLOR = 'theme_bottombar_color';
   KEY_THEME_TOP_COLOR = 'theme_top_color_%d';
   KEY_THEME_TOP_PRESS_COLOR = 'theme_top_press_color_%d';
+
+  KEY_THEME_ID = 'theme_id';
+  KEY_THEME_NAME = 'theme_name';
+  KEY_THEME_TYPE = 'theme_type';
+  KEY_THEME_NORMAL_COLOR = 'theme_normal_color';
+  KEY_THEME_NORMAL_PRESS_COLOR = 'theme_normal_press_color';
+  KEY_STATUSBAR_PATH = 'theme_statusbar_path';
+  KEY_BOTTOMBAR_PATH = 'theme_bottombar_path';
+  KEY_LIST_PATH = 'theme_list_path';
 
 type
 
@@ -105,15 +114,22 @@ type
   ThemeIni = class
   private
     FbottomBarColor: Int64;
+    FbottomBarPath: string;
     FdarkerStatusBar: Boolean;
     FdarkStatusBarText: Boolean;
     FdividerColor: Int64;
+    FlistPath: string;
     FmacColor: Int64;
     FmacPressColor: Int64;
+    FnormalColor: Int64;
+    FnormalPressColor: Int64;
     FreaderColor: Int64;
     FreaderPressColor: Int64;
     FshowDivider: Boolean;
     FstatusBarColor: Int64;
+    FstatusBarPath: string;
+    FthemeId: Integer;
+    FthemeName: string;
     FtopColors0: Int64;
     FtopColors1: Int64;
     FtopColors2: Int64;
@@ -134,6 +150,7 @@ type
     FtopPressColors7: Int64;
     FtopPressColors8: Int64;
     FtopPressColors9: Int64;
+    F_type: Integer;
   public
     class function fromJObject(env: PJNIEnv; obj: jobject): ThemeIni;
     class function fromINI(path: string): ThemeIni;
@@ -170,6 +187,15 @@ type
     property topPressColors7: Int64 read FtopPressColors7 write FtopPressColors7;
     property topPressColors8: Int64 read FtopPressColors8 write FtopPressColors8;
     property topPressColors9: Int64 read FtopPressColors9 write FtopPressColors9;
+
+    property themeId: Integer read FthemeId write FthemeId;
+    property themeName: string read FthemeName write FthemeName;
+    property _type: Integer read F_type write F_type;
+    property normalColor: Int64 read FnormalColor write FnormalColor;
+    property normalPressColor: Int64 read FnormalPressColor write FnormalPressColor;
+    property statusBarPath: string read FstatusBarPath write FstatusBarPath;
+    property bottomBarPath: string read FbottomBarPath write FbottomBarPath;
+    property listPath: string read FlistPath write FlistPath;
   end;
 
   TParamMap = specialize TFPGMap<string, string>;
@@ -251,6 +277,7 @@ var
   cls: jclass;
   m: jmethodID;
 begin
+  // finished
   Result := nil;
   if (obj <> nil) then begin
     Result := ThemeIni.Create;
@@ -317,11 +344,46 @@ begin
     Result.topPressColors8:= env^^.CallIntMethod(env, obj, m);
     m := env^^.GetMethodID(env, cls, 'getTopPressColors9', '()I');
     Result.topPressColors9:= env^^.CallIntMethod(env, obj, m);
+
+    m := env^^.GetMethodID(env, cls, 'getThemeId', '()I');
+    Result.themeId:= env^^.CallIntMethod(env, obj, m);
+    m := env^^.GetMethodID(env, cls, 'getThemeName', 'Ljava/lang/String;');
+    Result.themeName:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
+    m := env^^.GetMethodID(env, cls, 'getType', '()I');
+    Result._type:= env^^.CallIntMethod(env, obj, m);
+    m := env^^.GetMethodID(env, cls, 'getNormalColor', '()I');
+    Result.normalColor:= env^^.CallIntMethod(env, obj, m);
+    m := env^^.GetMethodID(env, cls, 'getNormalPressColor', '()I');
+    Result.normalPressColor:= env^^.CallIntMethod(env, obj, m);
+    m := env^^.GetMethodID(env, cls, 'getStatusBarPath', '()Ljava/lang/String;');
+    Result.statusBarPath:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
+    m := env^^.GetMethodID(env, cls, 'getBottomBarPath', '()Ljava/lang/String;');
+    Result.bottomBarPath:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
+    m := env^^.GetMethodID(env, cls, 'getListPath', '()Ljava/lang/String;');
+    Result.listPath:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
   end;
 end;
 
-class function ThemeIni.fromINI(path: string): ThemeIni;
+function binaryImageToFile(ms: TMemoryStream; path: string): string;
+var
+  dir: string;
+  fpath: string;
 begin
+  dir := '/sdcard/Android/data/com.rarnu.tophighlight/';
+  if (not DirectoryExists(dir)) then ForceDirectories(dir);
+  fpath:= dir + path;
+  if (not FileExists(fpath)) then ms.SaveToFile(fpath);
+  Exit(fpath);
+end;
+
+class function ThemeIni.fromINI(path: string): ThemeIni;
+var
+  ms: TMemoryStream;
+  len: Integer;
+  p: string;
+  fpath: string;
+begin
+  // finished
   Result := nil;
   if (FileExists(path)) then begin
     Result := ThemeIni.Create;
@@ -356,13 +418,60 @@ begin
       Result.topPressColors8:= ReadInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [8]), $ffd9d9d9);
       Result.topColors9:= ReadInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [9]), $ffeeeeee);
       Result.topPressColors9:= ReadInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [9]), $ffd9d9d9);
+
+      Result.themeId:= ReadInteger(SEC_THEME, KEY_THEME_ID, 0);
+      Result.themeName:= ReadString(SEC_THEME, KEY_THEME_NAME, '');
+      Result._type:= ReadInteger(SEC_THEME, KEY_THEME_TYPE, 0);
+      Result.normalColor:= ReadInt64(SEC_THEME, KEY_THEME_NORMAL_COLOR, $fff5f5f5);
+      Result.normalPressColor:= ReadInt64(SEC_THEME, KEY_THEME_NORMAL_PRESS_COLOR, $ffd9d9d9);
+
+      ms := TMemoryStream.Create;
+      len := ReadBinaryStream(SEC_THEME, KEY_STATUSBAR_PATH, ms);
+      if (len > 0) then begin
+        p := Format('img_%d_%s.png', [Result.themeId, 'statusbar']);
+        fpath := binaryImageToFile(ms, p);
+        Result.statusBarPath:= fpath;
+      end else Result.statusBarPath:= '';
+      ms.Free;
+      ms := TMemoryStream.Create;
+      len := ReadBinaryStream(SEC_THEME, KEY_BOTTOMBAR_PATH, ms);
+      if (len > 0) then begin
+        p := Format('img_%d_%s.png', [Result.themeId, 'bottombar']);
+        fpath:= binaryImageToFile(ms, p);
+        Result.bottomBarPath:= fpath;
+      end else Result.bottomBarPath:= '';
+      ms.Free;
+      ms := TMemoryStream.Create;
+      len := ReadBinaryStream(SEC_THEME, KEY_LIST_PATH, ms);
+      if (len > 0) then begin
+        p := Format('img_%d_%s.png', [Result.themeId, 'list']);
+        fpath:= binaryImageToFile(ms, p);
+        Result.listPath:= fpath;
+      end else Result.listPath:= '';
+      ms.Free;
       Free;
     end;
   end;
 end;
 
-function ThemeIni.toINI(path: string): Boolean;
+function CopyStream(ms: TMemoryStream; AId: Integer; AFix: string): string;
+var
+  dir: string;
+  fpath: string;
 begin
+  dir := '/sdcard/Android/data/com.rarnu.tophighlight/';
+  if (not DirectoryExists(dir)) then ForceDirectories(dir);
+  fpath:= dir + Format('img_%d_%s.png', [AId, AFix]);
+  if (not FileExists(fpath)) then ms.SaveToFile(fpath);
+  ms.Seek(0, soFromBeginning);
+  Exit(fpath);
+end;
+
+function ThemeIni.toINI(path: string): Boolean;
+var
+  ms: TMemoryStream;
+begin
+  // finished
   Result := False;
   try
     with TIniFile.Create(path) do begin
@@ -398,6 +507,36 @@ begin
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [9]), topColors9);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [9]), topPressColors9);
 
+      WriteInteger(SEC_THEME, KEY_THEME_ID, themeId);
+      WriteString(SEC_THEME, KEY_THEME_NAME, themeName);
+      WriteInteger(SEC_THEME, KEY_THEME_TYPE, _type);
+      WriteInt64(SEC_THEME, KEY_THEME_NORMAL_COLOR, normalColor);
+      WriteInt64(SEC_THEME, KEY_THEME_NORMAL_PRESS_COLOR, normalPressColor);
+
+      // image
+      if (FileExists(statusBarPath)) then begin
+        ms := TMemoryStream.Create;
+        ms.LoadFromFile(statusBarPath);
+        CopyStream(ms, themeId, 'statusbar');
+        WriteBinaryStream(SEC_THEME, KEY_STATUSBAR_PATH, ms);
+        ms.Free;
+      end;
+
+      if (FileExists(bottomBarPath)) then begin
+        ms := TMemoryStream.Create;
+        ms.LoadFromFile(bottomBarPath);
+        CopyStream(ms, themeId, 'bottombar');
+        WriteBinaryStream(SEC_THEME, KEY_BOTTOMBAR_PATH, ms);
+        ms.Free;
+      end;
+
+      if (FileExists(listPath)) then begin
+        ms := TMemoryStream.Create;
+        ms.LoadFromFile(listPath);
+        CopyStream(ms, themeId, 'list');
+        WriteBinaryStream(SEC_THEME, KEY_LIST_PATH, ms);
+        ms.Free;
+      end;
       Free;
     end;
     Result := True;
@@ -411,9 +550,13 @@ var
   m: jmethodID;
   args: Pjvalue;
 begin
+  // finished
   cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeINI');
-  m := env^^.GetMethodID(env, cls, '<init>', '(IZIZZIIIIIIIIIIIIIIIIIIIIIIIII)V');
-  args := TJNIEnv.argsToJValues(env, [statusBarColor, showDivider, dividerColor, darkerStatusBar, darkStatusBarText,
+
+  m := env^^.GetMethodID(env, cls, '<init>', '(ILjava/lang/String;IIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZZIIIIIIIIIIIIIIIIIIIIIIIII)V');
+  args := TJNIEnv.argsToJValues(env, [
+    themeId, themeName, _type, normalColor, normalPressColor, statusBarPath, bottomBarPath, listPath,
+    statusBarColor, showDivider, dividerColor, darkerStatusBar, darkStatusBarText,
     macColor, macPressColor, readerColor, readerPressColor, bottomBarColor,
     topColors0, topColors1, topColors2, topColors3, topColors4, topColors5, topColors6, topColors7, topColors8, topColors9,
     topPressColors0, topPressColors1, topPressColors2, topPressColors3, topPressColors4, topPressColors5, topPressColors6, topPressColors7, topPressColors8, topPressColors9]);

@@ -24,6 +24,11 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
+    <RequiredPackages Count="1">
+      <Item1>
+        <PackageName Value="LCLBase"/>
+      </Item1>
+    </RequiredPackages>
     <Units Count="7">
       <Unit0>
         <Filename Value="wthapi.lpr"/>
