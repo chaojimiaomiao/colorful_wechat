@@ -3,14 +3,10 @@ package com.rarnu.tophighlight.util
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
-import android.graphics.BitmapFactory
-import android.os.Environment
 import android.util.Log
+import com.rarnu.tophighlight.xposed.XpConfig.BASE_FILE_PATH
 import java.io.File
-import java.io.FileNotFoundException
 import java.io.FileOutputStream
-import java.io.IOException
-import java.util.*
 
 /**
  * Created by zhaibingjie on 17/3/19.
@@ -19,7 +15,7 @@ import java.util.*
 object ImageUtil {
 
     fun saveImagePrivate(bmp: Bitmap, name:String, activity: Activity) :Boolean {
-        val appDir = File(activity.getExternalFilesDir("").absolutePath, "colorful")
+        val appDir = File(BASE_FILE_PATH, "colorful")
         return saveImage(bmp, name, appDir)
     }
 

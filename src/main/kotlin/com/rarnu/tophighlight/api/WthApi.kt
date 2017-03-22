@@ -152,13 +152,7 @@ object WthApi {
             var topPressColors7: Int,
             var topPressColors8: Int,
             var topPressColors9: Int
-    ) : Serializable {
-
-        fun addListPath(pathStr: String) : ThemeINI {
-            this.listPath = pathStr
-            return this
-        }
-    }
+    ) : Serializable
 
     /**
      * 新用户注册

@@ -1,12 +1,15 @@
 package com.rarnu.tophighlight
 
+import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.Toolbar
@@ -24,6 +27,8 @@ import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
+import com.rarnu.tophighlight.xposed.XpConfig.BASE_FILE_PATH
+import java.io.File
 import java.util.*
 import kotlin.concurrent.thread
 
@@ -54,7 +59,7 @@ class MainActivity : Activity(), View.OnClickListener {
         toolBar = findViewById(R.id.first_toolbar) as Toolbar?
         toolBar?.setBackgroundColor(XpConfig.statusBarColor)
         toolBar?.setOnClickListener {
-            UIUtils.showDialog(this, ColorPickerClickListener {selectColor, integers ->
+            UIUtils.showDialog(this, ColorPickerClickListener { selectColor, integers ->
                 it.setBackgroundColor(selectColor)
                 XpConfig.statusBarColor = selectColor
                 XpConfig.save(this@MainActivity)
@@ -88,36 +93,65 @@ class MainActivity : Activity(), View.OnClickListener {
                     .setMessage(s)
                     .setPositiveButton(R.string.alert_ok, {
                         dialogInterface, i ->
-                            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.coolapk.com/apk/de.robv.android.xposed.installer")))
+                        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("http://www.coolapk.com/apk/de.robv.android.xposed.installer")))
                     })
                     .show()
         }
 
-        thread {
-            //写入
-            var bitmap = BitmapFactory.decodeResource(resources, R.drawable.lanbojini)
-            if (ImageUtil.saveImagePrivate(bitmap, "lanbojini", this)) {
-                LocalTheme.themeCar.addListPath(getExternalFilesDir("").absolutePath + "/colorful/lanbojini.png")
-                Log.e("", "themeCar jpg path: " + LocalTheme.themeCar.listPath)
-                WthApi.writeThemeToINI(getExternalFilesDir("").absolutePath + "/colorful/lanbojini.ini", LocalTheme.themeCar)
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE), 0)
+            } else {
+                initTheme()
             }
+        } else {
+            initTheme()
+        }
+    }
 
-            var bitmapF = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
-            if (ImageUtil.saveImagePrivate(bitmapF, "baiyinghua", this)) {
-                LocalTheme.themeFlower.addListPath(getExternalFilesDir("").absolutePath + "/colorful/baiyinghua.png")
-                WthApi.writeThemeToINI(getExternalFilesDir("").absolutePath + "/colorful/baiyinghua.ini", LocalTheme.themeFlower)
-                Log.e("", "themeFlower jpg path: " + LocalTheme.themeFlower.listPath)
-            }
-
-            runOnUiThread {
-                //读取
-                if (XpConfig.ini != null) {
-                    var listviewBitmap = BitmapFactory.decodeFile(XpConfig.ini!!.listPath)//XpConfig.listviewPath
-                    val drawable = BitmapDrawable(listviewBitmap)
-                    scrollView?.setBackground(drawable)
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?) {
+        if (requestCode == 0) {
+            if (permissions != null && grantResults != null) {
+                (0..permissions.size - 1).forEach {
+                    if (permissions[it] == Manifest.permission.WRITE_EXTERNAL_STORAGE && grantResults[it] == PackageManager.PERMISSION_GRANTED) {
+                        initTheme()
+                    }
                 }
-
             }
+
+        }
+    }
+
+    private fun initTheme() {
+
+        // mkdir
+        val fDir = File(BASE_FILE_PATH)
+        if (!fDir.exists()) { fDir.mkdirs() }
+
+        //写入
+        var bitmap = BitmapFactory.decodeResource(resources, R.drawable.lanbojini)
+        if (ImageUtil.saveImagePrivate(bitmap, "lanbojini", this)) {
+            LocalTheme.themeCar.listPath = BASE_FILE_PATH + "/colorful/lanbojini.png"
+            Log.e("", "themeCar png path: " + LocalTheme.themeCar.listPath)
+            WthApi.writeThemeToINI(BASE_FILE_PATH + "/colorful/lanbojini.ini", LocalTheme.themeCar)
+        }
+        Log.e("MainActivity", "Write Theme 1")
+
+        var bitmapF = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
+        if (ImageUtil.saveImagePrivate(bitmapF, "baiyinghua", this)) {
+            LocalTheme.themeFlower.listPath = BASE_FILE_PATH + "/colorful/baiyinghua.png"
+            WthApi.writeThemeToINI(BASE_FILE_PATH + "/colorful/baiyinghua.ini", LocalTheme.themeFlower)
+            Log.e("", "themeFlower png path: " + LocalTheme.themeFlower.listPath)
+        }
+        Log.e("MainActivity", "Write Theme 2")
+
+        //读取
+        if (XpConfig.ini != null) {
+            var listviewBitmap = BitmapFactory.decodeFile(XpConfig.ini!!.listPath)
+            val drawable = BitmapDrawable(listviewBitmap)
+            scrollView?.background = drawable
+
+            Log.e("MainActivity", "Read Theme 1")
         }
     }
 
@@ -147,7 +181,7 @@ class MainActivity : Activity(), View.OnClickListener {
         layMain?.addView(linearLayout, layoutParams)
     }
 
-    private fun initNormalGroup(nums :Int) {
+    private fun initNormalGroup(nums: Int) {
         val colorItem = GroupColumn(this, getString(R.string.normal_group), XpConfig.KEY_NORMAL_COLOR)
         colorItem.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
         layMain?.addView(colorItem)
@@ -171,14 +205,14 @@ class MainActivity : Activity(), View.OnClickListener {
         checkboxF.visibility = View.VISIBLE
         layMain?.addView(linearLayoutF, layoutParamsF)
         checkboxList.add(checkboxF)
-        checkboxF.setOnCheckedChangeListener({compoundButton, b ->
+        checkboxF.setOnCheckedChangeListener({ compoundButton, b ->
             //存
             if (b) {
                 checkboxList[1].isClickable = false
-                XpConfig.listviewPath = getExternalFilesDir("").absolutePath + "/colorful/baiyinghua.png"
+                XpConfig.listviewPath = BASE_FILE_PATH + "/colorful/baiyinghua.png"
                 XpConfig.saveList(this)
                 scrollView?.setBackgroundResource(R.drawable.baiyinghua)
-                XpConfig.themePath = getExternalFilesDir("").absolutePath + "/colorful/baiyinghua.ini"
+                XpConfig.themePath = BASE_FILE_PATH + "/colorful/baiyinghua.ini"
             } else {
                 XpConfig.themePath = ""
             }
@@ -194,14 +228,14 @@ class MainActivity : Activity(), View.OnClickListener {
         layMain?.addView(linearLayout, layoutParams)
         checkboxList.add(checkbox)
 
-        checkbox.setOnCheckedChangeListener({compoundButton, b ->
+        checkbox.setOnCheckedChangeListener({ compoundButton, b ->
             //存
             if (b) {
                 checkboxList[0].isClickable = false
-                XpConfig.listviewPath = getExternalFilesDir("").absolutePath + "/colorful/lanbojini.png"
+                XpConfig.listviewPath = BASE_FILE_PATH + "/colorful/lanbojini.png"
                 XpConfig.saveList(this)
                 scrollView?.setBackgroundResource(R.drawable.lanbojini)
-                XpConfig.themePath = getExternalFilesDir("").absolutePath + "/colorful/lanbojini.ini"
+                XpConfig.themePath = BASE_FILE_PATH + "/colorful/lanbojini.ini"
             } else {
                 XpConfig.themePath = ""
             }

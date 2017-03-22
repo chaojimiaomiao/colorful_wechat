@@ -12,6 +12,8 @@ import de.robv.android.xposed.XSharedPreferences
  */
 object XpConfig {
 
+    val BASE_FILE_PATH = "/sdcard/.wechat_tophighlight"
+
     // 不同的进程空间，需要不同的配置加载
     fun xposedload() {
 
