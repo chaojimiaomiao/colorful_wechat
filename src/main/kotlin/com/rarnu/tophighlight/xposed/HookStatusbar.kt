@@ -25,7 +25,6 @@ object HookStatusbar {
         XposedHelpers.findAndHookMethod(Versions.mmFragmentActivity, classLoader, "onResume", object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                XpConfig.xposedload()
                 val activity = param!!.thisObject as Activity
                 val dm = DisplayMetrics()
                 activity.windowManager.defaultDisplay.getMetrics(dm)

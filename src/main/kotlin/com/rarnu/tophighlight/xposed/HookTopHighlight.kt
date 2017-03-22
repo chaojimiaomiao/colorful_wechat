@@ -45,17 +45,14 @@ object HookTopHighlight {
     }
 
     private fun createTopHighlightSelectorDrawable(idx: Int): StateListDrawable? {
-        XpConfig.xposedload()
         return createSelectorDrawable(XpConfig.topColors[idx], XpConfig.topPressColors[idx])
     }
 
     private fun createNormalSelectorDrawable(): StateListDrawable? {
-        XpConfig.xposedload()
         return createSelectorDrawable(XpConfig.normalColor, XpConfig.normalPressColor)
     }
 
     private fun createTopReaderAndMacSelectorDrawable(type: Int = 0): StateListDrawable? {
-        XpConfig.xposedload()
         return when (type) {
             0 -> createSelectorDrawable(XpConfig.macColor, XpConfig.macPressColor)
             1 -> createSelectorDrawable(XpConfig.readerColor, XpConfig.readerPressColor)

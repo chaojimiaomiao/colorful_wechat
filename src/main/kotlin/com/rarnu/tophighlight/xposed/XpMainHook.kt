@@ -17,7 +17,6 @@ class XpMainHook : IXposedHookLoadPackage {
 
     @Throws(Throwable::class)
     override fun handleLoadPackage(param: XC_LoadPackage.LoadPackageParam) {
-
         val pkgName = param.packageName
         if (!pkgName.contains("com.tencent.mm")) {
             return
@@ -26,6 +25,7 @@ class XpMainHook : IXposedHookLoadPackage {
             try {
                 Log.e("XposedModule", "jni library path => $libPath")
                 WthApi.load(libPath)
+
             } catch (e: Exception) {
                 Log.e("XposedModule", "error: $e")
             }
@@ -46,6 +46,7 @@ class XpMainHook : IXposedHookLoadPackage {
 
         }
         if (Versions.inited) {
+            XpConfig.xposedload()
             HookTopHighlight.hookTopReaderAndMac(param.classLoader)
             HookTopHighlight.hookTopHighlight(param.classLoader)
             HookStatusbar.hookStatusbar(param.classLoader)
