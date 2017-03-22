@@ -75,15 +75,6 @@
             fab:fab_labelsPosition="left">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabThemes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_colorNormal="@color/colorAccent_black"
-                fab:fab_icon="@android:drawable/ic_menu_crop"
-                fab:fab_size="mini"
-                fab:fab_title="@string/view_themes" />
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabFeedback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

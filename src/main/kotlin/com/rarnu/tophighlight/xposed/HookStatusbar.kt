@@ -1,6 +1,7 @@
 package com.rarnu.tophighlight.xposed
 
 import android.app.Activity
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
@@ -18,6 +19,7 @@ import de.robv.android.xposed.XposedHelpers
  */
 object HookStatusbar {
 
+    private var backBitmap: Bitmap? = null
     var density = 1.0f
 
     fun hookStatusbar(classLoader: ClassLoader?) {
@@ -74,10 +76,16 @@ object HookStatusbar {
                 val actionBarContainer = XposedHelpers.getObjectField(param.thisObject, Versions.actionBarContainer) as ViewGroup?
                 if (actionBarContainer != null) {
                     val actionbarView = actionBarContainer.findViewById(Versions.actionBarViewId) as ViewGroup
-                    var backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
-                    val drawable = BitmapDrawable(backBitmap)
-                    // actionbarView.background = drawable
-                    actionbarView.setBackgroundColor(XpConfig.statusBarColor)
+
+                    if (XpConfig.ini == null) {
+                        actionbarView.setBackgroundColor(XpConfig.statusBarColor)
+                    } else {
+                        if (backBitmap == null) {
+                            backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
+                            val drawable = BitmapDrawable(backBitmap)
+                            actionbarView.background = drawable
+                        }
+                    }
 
                     val divider = actionbarView.findViewById(Versions.dividerId)
                     divider.visibility = if (XpConfig.showDivider) View.VISIBLE else View.INVISIBLE

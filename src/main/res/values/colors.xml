@@ -5,6 +5,8 @@
     <color name="colorPrimaryDark">#8E236B</color>
     <color name="colorAccent">#000000</color>
     <color name="transparent">#00ffffff</color>
+    <color name="semi_transparent">#66ffffff</color>
+    <color name="smoke_gray">#F5F5F5</color>
 
     <!-- 预置色彩 -->
 

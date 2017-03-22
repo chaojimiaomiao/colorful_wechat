@@ -22,7 +22,6 @@ import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.LocalTheme
-import com.rarnu.tophighlight.market.ThemeListActivity
 import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
@@ -72,7 +71,6 @@ class MainActivity : Activity(), View.OnClickListener {
         chkDarkStatusBarText?.setOnClickListener(this)
         tvTitle = findViewById(R.id.tvTitle) as TextView?
         bottomBar = findViewById(R.id.first_bottom_bar) as ImageView?
-        fabTheme = findViewById(R.id.fabThemes) as FloatingActionButton?
         fabFeedback = findViewById(R.id.fabFeedback) as FloatingActionButton?
         fabAbout = findViewById(R.id.fabAbout) as FloatingActionButton?
 
@@ -118,12 +116,10 @@ class MainActivity : Activity(), View.OnClickListener {
                     }
                 }
             }
-
         }
     }
 
     private fun initTheme() {
-
         // mkdir
         val fDir = File(BASE_FILE_PATH)
         if (!fDir.exists()) { fDir.mkdirs() }
@@ -188,7 +184,6 @@ class MainActivity : Activity(), View.OnClickListener {
     }
 
     private fun initLocalTheme() {
-        //val ini = WthApi.readThemeFromINI("/sdcard/theme.ini")
         var checkboxList: ArrayList<CheckBox> = ArrayList()
 
         fun clearCheckboxs() {
@@ -205,19 +200,7 @@ class MainActivity : Activity(), View.OnClickListener {
         checkboxF.visibility = View.VISIBLE
         layMain?.addView(linearLayoutF, layoutParamsF)
         checkboxList.add(checkboxF)
-        checkboxF.setOnCheckedChangeListener({ compoundButton, b ->
-            //存
-            if (b) {
-                checkboxList[1].isClickable = false
-                XpConfig.listviewPath = BASE_FILE_PATH + "/colorful/baiyinghua.png"
-                XpConfig.saveList(this)
-                scrollView?.setBackgroundResource(R.drawable.baiyinghua)
-                XpConfig.themePath = BASE_FILE_PATH + "/colorful/baiyinghua.ini"
-            } else {
-                XpConfig.themePath = ""
-            }
-            XpConfig.saveTheme(this)
-        })
+
 
         val linearLayout = View.inflate(this, R.layout.theme_item, null)
         val layoutParams = LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(66))
@@ -228,26 +211,60 @@ class MainActivity : Activity(), View.OnClickListener {
         layMain?.addView(linearLayout, layoutParams)
         checkboxList.add(checkbox)
 
+        checkboxF.setOnCheckedChangeListener({ compoundButton, bF ->
+            //存
+            if (bF) {
+                checkbox.isChecked = false
+                XpConfig.listviewPath = BASE_FILE_PATH + "/colorful/baiyinghua.png"
+                XpConfig.themePath = BASE_FILE_PATH + "/colorful/baiyinghua.ini"
+                XpConfig.statusBarColor = LocalTheme.themeFlower.statusBarColor
+
+                toolBar?.setBackgroundColor(XpConfig.statusBarColor)
+                scrollView?.setBackgroundResource(R.drawable.baiyinghua)
+                refreshStatusBar()
+            } else {
+                XpConfig.listviewPath = ""
+                XpConfig.themePath = ""
+                scrollView?.setBackgroundColor(Color.WHITE)
+            }
+            XpConfig.saveList(this)
+            XpConfig.saveTheme(this)
+            XpConfig.save(this)
+        })
+
         checkbox.setOnCheckedChangeListener({ compoundButton, b ->
             //存
             if (b) {
-                checkboxList[0].isClickable = false
+                checkboxF.isChecked = false
                 XpConfig.listviewPath = BASE_FILE_PATH + "/colorful/lanbojini.png"
-                XpConfig.saveList(this)
-                scrollView?.setBackgroundResource(R.drawable.lanbojini)
                 XpConfig.themePath = BASE_FILE_PATH + "/colorful/lanbojini.ini"
+                XpConfig.statusBarColor = LocalTheme.themeCar.statusBarColor
+
+                toolBar?.setBackgroundColor(XpConfig.statusBarColor)
+                scrollView?.setBackgroundResource(R.drawable.lanbojini)
+                refreshStatusBar()
             } else {
+                XpConfig.listviewPath = ""
                 XpConfig.themePath = ""
+                scrollView?.setBackgroundColor(Color.WHITE)
             }
+            XpConfig.saveList(this)
             XpConfig.saveTheme(this)
+            XpConfig.save(this)
         })
+
+        if (XpConfig.listviewPath == BASE_FILE_PATH + "/colorful/baiyinghua.png") {
+            checkboxF.isChecked = true
+        } else if (XpConfig.listviewPath == BASE_FILE_PATH + "/colorful/lanbojini.png") {
+            checkbox.isChecked = true
+        }
     }
 
     private fun initBottomBar() {
         bottomBar?.setBackgroundColor(XpConfig.bottomBarColor)
-        var backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
+        /*var backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
         val drawable = BitmapDrawable(backBitmap)
-        bottomBar?.background = drawable
+        bottomBar?.background = drawable*/
         bottomBar?.setOnClickListener {
             UIUtils.showDialog(this, ColorPickerClickListener { selectColor, ints ->
                 bottomBar?.setBackgroundColor(selectColor)
@@ -267,10 +284,10 @@ class MainActivity : Activity(), View.OnClickListener {
         when (v.id) {
             R.id.chkDarkStatusBar -> XpConfig.darkerStatusBar = chkDarkStatusBar!!.isChecked
             R.id.chkDarkStatusBarText -> XpConfig.darkStatusBarText = chkDarkStatusBarText!!.isChecked
-            R.id.fabThemes -> {
+            /*R.id.fabThemes -> {
                 startActivity(Intent(this, ThemeListActivity::class.java))
                 //startActivity(Intent(this, MyReactActivity::class.java))
-            }
+            }*/
             R.id.fabFeedback -> {
                 startActivity(Intent(this, FeedbackActivity::class.java))
             }

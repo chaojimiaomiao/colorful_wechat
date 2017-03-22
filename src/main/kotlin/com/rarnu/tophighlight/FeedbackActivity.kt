@@ -18,7 +18,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import com.rarnu.tophighlight.api.WthApi
-import com.rarnu.tophighlight.xposed.XpConfig
 
 class FeedbackActivity : AppCompatActivity() {
     var feedbackBtn : Button ?= null
@@ -117,14 +116,9 @@ class FeedbackActivity : AppCompatActivity() {
                         pic1?.setImageURI(uri)
                         pic1?.tag = absolutePath
                         Log.i("Feedback", "path = " + absolutePath)
-
-                        XpConfig.bottomBarPath = absolutePath!!
-                        XpConfig.saveBottomBar(this)
                     } else if (pic2?.tag == null) {
                         pic2?.setImageURI(uri)
                         pic2?.tag = absolutePath
-                        XpConfig.listviewPath = absolutePath!!
-                        XpConfig.saveList(this)
                     } else if (pic3?.tag == null) {
                         pic3?.setImageURI(uri)
                         pic3?.tag = absolutePath
