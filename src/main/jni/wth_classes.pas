@@ -347,7 +347,7 @@ begin
 
     m := env^^.GetMethodID(env, cls, 'getThemeId', '()I');
     Result.themeId:= env^^.CallIntMethod(env, obj, m);
-    m := env^^.GetMethodID(env, cls, 'getThemeName', 'Ljava/lang/String;');
+    m := env^^.GetMethodID(env, cls, 'getThemeName', '()Ljava/lang/String;');
     Result.themeName:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
     m := env^^.GetMethodID(env, cls, 'getType', '()I');
     Result._type:= env^^.CallIntMethod(env, obj, m);
