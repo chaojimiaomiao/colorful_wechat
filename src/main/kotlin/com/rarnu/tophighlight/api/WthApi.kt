@@ -1,5 +1,6 @@
 package com.rarnu.tophighlight.api
 
+import android.util.Log
 import java.io.Serializable
 
 /**
@@ -16,6 +17,15 @@ object WthApi {
      */
     fun load() {
         System.loadLibrary("wthapi")
+    }
+
+    fun load(path: String) {
+        try {
+            System.load(path)
+            Log.e("XposedModule", "jni library loaded")
+        } catch (th: Throwable) {
+            Log.e("XposedModule", "load jni library error => $th")
+        }
     }
 
     data class User(
