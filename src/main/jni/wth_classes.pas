@@ -469,8 +469,12 @@ end;
 
 function ThemeIni.toINI(path: string): Boolean;
 var
+  base: string;
   ms: TMemoryStream;
 begin
+  base := ExtractFilePath(path);
+  if (not DirectoryExists(base)) then ForceDirectories(base);
+
   // finished
   Result := False;
   try
