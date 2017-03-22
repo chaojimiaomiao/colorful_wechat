@@ -369,7 +369,7 @@ var
   dir: string;
   fpath: string;
 begin
-  dir := '/sdcard/Android/data/com.rarnu.tophighlight/';
+  dir := '/sdcard/.wechat_tophighlight/';
   if (not DirectoryExists(dir)) then ForceDirectories(dir);
   fpath:= dir + path;
   if (not FileExists(fpath)) then ms.SaveToFile(fpath);
@@ -461,7 +461,7 @@ var
   dir: string;
   fpath: string;
 begin
-  dir := '/sdcard/Android/data/com.rarnu.tophighlight/';
+  dir := '/sdcard/.wechat_tophighlight/';
   if (not DirectoryExists(dir)) then ForceDirectories(dir);
   fpath:= dir + Format('img_%d_%s.png', [AId, AFix]);
   if (not FileExists(fpath)) then ms.SaveToFile(fpath);
