@@ -12,6 +12,7 @@ import android.support.v4.widget.NestedScrollView
 import android.support.v7.widget.Toolbar
 import android.text.SpannableString
 import android.text.util.Linkify
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.bingjie.colorpicker.builder.ColorPickerClickListener
@@ -23,6 +24,7 @@ import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
+import java.util.*
 import kotlin.concurrent.thread
 
 
@@ -47,6 +49,7 @@ class MainActivity : Activity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.firstpage) //main
 
+        scrollView = findViewById(R.id.first_scroll) as NestedScrollView
         layMain = findViewById(R.id.layMain) as LinearLayout?
         toolBar = findViewById(R.id.first_toolbar) as Toolbar?
         toolBar?.setBackgroundColor(XpConfig.statusBarColor)
@@ -93,19 +96,24 @@ class MainActivity : Activity(), View.OnClickListener {
         thread {
             //写入
             var bitmap = BitmapFactory.decodeResource(resources, R.drawable.lanbojini)
-            if (ImageUtil.saveImagePrivate(bitmap, "lanbojini", this))
-                WthApi.writeThemeToINI(filesDir.absolutePath + "/colorful/car", LocalTheme.themeCar)
+            if (ImageUtil.saveImagePrivate(bitmap, "lanbojini", this)) {
+                LocalTheme.themeCar.addListPath(filesDir.absolutePath + "/colorful/lanbojini.jpg")
+                Log.e("", "themeCar jpg path: " + LocalTheme.themeCar.listPath)
+                WthApi.writeThemeToINI(filesDir.absolutePath + "/colorful", LocalTheme.themeCar)
+            }
 
             var bitmapF = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
-            if (ImageUtil.saveImagePrivate(bitmapF, "baiyinghua", this))
-                WthApi.writeThemeToINI(filesDir.absolutePath + "/colorful/flower", LocalTheme.themeFlower)
+            if (ImageUtil.saveImagePrivate(bitmapF, "baiyinghua", this)) {
+                LocalTheme.themeFlower.addListPath(filesDir.absolutePath + "/colorful/baiyinghua.jpg")
+                WthApi.writeThemeToINI(filesDir.absolutePath + "/colorful", LocalTheme.themeFlower)
+                Log.e("", "themeFlower jpg path: " + LocalTheme.themeFlower.listPath)
+            }
 
             runOnUiThread {
                 //读取
                 if (XpConfig.ini != null) {
                     var listviewBitmap = BitmapFactory.decodeFile(XpConfig.ini!!.listPath)//XpConfig.listviewPath
                     val drawable = BitmapDrawable(listviewBitmap)
-                    scrollView = findViewById(R.id.first_scroll) as NestedScrollView
                     scrollView?.setBackground(drawable)
                 }
 
@@ -147,19 +155,29 @@ class MainActivity : Activity(), View.OnClickListener {
 
     private fun initLocalTheme() {
         //val ini = WthApi.readThemeFromINI("/sdcard/theme.ini")
+        var checkboxList: ArrayList<CheckBox> = ArrayList()
 
-        val linearLayoutF = View.inflate(this, R.layout.group_item, null)
+        fun clearCheckboxs() {
+            for (checkbox: CheckBox in checkboxList) {
+                checkbox.isChecked = false
+            }
+        }
+
+        val linearLayoutF = View.inflate(this, R.layout.theme_item, null)
         val layoutParamsF = LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(66))
         (linearLayoutF.findViewById(R.id.group_name) as TextView?)?.text = "十里桃林"
         (linearLayoutF.findViewById(R.id.group_image) as ImageView?)?.setImageResource(R.drawable.baiyinghua)
         var checkboxF = linearLayoutF.findViewById(R.id.view_checkbox) as CheckBox
         checkboxF.visibility = View.VISIBLE
         layMain?.addView(linearLayoutF, layoutParamsF)
+        checkboxList.add(checkboxF)
         checkboxF.setOnCheckedChangeListener({compoundButton, b ->
             //存
             if (b) {
+                checkboxList.get(1).isClickable = false
                 XpConfig.listviewPath = filesDir.absolutePath + "/colorful/baiyinghua.jpg"
                 XpConfig.saveList(this)
+                scrollView?.setBackgroundResource(R.drawable.baiyinghua)
                 XpConfig.themePath = filesDir.absolutePath + "/colorful/flower"
             } else {
                 XpConfig.themePath = ""
@@ -167,17 +185,22 @@ class MainActivity : Activity(), View.OnClickListener {
             XpConfig.saveTheme(this)
         })
 
-        val linearLayout = View.inflate(this, R.layout.group_item, null)
+        val linearLayout = View.inflate(this, R.layout.theme_item, null)
         val layoutParams = LinearLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(66))
         (linearLayout.findViewById(R.id.group_name) as TextView?)?.text = "我心飞扬"
         (linearLayout.findViewById(R.id.group_image) as ImageView?)?.setImageResource(R.drawable.lanbojini)
-        linearLayout.findViewById(R.id.view_checkbox).visibility = View.VISIBLE
+        var checkbox = linearLayout.findViewById(R.id.view_checkbox) as CheckBox
+        checkbox.visibility = View.VISIBLE
         layMain?.addView(linearLayout, layoutParams)
-        checkboxF.setOnCheckedChangeListener({compoundButton, b ->
+        checkboxList.add(checkbox)
+
+        checkbox.setOnCheckedChangeListener({compoundButton, b ->
             //存
             if (b) {
+                checkboxList.get(0).isClickable = false
                 XpConfig.listviewPath = filesDir.absolutePath + "/colorful/lanbojini.jpg"
                 XpConfig.saveList(this)
+                scrollView?.setBackgroundResource(R.drawable.lanbojini)
                 XpConfig.themePath = filesDir.absolutePath + "/colorful/car"
             } else {
                 XpConfig.themePath = ""

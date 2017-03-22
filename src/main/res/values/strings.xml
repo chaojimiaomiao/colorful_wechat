@@ -48,6 +48,7 @@
     <string name="group_chat">Group Chat</string>
 
     <string name="normal_group">Normal Group</string>
+    <string name="theme">Theme</string>
 
     <string name="alert_xposed">
         <font color='#555'>

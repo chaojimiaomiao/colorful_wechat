@@ -4,6 +4,7 @@
     <color name="colorPrimary">#FF6EC7</color>
     <color name="colorPrimaryDark">#8E236B</color>
     <color name="colorAccent">#000000</color>
+    <color name="transparent">#00ffffff</color>
 
     <!-- 预置色彩 -->
 
@@ -25,5 +26,7 @@
     <color name="ll_gray">#f5f5f5</color>
     <color name="gray">#999999</color>
     <color name="text_gray">#606062</color>
+
+
 
 </resources>

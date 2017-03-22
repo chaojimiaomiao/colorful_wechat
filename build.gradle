@@ -71,16 +71,6 @@ repositories {
     }
 }
 
-allprojects {
-    repositories {
-        jcenter()
-        maven {
-            // All of React Native (JS, Android binaries) is installed from npm
-            url "$rootDir/node_modules/react-native/android"
-        }
-    }
-}
-
 dependencies {
     //compile(name:'library-release', ext:'aar')
     compile 'com.getbase:floatingactionbutton:1.10.1'
