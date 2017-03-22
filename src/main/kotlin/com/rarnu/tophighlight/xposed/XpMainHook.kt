@@ -61,7 +61,7 @@ class XpMainHook : IXposedHookLoadPackage {
             val pkgPath = "/data/app/com.rarnu.tophighlight"
             val soPath = "/lib/arm/libwthapi.so"
             for (i in 1..2) {
-                fullPath = "$pkgPath$i$soPath"
+                fullPath = "$pkgPath-$i$soPath"
                 if (File(fullPath).exists()) {
                     break
                 }

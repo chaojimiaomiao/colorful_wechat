@@ -3,6 +3,7 @@ package com.rarnu.tophighlight.xposed
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import com.rarnu.tophighlight.api.WthApi
 import de.robv.android.xposed.XSharedPreferences
 
@@ -40,7 +41,9 @@ object XpConfig {
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
 
+        Log.e("xposedload", "themePath => $themePath")
         ini = WthApi.readThemeFromINI(themePath)
+        Log.e("xposedload", "themeINI => $ini")
     }
 
     fun load(ctx: Context) {
@@ -66,7 +69,9 @@ object XpConfig {
         }*/
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
+        Log.e("mainload", "themePath => $themePath")
         ini = WthApi.readThemeFromINI(themePath)
+        Log.e("mainload", "themeINI => $ini")
     }
 
     fun save(ctx: Context) {

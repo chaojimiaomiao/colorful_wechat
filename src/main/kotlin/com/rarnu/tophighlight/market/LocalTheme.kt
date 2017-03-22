@@ -89,7 +89,7 @@ object LocalTheme {
 
     var themeCar = WthApi.ThemeINI(
             //新增的
-            1, "十里桃林", THEME_TYPE_FULL,
+            2, "十里桃林", THEME_TYPE_FULL,
             0x00ffffff, 0x00ffffff,
             "",
             "",

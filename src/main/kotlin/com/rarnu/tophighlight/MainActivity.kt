@@ -97,15 +97,15 @@ class MainActivity : Activity(), View.OnClickListener {
             //写入
             var bitmap = BitmapFactory.decodeResource(resources, R.drawable.lanbojini)
             if (ImageUtil.saveImagePrivate(bitmap, "lanbojini", this)) {
-                LocalTheme.themeCar.addListPath(filesDir.absolutePath + "/colorful/lanbojini.jpg")
+                LocalTheme.themeCar.addListPath(getExternalFilesDir("").absolutePath + "/colorful/lanbojini.png")
                 Log.e("", "themeCar jpg path: " + LocalTheme.themeCar.listPath)
-                WthApi.writeThemeToINI(filesDir.absolutePath + "/colorful", LocalTheme.themeCar)
+                WthApi.writeThemeToINI(getExternalFilesDir("").absolutePath + "/colorful/lanbojini.ini", LocalTheme.themeCar)
             }
 
             var bitmapF = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
             if (ImageUtil.saveImagePrivate(bitmapF, "baiyinghua", this)) {
-                LocalTheme.themeFlower.addListPath(filesDir.absolutePath + "/colorful/baiyinghua.jpg")
-                WthApi.writeThemeToINI(filesDir.absolutePath + "/colorful", LocalTheme.themeFlower)
+                LocalTheme.themeFlower.addListPath(getExternalFilesDir("").absolutePath + "/colorful/baiyinghua.png")
+                WthApi.writeThemeToINI(getExternalFilesDir("").absolutePath + "/colorful/baiyinghua.ini", LocalTheme.themeFlower)
                 Log.e("", "themeFlower jpg path: " + LocalTheme.themeFlower.listPath)
             }
 
@@ -174,11 +174,11 @@ class MainActivity : Activity(), View.OnClickListener {
         checkboxF.setOnCheckedChangeListener({compoundButton, b ->
             //存
             if (b) {
-                checkboxList.get(1).isClickable = false
-                XpConfig.listviewPath = filesDir.absolutePath + "/colorful/baiyinghua.jpg"
+                checkboxList[1].isClickable = false
+                XpConfig.listviewPath = getExternalFilesDir("").absolutePath + "/colorful/baiyinghua.png"
                 XpConfig.saveList(this)
                 scrollView?.setBackgroundResource(R.drawable.baiyinghua)
-                XpConfig.themePath = filesDir.absolutePath + "/colorful/flower"
+                XpConfig.themePath = getExternalFilesDir("").absolutePath + "/colorful/baiyinghua.ini"
             } else {
                 XpConfig.themePath = ""
             }
@@ -197,11 +197,11 @@ class MainActivity : Activity(), View.OnClickListener {
         checkbox.setOnCheckedChangeListener({compoundButton, b ->
             //存
             if (b) {
-                checkboxList.get(0).isClickable = false
-                XpConfig.listviewPath = filesDir.absolutePath + "/colorful/lanbojini.jpg"
+                checkboxList[0].isClickable = false
+                XpConfig.listviewPath = getExternalFilesDir("").absolutePath + "/colorful/lanbojini.png"
                 XpConfig.saveList(this)
                 scrollView?.setBackgroundResource(R.drawable.lanbojini)
-                XpConfig.themePath = filesDir.absolutePath + "/colorful/car"
+                XpConfig.themePath = getExternalFilesDir("").absolutePath + "/colorful/lanbojini.ini"
             } else {
                 XpConfig.themePath = ""
             }

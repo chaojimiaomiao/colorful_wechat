@@ -5,7 +5,7 @@ unit wth_classes;
 interface
 
 uses
-  Classes, SysUtils, JNI2, fpjson, strutils, fgl, IniFiles, FileUtil;
+  Classes, SysUtils, JNI2, fpjson, strutils, fgl, IniFiles, FileUtil, BaseUnix, android;
 
 const
   SEC_THEME = 'theme';
@@ -451,6 +451,8 @@ begin
       ms.Free;
       Free;
     end;
+  end else begin
+    LOGE(PChar(Format('File %s not exists!', [path])));
   end;
 end;
 
@@ -545,7 +547,11 @@ begin
     end;
     Result := True;
   except
+    on E: Exception do begin
+      LOGE(PChar(Format('Save INI Failed => %s', [E.Message])));
+    end;
   end;
+  FpChmod(path, &755);
 end;
 
 function ThemeIni.toJObject(env: PJNIEnv): jobject;

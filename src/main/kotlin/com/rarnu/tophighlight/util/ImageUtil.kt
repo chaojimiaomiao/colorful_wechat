@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Bitmap.CompressFormat
 import android.graphics.BitmapFactory
 import android.os.Environment
+import android.util.Log
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
@@ -18,20 +19,15 @@ import java.util.*
 object ImageUtil {
 
     fun saveImagePrivate(bmp: Bitmap, name:String, activity: Activity) :Boolean {
-        val appDir = File(activity.filesDir, "colorful")
+        val appDir = File(activity.getExternalFilesDir("").absolutePath, "colorful")
         return saveImage(bmp, name, appDir)
-    }
-
-    fun saveImagePublic(bmp: Bitmap, name:String) {
-        val appDir = File(Environment.getExternalStorageDirectory(), "colorful")
-        saveImage(bmp, name, appDir)
     }
 
     fun saveImage(bmp: Bitmap, name:String, appDir :File) :Boolean {
         if (!appDir.exists()) {
             appDir.mkdir()
         }
-        val fileName = name + ".jpg"
+        val fileName = name + ".png"
         val file = File(appDir, fileName)
         if (file.exists()) return false
         try {
@@ -39,14 +35,13 @@ object ImageUtil {
             bmp.compress(CompressFormat.JPEG, 100, fos)
             fos.flush()
             fos.close()
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            Log.e("ImageUtil", "Exception => $e")
         }
         return true
     }
 
+    /*
     fun picToDrawables(name:String, nums :Int) : ArrayList<Bitmap> {
         var bitmapList = ArrayList<Bitmap>()
         //分成9格
@@ -54,7 +49,7 @@ object ImageUtil {
         if (!appDir.exists()) {
             return bitmapList
         }
-        val fileName = name + ".jpg"
+        val fileName = name + ".png"
         var bitmapSrc = BitmapFactory.decodeFile(appDir.absolutePath + "/" + fileName)
         var width = bitmapSrc.width
         var height = bitmapSrc.height / nums
@@ -64,8 +59,6 @@ object ImageUtil {
         }
         return bitmapList
     }
-
-
-
+    */
 
 }
