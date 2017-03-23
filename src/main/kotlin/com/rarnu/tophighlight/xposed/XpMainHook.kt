@@ -13,8 +13,6 @@ import java.io.File
  */
 class XpMainHook : IXposedHookLoadPackage {
 
-    private val _supportVersions = arrayOf("6.5.4", "6.5.6")
-
     @Throws(Throwable::class)
     override fun handleLoadPackage(param: XC_LoadPackage.LoadPackageParam) {
         val pkgName = param.packageName
@@ -30,29 +28,33 @@ class XpMainHook : IXposedHookLoadPackage {
                 Log.e("XposedModule", "error: $e")
             }
         }
+
+        var ver: Versions? = null
+
         try {
             val activityThread = XposedHelpers.callStaticMethod(XposedHelpers.findClass("android.app.ActivityThread", null), "currentActivityThread")
             val ctx = XposedHelpers.callMethod(activityThread, "getSystemContext") as Context?
             try {
                 val versionName = ctx?.packageManager?.getPackageInfo(pkgName, 0)?.versionName
-                val idx = _supportVersions.indexOfFirst { versionName!!.contains(it) }
-                if (idx != -1) {
-                    Versions.initVersion(idx)
+                if (WthApi.checkAndDownloadVersion(versionName)) {
+                    ver = WthApi.loadVersion(versionName)
+                    Log.e("XposedModule", "ver = $ver")
                 }
             } catch (t: Throwable) {
-
+                Log.e("XposedModule", "loadVersion => $t")
             }
         } catch (t: Throwable) {
 
         }
-        if (Versions.inited) {
+        if (ver != null) {
+            Log.e("XposedModule", "Version loaded")
             XpConfig.xposedload()
-            HookTopHighlight.hookTopReaderAndMac(param.classLoader)
-            HookTopHighlight.hookTopHighlight(param.classLoader)
-            HookStatusbar.hookStatusbar(param.classLoader)
-            HookSettings.hookSettings(param.classLoader)
-            HookTabView.hookTabView(param.classLoader)
-            HookListBack.hookFirstPageBackground(param.classLoader)
+            HookTopHighlight.hookTopReaderAndMac(param.classLoader, ver)
+            HookTopHighlight.hookTopHighlight(param.classLoader, ver)
+            HookStatusbar.hookStatusbar(param.classLoader, ver)
+            HookSettings.hookSettings(param.classLoader, ver)
+            HookTabView.hookTabView(param.classLoader, ver)
+            HookListBack.hookFirstPageBackground(param.classLoader, ver)
         }
     }
 

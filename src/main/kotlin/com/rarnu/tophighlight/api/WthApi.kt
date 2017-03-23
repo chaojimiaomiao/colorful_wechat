@@ -1,6 +1,7 @@
 package com.rarnu.tophighlight.api
 
 import android.util.Log
+import com.rarnu.tophighlight.xposed.Versions
 import java.io.Serializable
 
 /**
@@ -422,5 +423,22 @@ object WthApi {
      * @return 是否已安装
      */
     external fun xposedInstalled(): Boolean
+
+    /**
+     * 检查是否有适用于当前版本微信的配置文件，若没有则进行下载
+     *
+     * @param 当前安装的微信版本号
+     * @return 已有配置文件或下载成功，返回 true，否则返回 false
+     *
+     */
+    external fun checkAndDownloadVersion(AVer: String?): Boolean
+
+    /**
+     * 加载指定微信的配置文件
+     *
+     * @param 当前安装的微信版本号
+     * @return 是否加载成功，若加载成功，Versions.kt 内指定变量将拥有特定值
+     */
+    external fun loadVersion(AVer: String?): Versions?
 
 }

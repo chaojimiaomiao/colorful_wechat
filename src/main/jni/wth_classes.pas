@@ -31,6 +31,53 @@ const
   KEY_BOTTOMBAR_PATH = 'theme_bottombar_path';
   KEY_LIST_PATH = 'theme_list_path';
 
+  SEC_WECHAT = 'wechat';
+  KEY_LISTVIEW_ACT = 'listview_act';
+  KEY_LISTVIEW_BACK_METHOD = 'listview_back_method';
+  KEY_LISTVIEW_BACK_FIELD = 'listview_back_field';
+  KEY_CONVERSATION_ADAPTER = 'conversation_adapter';
+  KEY_USER_INFO_METHOD = 'user_info_method';
+  KEY_TOP_INFO_METHOD = 'top_info_method';
+  KEY_TOP_INFO_FIELD = 'top_info_field';
+
+  KEY_MMFRAGMENT_ACTIVITY = 'mmfragment_activity';
+  KEY_CHATUI_ACTIVITY = 'chatui_activity';
+  KEY_GET_APPCOMPACT = 'get_appcompact';
+  KEY_GET_ACTIONBAR = 'get_actionbar';
+  KEY_DIVIDER_ID = 'divider_id';
+  KEY_ACTIONBAR_VIEW_ID = 'actionbar_view_id';
+  KEY_CUSTOMIZE_ACTIONBAR = 'customize_actionbar';
+  KEY_ACTIONBAR_CONTAINER = 'actionbar_container';
+
+  KEY_BOTTOM_TABVIEW = 'bottom_tabview';
+  KEY_BOTTOM_METHOD = 'bottom_method';
+  KEY_BOTTOM_FIELD = 'bottom_field';
+
+  KEY_TOOL_CLASS = 'tool_class';
+  KEY_TOOL_METHOD = 'tool_method';
+  KEY_TOOL_FIELD = 'tool_field';
+
+  KEY_POPUPWINDOW_CLASS = 'popupwindow_class';
+  KEY_POPUP_FIELD = 'popup_field';
+  KEY_POPUP_MENU_FIELD = 'popup_menu_field';
+  KEY_POPUP_MENU_ITEM_CLASS = 'popup_menu_item_class';
+  KEY_POPUP_MENU_ITEM_CONTAINER = 'popup_menu_item_container';
+  KEY_POPUP_MENU_ITEM_ID = 'popup_menu_item_id';
+  KEY_POPUPWINDOW_ADAPTER = 'popupwindow_adapter';
+
+  KEY_TOP_MAC_ACTIVITY = 'top_mac_activity';
+  KEY_TOP_READER_ACTIVITY = 'top_reader_activity';
+  KEY_TOP_MAC_METHOD = 'top_mac_method';
+  KEY_TOP_MAC_FIELD = 'top_mac_field';
+  KEY_TOP_READER_METHOD = 'top_reader_method';
+  KEY_TOP_READER_FIELD = 'top_reader_field';
+  KEY_TOP_READER_VIEW_ID = 'top_reader_view_id';
+
+  KEY_SETTING_ACTIVITY = 'setting_activity';
+  KEY_SETTING_PREFERENCE = 'setting_preference';
+  KEY_SETTING_LIST_FIELD = 'setting_list_field';
+  KEY_SETTING_ADD_METHOD = 'setting_add_method';
+
 type
 
   IWthIntf = interface
@@ -202,6 +249,102 @@ type
   TThemeList = specialize TFPGList<Theme>;
   TCommentList = specialize TFPGList<ThemeComment>;
 
+  { TWechatVersion }
+
+  TWechatVersion = class
+  private
+    FactionBarContainer: string;
+    FactionBarViewId: Int64;
+    FbottomField: string;
+    FbottomMethod: string;
+    FbottomTabView: string;
+    FchatUIActivity: string;
+    FconversationAdapter: string;
+    FcustomizeActionBar: string;
+    FdividerId: Int64;
+    FgetActionBar: string;
+    FgetAppCompact: string;
+    FlistviewAct: String;
+    FlistviewBackField: string;
+    FlistviewBackMethod: string;
+    FmmFragmentActivity: string;
+    FpopupField: string;
+    FpopupMenuField: string;
+    FpopupMenuItemClass: string;
+    FpopupMenuItemContainer: string;
+    FpopupMenuItemId: Int64;
+    FpopupWindowAdapter: string;
+    FpopupWindowClass: string;
+    FsettingActivity: string;
+    FsettingAddMethod: string;
+    FsettingListField: string;
+    FsettingPreference: string;
+    FtoolClass: string;
+    FtoolField: string;
+    FtoolMethod: string;
+    FtopInfoField: string;
+    FtopInfoMethod: string;
+    FtopMacActivity: string;
+    FtopMacField: string;
+    FtopMacMethod: string;
+    FtopReaderActivity: string;
+    FtopReaderField: string;
+    FtopReaderMethod: string;
+    FtopReaderViewId: Int64;
+    FuserInfoMethod: string;
+  public
+    class function fromINI(APath: string): TWechatVersion;
+    function toJObject(env: PJNIEnv): jobject;
+  published
+
+    property listviewAct: String read FlistviewAct write FlistviewAct;
+    property listviewBackMethod: string read FlistviewBackMethod write FlistviewBackMethod;
+    property listviewBackField: string read FlistviewBackField write FlistviewBackField;
+    property conversationAdapter: string read FconversationAdapter write FconversationAdapter;
+    property userInfoMethod: string read FuserInfoMethod write FuserInfoMethod;
+    property topInfoMethod: string read FtopInfoMethod write FtopInfoMethod;
+    property topInfoField: string read FtopInfoField write FtopInfoField;
+
+    property mmFragmentActivity: string read FmmFragmentActivity write FmmFragmentActivity;
+    property chatUIActivity: string read FchatUIActivity write FchatUIActivity;
+    property getAppCompact: string read FgetAppCompact write FgetAppCompact;
+    property getActionBar: string read FgetActionBar write FgetActionBar;
+    property dividerId: Int64 read FdividerId write FdividerId;
+    property actionBarViewId: Int64 read FactionBarViewId write FactionBarViewId;
+    property customizeActionBar: string read FcustomizeActionBar write FcustomizeActionBar;
+    property actionBarContainer: string read FactionBarContainer write FactionBarContainer;
+
+    property bottomTabView: string read FbottomTabView write FbottomTabView;
+    property bottomMethod: string read FbottomMethod write FbottomMethod;
+    property bottomField: string read FbottomField write FbottomField;
+
+    property toolClass: string read FtoolClass write FtoolClass;
+    property toolMethod: string read FtoolMethod write FtoolMethod;
+    property toolField: string read FtoolField write FtoolField;
+
+    property popupWindowClass: string read FpopupWindowClass write FpopupWindowClass;
+    property popupField: string read FpopupField write FpopupField;
+    property popupMenuField: string read FpopupMenuField write FpopupMenuField;
+    property popupMenuItemClass: string read FpopupMenuItemClass write FpopupMenuItemClass;
+    property popupMenuItemContainer: string read FpopupMenuItemContainer write FpopupMenuItemContainer;
+    property popupMenuItemId: Int64 read FpopupMenuItemId write FpopupMenuItemId;
+    property popupWindowAdapter: string read FpopupWindowAdapter write FpopupWindowAdapter;
+
+    property topMacActivity: string read FtopMacActivity write FtopMacActivity;
+    property topReaderActivity: string read FtopReaderActivity write FtopReaderActivity;
+    property topMacMethod: string read FtopMacMethod write FtopMacMethod;
+    property topMacField: string read FtopMacField write FtopMacField;
+    property topReaderMethod: string read FtopReaderMethod write FtopReaderMethod;
+    property topReaderField: string read FtopReaderField write FtopReaderField;
+    property topReaderViewId: Int64 read FtopReaderViewId write FtopReaderViewId;
+
+    property settingActivity: string read FsettingActivity write FsettingActivity;
+    property settingPreference: string read FsettingPreference write FsettingPreference;
+    property settingListField: string read FsettingListField write FsettingListField;
+    property settingAddMethod: string read FsettingAddMethod write FsettingAddMethod;
+
+  end;
+
 function JsonToThemeList(jarr: TJSONArray): TThemeList;
 function ThemeListToJobject(env: PJNIEnv; list: TThemeList): jobject;
 
@@ -268,6 +411,170 @@ begin
     env^^.CallBooleanMethodA(env, objList, clsListAdd, TJNIEnv.argsToJValues(env, [list[i].toJObject(env)]));
   end;
   Result := objList;
+end;
+
+{ TWechatVersion }
+
+class function TWechatVersion.fromINI(APath: string): TWechatVersion;
+var
+  sl: TStringList;
+begin
+  Result := nil;
+  // load wechat version from ini
+  if (not FileExists(APath)) then Exit;
+  with TIniFile.Create(APath) do begin
+    sl := TStringList.Create;
+    ReadSectionValues(SEC_WECHAT, sl);
+    Result := TWechatVersion.Create;
+    with Result do begin
+      listviewAct:= sl.Values[KEY_LISTVIEW_ACT];
+      listviewBackMethod:= sl.Values[KEY_LISTVIEW_BACK_METHOD];
+      listviewBackField:= sl.Values[KEY_LISTVIEW_BACK_FIELD];
+      conversationAdapter:= sl.Values[KEY_CONVERSATION_ADAPTER];
+      userInfoMethod:= sl.Values[KEY_USER_INFO_METHOD];
+      topInfoMethod:= sl.Values[KEY_TOP_INFO_METHOD];
+      topInfoField:= sl.Values[KEY_TOP_INFO_FIELD];
+
+      mmFragmentActivity:= sl.Values[KEY_MMFRAGMENT_ACTIVITY];
+      chatUIActivity:= sl.Values[KEY_CHATUI_ACTIVITY];
+      getAppCompact:= sl.Values[KEY_GET_APPCOMPACT];
+      getActionBar:= sl.Values[KEY_GET_ACTIONBAR];
+      dividerId:= StrToInt64(sl.Values[KEY_DIVIDER_ID]);
+      actionBarViewId:= StrToInt64(sl.Values[KEY_ACTIONBAR_VIEW_ID]);
+      customizeActionBar:= sl.Values[KEY_CUSTOMIZE_ACTIONBAR];
+      actionBarContainer:= sl.Values[KEY_ACTIONBAR_CONTAINER];
+
+      bottomTabView:= sl.Values[KEY_BOTTOM_TABVIEW];
+      bottomMethod:= sl.Values[KEY_BOTTOM_METHOD];
+      bottomField:= sl.Values[KEY_BOTTOM_FIELD];
+
+      toolClass := sl.Values[KEY_TOOL_CLASS];
+      toolMethod:= sl.Values[KEY_TOOL_METHOD];
+      toolField:= sl.Values[KEY_TOOL_FIELD];
+
+      popupWindowClass:= sl.Values[KEY_POPUPWINDOW_CLASS];
+      popupField:= sl.Values[KEY_POPUP_FIELD];
+      popupMenuField:= sl.Values[KEY_POPUP_MENU_FIELD];
+      popupMenuItemClass:= sl.Values[KEY_POPUP_MENU_ITEM_CLASS];
+      popupMenuItemContainer:= sl.Values[KEY_POPUP_MENU_ITEM_CONTAINER];
+      popupMenuItemId:= StrToInt64(sl.Values[KEY_POPUP_MENU_ITEM_ID]);
+      popupWindowAdapter:= sl.Values[KEY_POPUPWINDOW_ADAPTER];
+
+      topMacActivity:= sl.Values[KEY_TOP_MAC_ACTIVITY];
+      topReaderActivity:= sl.Values[KEY_TOP_READER_ACTIVITY];
+      topMacMethod:= sl.Values[KEY_TOP_MAC_METHOD];
+      topMacField:= sl.Values[KEY_TOP_MAC_FIELD];
+      topReaderMethod:= sl.Values[KEY_TOP_READER_METHOD];
+      topReaderField:= sl.Values[KEY_TOP_READER_FIELD];
+      topReaderViewId:= StrToInt64(sl.Values[KEY_TOP_READER_VIEW_ID]);
+
+      settingActivity:= sl.Values[KEY_SETTING_ACTIVITY];
+      settingPreference:= sl.Values[KEY_SETTING_PREFERENCE];
+      settingListField:= sl.Values[KEY_SETTING_LIST_FIELD];
+      settingAddMethod:= sl.Values[KEY_SETTING_ADD_METHOD];
+    end;
+    sl.Free;
+    Free;
+  end;
+end;
+
+function TWechatVersion.toJObject(env: PJNIEnv): jobject;
+var
+  cls: jclass;
+  m: jmethodID;
+begin
+  LOGE('mapTo start');
+  Result := nil;
+  // map wechat version to jvm
+  if (env = nil) then Exit;
+  try
+    cls := env^^.FindClass(env, 'com/rarnu/tophighlight/xposed/Versions');
+    m := env^^.GetMethodID(env, cls, '<init>', '()V');
+    Result := env^^.NewObject(env, cls, m);
+    m := env^^.GetMethodID(env, cls, 'setListviewAct', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [listviewAct]));
+    m := env^^.GetMethodID(env, cls, 'setListviewBackMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [listviewBackMethod]));
+    m := env^^.GetMethodID(env, cls, 'setListviewBackField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [listviewBackField]));
+    m := env^^.GetMethodID(env, cls, 'setConversationAdapter', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [conversationAdapter]));
+    m := env^^.GetMethodID(env, cls, 'setUserInfoMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [userInfoMethod]));
+    m := env^^.GetMethodID(env, cls, 'setTopInfoMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topInfoMethod]));
+    m := env^^.GetMethodID(env, cls, 'setTopInfoField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topInfoField]));
+    m := env^^.GetMethodID(env, cls, 'setMmFragmentActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [mmFragmentActivity]));
+    m := env^^.GetMethodID(env, cls, 'setChatUIActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [chatUIActivity]));
+    m := env^^.GetMethodID(env, cls, 'setGetAppCompact', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [getAppCompact]));
+    m := env^^.GetMethodID(env, cls, 'setGetActionBar', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [getActionBar]));
+    m := env^^.GetMethodID(env, cls, 'setDividerId', '(I)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [dividerId]));
+    m := env^^.GetMethodID(env, cls, 'setActionBarViewId', '(I)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [actionBarViewId]));
+    m := env^^.GetMethodID(env, cls, 'setCustomizeActionBar', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [customizeActionBar]));
+    m := env^^.GetMethodID(env, cls, 'setActionBarContainer', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [actionBarContainer]));
+    m := env^^.GetMethodID(env, cls, 'setBottomTabView', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [bottomTabView]));
+    m := env^^.GetMethodID(env, cls, 'setBottomMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [bottomMethod]));
+    m := env^^.GetMethodID(env, cls, 'setBottomField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [bottomField]));
+    m := env^^.GetMethodID(env, cls, 'setToolClass', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [toolClass]));
+    m := env^^.GetMethodID(env, cls, 'setToolMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [toolMethod]));
+    m := env^^.GetMethodID(env, cls, 'setToolField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [toolField]));
+    m := env^^.GetMethodID(env, cls, 'setPopupWindowClass', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupWindowClass]));
+    m := env^^.GetMethodID(env, cls, 'setPopupField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupField]));
+    m := env^^.GetMethodID(env, cls, 'setPopupMenuField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupMenuField]));
+    m := env^^.GetMethodID(env, cls, 'setPopupMenuItemClass', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupMenuItemClass]));
+    m := env^^.GetMethodID(env, cls, 'setPopupMenuItemContainer', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupMenuItemContainer]));
+    m := env^^.GetMethodID(env, cls, 'setPopupMenuItemId', '(I)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupMenuItemId]));
+    m := env^^.GetMethodID(env, cls, 'setPopupWindowAdapter', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupWindowAdapter]));
+    m := env^^.GetMethodID(env, cls, 'setTopMacActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topMacActivity]));
+    m := env^^.GetMethodID(env, cls, 'setTopReaderActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topReaderActivity]));
+    m := env^^.GetMethodID(env, cls, 'setTopMacMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topMacMethod]));
+    m := env^^.GetMethodID(env, cls, 'setTopMacField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topMacField]));
+    m := env^^.GetMethodID(env, cls, 'setTopReaderMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topReaderMethod]));
+    m := env^^.GetMethodID(env, cls, 'setTopReaderField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topReaderField]));
+    m := env^^.GetMethodID(env, cls, 'setTopReaderViewId', '(I)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topReaderViewId]));
+    m := env^^.GetMethodID(env, cls, 'setSettingActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [settingActivity]));
+    m := env^^.GetMethodID(env, cls, 'setSettingPreference', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [settingPreference]));
+    m := env^^.GetMethodID(env, cls, 'setSettingListField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [settingListField]));
+    m := env^^.GetMethodID(env, cls, 'setSettingAddMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [settingAddMethod]));
+
+  except
+    on E: Exception do begin
+      LOGE(PChar(Format('WechatVersion mapTo => %s', [E.Message])));
+    end;
+  end;
 end;
 
 { ThemeIni }

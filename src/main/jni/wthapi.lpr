@@ -5,7 +5,7 @@
 {$mode objfpc}{$H+}
 
 uses
-  Classes, sysutils, JNI2, api_export, http_utils, test, wth_classes;
+  cthreads, Classes, sysutils, JNI2, api_export, http_utils, test, wth_classes;
 
 {$IFNDEF DEBUG}
 exports
@@ -47,7 +47,11 @@ exports
   Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd,
 
   // system
-  Java_com_rarnu_tophighlight_api_WthApi_xposedInstalled;
+  Java_com_rarnu_tophighlight_api_WthApi_xposedInstalled,
+
+  // hotfix
+  Java_com_rarnu_tophighlight_api_WthApi_checkAndDownloadVersion,
+  Java_com_rarnu_tophighlight_api_WthApi_loadVersion;
 
 {$ENDIF}
 

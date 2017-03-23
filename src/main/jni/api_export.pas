@@ -47,6 +47,10 @@ function Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd(env: PJNIEnv; obj: j
 // system
 function Java_com_rarnu_tophighlight_api_WthApi_xposedInstalled(env: PJNIEnv; obj: jobject): jboolean; stdcall;
 
+// hotfix
+function Java_com_rarnu_tophighlight_api_WthApi_checkAndDownloadVersion(env: PJNIEnv; obj: jobject; AVer: jstring): jboolean; stdcall;
+function Java_com_rarnu_tophighlight_api_WthApi_loadVersion(env: PJNIEnv; obj: jobject; AVer: jstring): jobject; stdcall;
+
 implementation
 
 
@@ -382,6 +386,26 @@ var
 begin
   ret := xposedInstalled();
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
+end;
+
+function Java_com_rarnu_tophighlight_api_WthApi_checkAndDownloadVersion(
+  env: PJNIEnv; obj: jobject; AVer: jstring): jboolean; stdcall;
+var
+  ret: Boolean;
+begin
+  ret := checkAndDownloadVersion(TJNIEnv.JStringToString(env, AVer));
+  Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
+end;
+
+function Java_com_rarnu_tophighlight_api_WthApi_loadVersion(env: PJNIEnv;
+  obj: jobject; AVer: jstring): jobject; stdcall;
+var
+  ret: TWechatVersion;
+begin
+  Result := nil;
+  ret := loadVersion(TJNIEnv.JStringToString(env, AVer));
+  if (ret <> nil) then Result := ret.toJObject(env);
+  if (ret <> nil) then ret.Free;
 end;
 
 end.

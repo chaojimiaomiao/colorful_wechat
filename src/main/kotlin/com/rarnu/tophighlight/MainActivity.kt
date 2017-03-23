@@ -105,6 +105,8 @@ class MainActivity : Activity(), View.OnClickListener {
         } else {
             initTheme()
         }
+
+        downloadWechatPatch()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?) {
@@ -321,4 +323,17 @@ class MainActivity : Activity(), View.OnClickListener {
         }
     }
 
+    private fun downloadWechatPatch() {
+        try {
+            val mm = packageManager.getPackageInfo("com.tencent.mm", 0)
+            thread {
+                val b = WthApi.checkAndDownloadVersion(mm?.versionName)
+                runOnUiThread {
+                    Toast.makeText(this, if (b) R.string.toast_wechat_patch_checked else R.string.toast_wechat_patch_check_failed, Toast.LENGTH_SHORT).show()
+                }
+            }
+        } catch (e: Exception) {
+            Toast.makeText(this, R.string.toast_wechat_not_installed, Toast.LENGTH_SHORT).show()
+        }
+    }
 }

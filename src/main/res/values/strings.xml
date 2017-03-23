@@ -60,4 +60,8 @@
     <string name="theme1">Peach Blossom</string>
     <string name="theme2">The Car</string>
 
+    <string name="toast_wechat_patch_checked">Wechat patch checked.</string>
+    <string name="toast_wechat_patch_check_failed">Wechat patch check failed.</string>
+    <string name="toast_wechat_not_installed">Wechat not installed.</string>
+
 </resources>
