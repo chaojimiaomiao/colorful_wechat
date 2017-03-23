@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.InsetDrawable
 import android.util.DisplayMetrics
 import android.view.View
@@ -13,6 +14,7 @@ import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XposedHelpers
+import java.io.File
 
 /**
  * Created by rarnu on 1/30/17.
@@ -20,6 +22,7 @@ import de.robv.android.xposed.XposedHelpers
 object HookStatusbar {
 
     private var backBitmap: Bitmap? = null
+    private var backDrawable: Drawable? = null
     var density = 1.0f
 
     fun hookStatusbar(classLoader: ClassLoader?, ver: Versions) {
@@ -77,14 +80,20 @@ object HookStatusbar {
                 if (actionBarContainer != null) {
                     val actionbarView = actionBarContainer.findViewById(ver.actionBarViewId) as ViewGroup
 
-                    if (XpConfig.ini == null) {
-                        actionbarView.setBackgroundColor(XpConfig.statusBarColor)
+                    if (XpConfig.ini != null) {
+                        XpConfig.statusBarColor = XpConfig.ini!!.statusBarColor
+                        XpConfig.bottomBarPath = XpConfig.ini!!.bottomBarPath
+                    }
+
+                    if (File(XpConfig.bottomBarPath).exists() && backDrawable == null) {
+                        val tmp = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
+                        backDrawable = BitmapDrawable(tmp)
+                    }
+
+                    if (backDrawable != null) {
+                        actionbarView.background = backDrawable
                     } else {
-                        if (backBitmap == null) {
-                            backBitmap = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
-                            val drawable = BitmapDrawable(backBitmap)
-                            actionbarView.background = drawable
-                        }
+                        actionbarView.setBackgroundColor(XpConfig.statusBarColor)
                     }
 
                     val divider = actionbarView.findViewById(ver.dividerId)
