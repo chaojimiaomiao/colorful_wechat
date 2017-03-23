@@ -16,12 +16,11 @@ object HookListBack {
 
     private var backDrawable: Drawable? = null
 
-    //bCnz
-    fun hookFirstPageBackground(classLoader: ClassLoader?) {
-        XposedHelpers.findAndHookMethod(Versions.listviewAct, classLoader, Versions.listviewBackMethod, object : XC_MethodHook() {
+    fun hookFirstPageBackground(classLoader: ClassLoader?, ver: Versions) {
+        XposedHelpers.findAndHookMethod(ver.listviewAct, classLoader, ver.listviewBackMethod, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val pqm = XposedHelpers.getObjectField(param?.thisObject, Versions.listviewBackField) as ListView?
+                val pqm = XposedHelpers.getObjectField(param?.thisObject, ver.listviewBackField) as ListView?
                 if (XpConfig.ini == null) {
                     if (backDrawable == null) {
                         if (File(XpConfig.listviewPath).exists()) {

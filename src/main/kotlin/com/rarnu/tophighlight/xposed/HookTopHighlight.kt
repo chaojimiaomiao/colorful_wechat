@@ -15,31 +15,31 @@ object HookTopHighlight {
     /**
      * 此处是hook置顶的群和普通的群
      */
-    fun hookTopHighlight(classLoader: ClassLoader?) {
-        XposedHelpers.findAndHookMethod(Versions.conversationAdapter, classLoader, "getView", Integer.TYPE, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
+    fun hookTopHighlight(classLoader: ClassLoader?, ver: Versions) {
+        XposedHelpers.findAndHookMethod(ver.conversationAdapter, classLoader, "getView", Integer.TYPE, View::class.java, ViewGroup::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(pmethod: MethodHookParam) {
-                val ad = XposedHelpers.callMethod(pmethod.thisObject, Versions.userInfoMethod, pmethod.args[0])
-                val j = XposedHelpers.callMethod(pmethod.thisObject, Versions.topInfoMethod, ad)
-                val oLH = XposedHelpers.getBooleanField(j, Versions.topInfoField)
+                val ad = XposedHelpers.callMethod(pmethod.thisObject, ver.userInfoMethod, pmethod.args[0])
+                val j = XposedHelpers.callMethod(pmethod.thisObject, ver.topInfoMethod, ad)
+                val oLH = XposedHelpers.getBooleanField(j, ver.topInfoField)
                 (pmethod.result as View?)?.background = if (oLH) createTopHighlightSelectorDrawable(pmethod.args[0] as Int) else createNormalSelectorDrawable()
             }
         })
     }
 
-    fun hookTopReaderAndMac(classLoader: ClassLoader?) {
-        XposedHelpers.findAndHookMethod(Versions.topMacActivity, classLoader, Versions.topMacMethod, object : XC_MethodHook() {
+    fun hookTopReaderAndMac(classLoader: ClassLoader?, ver: Versions) {
+        XposedHelpers.findAndHookMethod(ver.topMacActivity, classLoader, ver.topMacMethod, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(pmethod: MethodHookParam) {
-                val v = XposedHelpers.getObjectField(pmethod.thisObject, Versions.topMacField) as View?
+                val v = XposedHelpers.getObjectField(pmethod.thisObject, ver.topMacField) as View?
                 v?.background = createTopReaderAndMacSelectorDrawable()
             }
         })
-        XposedHelpers.findAndHookMethod(Versions.topReaderActivity, classLoader, Versions.topReaderMethod, Integer.TYPE, object : XC_MethodHook() {
+        XposedHelpers.findAndHookMethod(ver.topReaderActivity, classLoader, ver.topReaderMethod, Integer.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(pmethod: MethodHookParam) {
-                val view = XposedHelpers.getObjectField(pmethod.thisObject, Versions.topReaderField) as View?
-                view?.findViewById(Versions.topReaderViewId)?.background = createTopReaderAndMacSelectorDrawable(1)
+                val view = XposedHelpers.getObjectField(pmethod.thisObject, ver.topReaderField) as View?
+                view?.findViewById(ver.topReaderViewId)?.background = createTopReaderAndMacSelectorDrawable(1)
             }
         })
     }

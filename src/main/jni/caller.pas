@@ -5,7 +5,7 @@ unit caller;
 interface
 
 uses
-  Classes, SysUtils, http_utils, encrypt_utils, fpjson, jsonparser, jsonscanner, wth_classes, android;
+  Classes, SysUtils, http_utils, encrypt_utils, fpjson, jsonparser, jsonscanner, wth_classes, android, JNI2;
 
 const
   BASEURL = 'http://rarnu.com/wth/';
@@ -45,6 +45,10 @@ function feedbackAdd(appVer: Integer; userId: Integer; deviceId: string; nicknam
 
 // system
 function xposedInstalled(): Boolean;
+
+// hotfix
+function checkAndDownloadVersion(AVer: string): Boolean;
+function loadVersion(AVer: string): TWechatVersion;
 
 implementation
 
@@ -606,7 +610,7 @@ end;
 procedure uuidAdd(year, month, day, hour, minute: Word; uuid: string);
 var
   param: TParamMap;
-  ret: string;
+  ret: string = '';
 begin
   param := TParamMap.Create;
   param.Add('year', IntToStr(year));
@@ -615,7 +619,10 @@ begin
   param.Add('hour', IntToStr(hour));
   param.Add('minute', IntToStr(minute));
   param.Add('uuid', uuid);
-  ret := HttpPost(BASEURL + 'uid_add.php', param);
+  try
+    ret := HttpPost(BASEURL + 'uid_add.php', param);
+  except
+  end;
   param.Free;
   LOGE(PChar(Format('Record UUID: %s', [ret])));
 end;
@@ -695,6 +702,45 @@ begin
   if (FileExists(APK1)) then apkExists:= True;
   if (FileExists(APK2)) then apkExists:= True;
   Exit(libExists and propExists and apkExists);
+end;
+
+function checkAndDownloadVersion(AVer: string): Boolean;
+var
+  APath: string;
+  ret: string;
+begin
+  APath:= '/sdcard/.wechat_tophighlight/';
+  if (not DirectoryExists(APath)) then ForceDirectories(APath);
+  APath += AVer + '.ini';
+  if (FileExists(APath)) then Exit(True);
+  Result := False;
+  try
+    ret := HttpGet(BASEURL + 'ver/' + AVer + '.ini', nil);
+  except
+  end;
+  if (ret.Trim <> '') then begin
+    with TStringList.Create do begin
+      Text:= ret;
+      SaveToFile(APath);
+      Result := True;
+      Free;
+    end;
+  end;
+end;
+
+function loadVersion(AVer: string): TWechatVersion;
+var
+  APath: string;
+begin
+  Result := nil;
+  try
+    APath:= '/sdcard/.wechat_tophighlight/' + AVer + '.ini';
+    if (FileExists(APath)) then Result := TWechatVersion.fromINI(APath);
+  except
+    on e: Exception do begin
+      LOGE(PChar(Format('loadVersion => %s', [e.Message])));
+    end;
+  end;
 end;
 
 end.
