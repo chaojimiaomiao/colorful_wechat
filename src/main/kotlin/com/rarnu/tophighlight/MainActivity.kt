@@ -218,6 +218,7 @@ class MainActivity : Activity(), View.OnClickListener {
                 XpConfig.listviewPath = BASE_FILE_PATH + "/colorful/baiyinghua.png"
                 XpConfig.themePath = BASE_FILE_PATH + "/colorful/baiyinghua.ini"
                 XpConfig.statusBarColor = LocalTheme.themeFlower.statusBarColor
+                XpConfig.normalColor = LocalTheme.themeFlower.normalColor
 
                 toolBar?.setBackgroundColor(XpConfig.statusBarColor)
                 scrollView?.setBackgroundResource(R.drawable.baiyinghua)
@@ -239,6 +240,7 @@ class MainActivity : Activity(), View.OnClickListener {
                 XpConfig.listviewPath = BASE_FILE_PATH + "/colorful/lanbojini.png"
                 XpConfig.themePath = BASE_FILE_PATH + "/colorful/lanbojini.ini"
                 XpConfig.statusBarColor = LocalTheme.themeCar.statusBarColor
+                XpConfig.normalColor = LocalTheme.themeFlower.normalColor
 
                 toolBar?.setBackgroundColor(XpConfig.statusBarColor)
                 scrollView?.setBackgroundResource(R.drawable.lanbojini)

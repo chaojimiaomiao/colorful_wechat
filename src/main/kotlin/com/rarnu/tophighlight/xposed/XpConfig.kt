@@ -36,10 +36,10 @@ object XpConfig {
         normalColor = prefs.getInt(KEY_NORMAL_COLOR, defaultNormalColor)
         normalPressColor = prefs.getInt(KEY_NORMAL_PRESS_COLOR, defaultNormalPressColor)
 
-        /*(0..3).forEach {
+        (0..9).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
-        }*/
+        }
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
 
@@ -65,10 +65,10 @@ object XpConfig {
         normalColor = prefs.getInt(KEY_NORMAL_COLOR, defaultNormalColor)
         normalPressColor = prefs.getInt(KEY_NORMAL_PRESS_COLOR, defaultNormalPressColor)
 
-        /*(0..3).forEach {
+        (0..9).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
-        }*/
+        }
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
         Log.e("mainload", "themePath => $themePath")
@@ -236,7 +236,7 @@ object XpConfig {
             0x00ffffff,
             0x00ffffff,
             0x00ffffff)
-    var topColors = transTopColors
+    var topColors = defaultTopColors
 
     // 默认的置顶项点击时的高亮颜色，可以修改
     val defaultTopPressColors = arrayOf(
