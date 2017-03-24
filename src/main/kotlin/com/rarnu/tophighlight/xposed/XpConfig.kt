@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.os.Build
 import android.util.Log
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.market.LocalTheme
 import de.robv.android.xposed.XSharedPreferences
 
 /**
@@ -36,16 +37,15 @@ object XpConfig {
         normalColor = prefs.getInt(KEY_NORMAL_COLOR, defaultNormalColor)
         normalPressColor = prefs.getInt(KEY_NORMAL_PRESS_COLOR, defaultNormalPressColor)
 
-        /*(0..3).forEach {
+        (0..9).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
-        }*/
+        }
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
 
-        Log.e("xposedload", "themePath => $themePath")
-        ini = WthApi.readThemeFromINI(themePath)
-        Log.e("xposedload", "themeINI => $ini")
+        loadINI()
+
     }
 
     fun load(ctx: Context) {
@@ -65,15 +65,98 @@ object XpConfig {
         normalColor = prefs.getInt(KEY_NORMAL_COLOR, defaultNormalColor)
         normalPressColor = prefs.getInt(KEY_NORMAL_PRESS_COLOR, defaultNormalPressColor)
 
-        /*(0..3).forEach {
+        (0..9).forEach {
             topColors[it] = prefs.getInt("$KEY_DING$it", defaultTopColors[it])
             topPressColors[it] = prefs.getInt("$KEY_PRESS_DING$it", defaultTopPressColors[it])
-        }*/
+        }
         bottomBarPath = prefs.getString(KEY_BTBAR_PICPATH, "")
         listviewPath = prefs.getString(KEY_LIST_PICPATH, "")
-        Log.e("mainload", "themePath => $themePath")
+
+        loadINI()
+    }
+
+    fun loadINI() {
         ini = WthApi.readThemeFromINI(themePath)
-        Log.e("mainload", "themeINI => $ini")
+
+        // merge
+        if (ini != null) {
+            if (ini!!.type == LocalTheme.THEME_TYPE_FULL) {
+                if (ini!!.normalColor != -1) normalColor = ini!!.normalColor
+                if (ini!!.normalPressColor != -1) normalPressColor = ini!!.normalPressColor
+                if (ini!!.statusBarPath != "") statusBarPath = ini!!.statusBarPath
+                if (ini!!.bottomBarPath != "") bottomBarPath = ini!!.bottomBarPath
+                if (ini!!.listPath != "") listviewPath = ini!!.listPath
+                if (ini!!.statusBarColor != -1) statusBarColor = ini!!.statusBarColor
+                showDivider = ini!!.showDivider
+                if (ini!!.dividerColor != -1) dividerColor = ini!!.dividerColor
+                darkerStatusBar = ini!!.darkerStatusBar
+                darkStatusBarText = ini!!.darkStatusBarText
+                if (ini!!.macColor != -1) macColor = ini!!.macColor
+                if (ini!!.macPressColor != -1) macPressColor = ini!!.macPressColor
+                if (ini!!.readerColor != -1) readerColor = ini!!.readerColor
+                if (ini!!.readerPressColor != -1) readerPressColor = ini!!.readerPressColor
+                if (ini!!.bottomBarColor != -1) bottomBarColor = ini!!.bottomBarColor
+                if (ini!!.topColors0 != -1) topColors[0] = ini!!.topColors0
+                if (ini!!.topColors1 != -1) topColors[1] = ini!!.topColors1
+                if (ini!!.topColors2 != -1) topColors[2] = ini!!.topColors2
+                if (ini!!.topColors3 != -1) topColors[3] = ini!!.topColors3
+                if (ini!!.topColors4 != -1) topColors[4] = ini!!.topColors4
+                if (ini!!.topColors5 != -1) topColors[5] = ini!!.topColors5
+                if (ini!!.topColors6 != -1) topColors[6] = ini!!.topColors6
+                if (ini!!.topColors7 != -1) topColors[7] = ini!!.topColors7
+                if (ini!!.topColors8 != -1) topColors[8] = ini!!.topColors8
+                if (ini!!.topColors9 != -1) topColors[9] = ini!!.topColors9
+                if (ini!!.topPressColors0 != -1) topPressColors[0] = ini!!.topPressColors0
+                if (ini!!.topPressColors1 != -1) topPressColors[1] = ini!!.topPressColors1
+                if (ini!!.topPressColors2 != -1) topPressColors[2] = ini!!.topPressColors2
+                if (ini!!.topPressColors3 != -1) topPressColors[3] = ini!!.topPressColors3
+                if (ini!!.topPressColors4 != -1) topPressColors[4] = ini!!.topPressColors4
+                if (ini!!.topPressColors5 != -1) topPressColors[5] = ini!!.topPressColors5
+                if (ini!!.topPressColors6 != -1) topPressColors[6] = ini!!.topPressColors6
+                if (ini!!.topPressColors7 != -1) topPressColors[7] = ini!!.topPressColors7
+                if (ini!!.topPressColors8 != -1) topPressColors[8] = ini!!.topPressColors8
+                if (ini!!.topPressColors9 != -1) topPressColors[9] = ini!!.topPressColors9
+
+            } else {
+                if (normalColor != defaultNormalColor) ini!!.normalColor = normalColor
+                if (normalPressColor != defaultNormalPressColor) ini!!.normalPressColor = normalPressColor
+                if (statusBarPath != "") ini!!.statusBarPath = statusBarPath
+                if (bottomBarPath != "") ini!!.bottomBarPath = bottomBarPath
+                if (listviewPath != "") ini!!.listPath = listviewPath
+                if (statusBarColor != defaultStatusBarColor) ini!!.statusBarColor = statusBarColor
+                ini!!.showDivider = showDivider
+                if (dividerColor != defaultDividerColor) ini!!.dividerColor = dividerColor
+                ini!!.darkerStatusBar = darkerStatusBar
+                ini!!.darkStatusBarText = darkStatusBarText
+                if (macColor != defaultMacColor) ini!!.macColor = macColor
+                if (macPressColor != defaultMacPressColor) ini!!.macPressColor = macPressColor
+                if (readerColor != defaultReaderColor) ini!!.readerColor = readerColor
+                if (readerPressColor != defaultReaderPressColor) ini!!.readerPressColor = readerPressColor
+                if (bottomBarColor != defaultBottomBarColor) ini!!.bottomBarColor = bottomBarColor
+                if (topColors[0] != defaultTopColors[0]) ini!!.topColors0 = topColors[0]
+                if (topColors[1] != defaultTopColors[1]) ini!!.topColors1 = topColors[1]
+                if (topColors[2] != defaultTopColors[2]) ini!!.topColors2 = topColors[2]
+                if (topColors[3] != defaultTopColors[3]) ini!!.topColors3 = topColors[3]
+                if (topColors[4] != defaultTopColors[4]) ini!!.topColors4 = topColors[4]
+                if (topColors[5] != defaultTopColors[5]) ini!!.topColors5 = topColors[5]
+                if (topColors[6] != defaultTopColors[6]) ini!!.topColors6 = topColors[6]
+                if (topColors[7] != defaultTopColors[7]) ini!!.topColors7 = topColors[7]
+                if (topColors[8] != defaultTopColors[8]) ini!!.topColors8 = topColors[8]
+                if (topColors[9] != defaultTopColors[9]) ini!!.topColors9 = topColors[9]
+                if (topPressColors[0] != defaultTopPressColors[0]) ini!!.topPressColors0 = topPressColors[0]
+                if (topPressColors[1] != defaultTopPressColors[1]) ini!!.topPressColors1 = topPressColors[1]
+                if (topPressColors[2] != defaultTopPressColors[2]) ini!!.topPressColors2 = topPressColors[2]
+                if (topPressColors[3] != defaultTopPressColors[3]) ini!!.topPressColors3 = topPressColors[3]
+                if (topPressColors[4] != defaultTopPressColors[4]) ini!!.topPressColors4 = topPressColors[4]
+                if (topPressColors[5] != defaultTopPressColors[5]) ini!!.topPressColors5 = topPressColors[5]
+                if (topPressColors[6] != defaultTopPressColors[6]) ini!!.topPressColors6 = topPressColors[6]
+                if (topPressColors[7] != defaultTopPressColors[7]) ini!!.topPressColors7 = topPressColors[7]
+                if (topPressColors[8] != defaultTopPressColors[8]) ini!!.topPressColors8 = topPressColors[8]
+                if (topPressColors[9] != defaultTopPressColors[9]) ini!!.topPressColors9 = topPressColors[9]
+            }
+
+        }
+
     }
 
     fun save(ctx: Context) {
@@ -94,9 +177,10 @@ object XpConfig {
 
     fun saveGroup(ctx: Context) {
         val prefs = ctx.getSharedPreferences(XpConfig.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
-        var editor = prefs.edit()
+        val editor = prefs.edit()
         (0..9).forEach {
             editor.putInt("${XpConfig.KEY_DING}$it", topColors[it])
+            editor.putInt("$KEY_PRESS_DING$it", topPressColors[it])
         }
         editor.putInt(XpConfig.KEY_NORMAL_COLOR, XpConfig.normalColor)
         editor.putInt(XpConfig.KEY_NORMAL_PRESS_COLOR, XpConfig.normalPressColor)
@@ -177,7 +261,8 @@ object XpConfig {
     var statusBarPath = ""
 
     // 底部tab
-    var bottomBarColor = 0xffffffff.toInt()
+    val defaultBottomBarColor = 0xffffffff.toInt()
+    var bottomBarColor = defaultBottomBarColor
     var bottomBarPath = ""
 
     // 是否显示ActionBar与ListView之间的分隔线，可以修改
