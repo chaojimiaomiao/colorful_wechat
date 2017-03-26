@@ -689,19 +689,14 @@ const
   LIB1 = '/system/lib/libxposed_art.so';
   LIB2 = '/system/lib64/libxposed_art.so';
   PROP = '/system/xposed.prop';
-  APK1 = '/data/app/de.robv.android.xposed.installer-1/base.apk';
-  APK2 = '/data/app/de.robv.android.xposed.installer-2/base.apk';
 var
   libExists: Boolean = False;
   propExists: Boolean = False;
-  apkExists: Boolean = False;
 begin
   if (FileExists(LIB1)) then libExists:= True;
   if (FileExists(LIB2)) then libExists:= True;
   if (FileExists(PROP)) then propExists:= True;
-  if (FileExists(APK1)) then apkExists:= True;
-  if (FileExists(APK2)) then apkExists:= True;
-  Exit(libExists and propExists and apkExists);
+  Exit(libExists and propExists);
 end;
 
 function checkAndDownloadVersion(AVer: string): Boolean;
