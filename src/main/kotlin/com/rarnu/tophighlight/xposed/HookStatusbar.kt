@@ -80,11 +80,6 @@ object HookStatusbar {
                 if (actionBarContainer != null) {
                     val actionbarView = actionBarContainer.findViewById(ver.actionBarViewId) as ViewGroup
 
-                    if (XpConfig.ini != null) {
-                        XpConfig.statusBarColor = XpConfig.ini!!.statusBarColor
-                        XpConfig.bottomBarPath = XpConfig.ini!!.bottomBarPath
-                    }
-
                     if (File(XpConfig.bottomBarPath).exists() && backDrawable == null) {
                         val tmp = BitmapFactory.decodeFile(XpConfig.bottomBarPath)
                         backDrawable = BitmapDrawable(tmp)
