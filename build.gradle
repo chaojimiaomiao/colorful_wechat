@@ -72,8 +72,6 @@ repositories {
 }
 
 dependencies {
-    //compile(name:'library-release', ext:'aar')
-    //compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.android.support:design:23.0.1' //最新
     compile 'com.android.support:support-v4:23.0.1'
     compile fileTree(include: ['*.jar'], dir: 'libs')

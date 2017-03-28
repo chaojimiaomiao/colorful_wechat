@@ -241,7 +241,7 @@ public class FloatingActionButton extends ImageButton {
             getIconDrawable()
         });
 
-    int iconOffset = 0;//(int) (mCircleSize - getDimension(R.dimen.fab_icon_size)) / 2;
+    int iconOffset = 10;//(int) (mCircleSize - getDimension(R.dimen.fab_icon_size)) / 2;
 
     int circleInsetHorizontal = (int) (mShadowRadius);
     int circleInsetTop = (int) (mShadowRadius - mShadowOffset);
