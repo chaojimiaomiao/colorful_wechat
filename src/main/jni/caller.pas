@@ -8,7 +8,7 @@ uses
   Classes, SysUtils, http_utils, encrypt_utils, fpjson, jsonparser, jsonscanner, wth_classes, android, JNI2;
 
 const
-  BASEURL = 'http://rarnu.com/wth/';
+  BASEURL = 'http://rarnu.xyz/wth/';
 
 // user
 function userRegister(account: string; password: string; nickname: string; email: string): Integer;
