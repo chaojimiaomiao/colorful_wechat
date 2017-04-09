@@ -10,8 +10,10 @@ object LocalTheme {
     val THEME_TYPE_FULL = 1
     val THEME_TYPE_PART = 2
 
-    /*var themePurple = WthApi.ThemeINI(
+    var themePurple = WthApi.ThemeINI(
             2,
+            "紫色渐变",
+            THEME_TYPE_PART,
             0xffF5F5F5.toInt(),
             0xffF5F5F5.toInt(),
             "",
@@ -47,7 +49,7 @@ object LocalTheme {
             0xffF5F5F5.toInt(),//var topPressColors7: Int,
             0xffF5F5F5.toInt(),//var topPressColors8: Int,
             0xffF5F5F5.toInt()//var topPressColors9: Int
-    )*/
+    )
 
     var themeFlower = WthApi.ThemeINI(
     //新增的

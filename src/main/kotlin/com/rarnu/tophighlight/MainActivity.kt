@@ -71,6 +71,7 @@ class MainActivity : Activity(), View.OnClickListener {
         chkDarkStatusBarText?.setOnClickListener(this)
         tvTitle = findViewById(R.id.tvTitle) as TextView?
         bottomBar = findViewById(R.id.first_bottom_bar) as ImageView?
+        fabTheme = findViewById(R.id.fabAdd) as FloatingActionButton?
         fabFeedback = findViewById(R.id.fabFeedback) as FloatingActionButton?
         fabAbout = findViewById(R.id.fabAbout) as FloatingActionButton?
 
@@ -292,6 +293,9 @@ class MainActivity : Activity(), View.OnClickListener {
                 startActivity(Intent(this, ThemeListActivity::class.java))
                 //startActivity(Intent(this, MyReactActivity::class.java))
             }*/
+            R.id.fabAdd -> {
+                startActivity(Intent(this, PublishActivity::class.java))
+            }
             R.id.fabFeedback -> {
                 startActivity(Intent(this, FeedbackActivity::class.java))
             }

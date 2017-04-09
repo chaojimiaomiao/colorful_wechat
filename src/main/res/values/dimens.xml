@@ -21,7 +21,7 @@
     <dimen name="fab_size_normal">56dp</dimen>
     <dimen name="fab_size_mini">40dp</dimen>
 
-    <dimen name="fab_icon_size">24dp</dimen>
+    <dimen name="fab_icon_size">30dp</dimen>
 
     <dimen name="fab_plus_icon_size">14dp</dimen>
     <dimen name="fab_plus_icon_stroke">2dp</dimen>

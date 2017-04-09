@@ -6,6 +6,7 @@
     <string name="view_default">default color</string>
     <string name="view_press">click color</string>
     <string name="view_about">about</string>
+    <string name="view_add">diy</string>
 
     <string name="view_themes">Themes Shop</string>
     <string name="view_user_profile">User Info</string>
@@ -20,6 +21,8 @@
     <string name="view_register">register</string>
     <string name="view_account_operation">usr account</string>
     <string name="view_switch">&gt;&gt;</string>
+
+    <string name="diy_theme">DIY Theme</string>
 
     <string name="view_select_theme_color">choose Theme Color</string>
     <string name="view_dark_statusbar">dark status bar</string>

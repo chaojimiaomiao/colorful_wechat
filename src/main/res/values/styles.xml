@@ -55,7 +55,10 @@
         <item name="android:radius">28dp</item>
         <item name="android:innerRadius">28dp</item>
         <item name="android:drawable">@drawable/dialog_white_background</item>
+    </style>
 
+    <style name="MyTitle">
+        <item name="android:textSize">18sp</item>
     </style>
 
 </resources>
