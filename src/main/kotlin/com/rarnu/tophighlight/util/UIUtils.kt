@@ -1,8 +1,11 @@
 package com.rarnu.tophighlight.util
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.util.DisplayMetrics
+import android.view.View
 import android.view.WindowManager
 import com.bingjie.colorpicker.ColorPickerView
 import com.bingjie.colorpicker.builder.ColorPickerClickListener
@@ -63,5 +66,11 @@ object UIUtils {
                     .setNegativeButton(R.string.alert_cancel, null)
                     .build()
                     .show()
+
+    fun backviewBindPath(view : View, path: String) {
+        var listviewBitmap = BitmapFactory.decodeFile(path)
+        val drawable = BitmapDrawable(listviewBitmap)
+        view.background = drawable
+    }
 
 }

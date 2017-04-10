@@ -1,6 +1,7 @@
 package com.rarnu.tophighlight.market
 
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.xposed.XpConfig
 
 /**
  * Created by zhaibingjie on 17/3/19.
@@ -60,7 +61,7 @@ object LocalTheme {
             0xffF5F5F5.toInt(),
             "",
             "",
-            "",
+            XpConfig.BASE_FILE_PATH + "/colorful/baiyinghua.png",
             0xffffc7c8.toInt(),     //var statusBarColo
             false,                  //var showDivider: Boolean,
             -1,                     //var dividerColor: Int,
@@ -100,7 +101,7 @@ object LocalTheme {
             0xffF5F5F5.toInt(),
             "",
             "",
-            "",
+            XpConfig.BASE_FILE_PATH + "/colorful/lanbojini.png",
             0xff6495ED.toInt(),     //var statusBarColo
             false,                  //var showDivider: Boolean,
             0xffF5F5F5.toInt(),     //var dividerColor: Int,
