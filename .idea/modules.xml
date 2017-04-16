@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/deprecated_project.iml" filepath="$PROJECT_DIR$/deprecated_project.iml" />
       <module fileurl="file://$PROJECT_DIR$/wechat_top_highlight.iml" filepath="$PROJECT_DIR$/wechat_top_highlight.iml" />
     </modules>
   </component>
