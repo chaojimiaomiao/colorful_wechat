@@ -20,21 +20,64 @@
             android:layout_height="wrap_content" />
     </com.rarnu.tophighlight.ui.CustomToolBar>
 
-    <LinearLayout
+    <ScrollView
         android:layout_weight="1"
-        android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:scrollbars="vertical"
+        android:scrollbarSize="6dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarThumbVertical="@color/pink"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <com.rarnu.tophighlight.ThemePreviewView
-            android:id="@+id/vPreview"
-            android:layout_width="180dp"
-            android:layout_height="300dp">
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        </com.rarnu.tophighlight.ThemePreviewView>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="预览"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp" />
 
-    </LinearLayout>
+            <com.rarnu.tophighlight.ThemePreviewView
+                android:id="@+id/vPreview"
+                android:layout_width="180dp"
+                android:layout_height="300dp">
+            </com.rarnu.tophighlight.ThemePreviewView>
+
+            <Button
+                android:id="@+id/publish_back"
+                android:layout_marginTop="10dp"
+                android:text="上传背景图"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/publish_topback"
+                android:layout_marginTop="10dp"
+                android:text="上传顶部背景图"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/publish_bottomback"
+                android:layout_marginTop="10dp"
+                android:text="上传底部背景图"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
