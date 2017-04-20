@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.ThemePreviewView
+import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.util.UIUtils
 
@@ -15,14 +16,14 @@ import com.rarnu.tophighlight.util.UIUtils
 class ThemeListAdapter : BaseAdapter {
 
     private var _ctx: Context? = null
-    private var _list: MutableList<WthApi.ThemeINI>? = null
+    private var _list: MutableList<ThemeINI>? = null
 
-    constructor(ctx: Context, list: MutableList<WthApi.ThemeINI>?): super() {
+    constructor(ctx: Context, list: MutableList<ThemeINI>?): super() {
         _ctx = ctx
         _list = list
     }
 
-    fun setList(list: MutableList<WthApi.ThemeINI>?) {
+    fun setList(list: MutableList<ThemeINI>?) {
         _list = list
         notifyDataSetChanged()
     }

@@ -13,6 +13,7 @@ import android.widget.GridView
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.Theme
+import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
 import java.io.File
 import java.io.FileOutputStream
@@ -35,7 +36,7 @@ class ThemeListActivity : BaseMarkerActivity() {
     }
 
     private var miProfile: MenuItem? = null
-    private var listTheme: MutableList<WthApi.ThemeINI>? = null
+    private var listTheme: MutableList<ThemeINI>? = null
     private var gvTheme: GridView? = null
     private var adapterTheme: ThemeListAdapter? = null
 

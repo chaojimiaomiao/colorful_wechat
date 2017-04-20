@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
 import android.widget.*
+import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.util.UIUtils
 
@@ -65,7 +66,7 @@ class ThemePreviewView : RelativeLayout {
         }
     }
 
-    fun setThemePreview(t: WthApi.ThemeINI?) {
+    fun setThemePreview(t: ThemeINI?) {
         if (t != null) {
             if (t.darkerStatusBar) {
                 layStatusbar?.setBackgroundColor(UIUtils.getDarkerColor(t.statusBarColor, 0.85f))

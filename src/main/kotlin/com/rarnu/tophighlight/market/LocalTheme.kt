@@ -1,5 +1,6 @@
 package com.rarnu.tophighlight.market
 
+import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.xposed.XpConfig
 
@@ -11,7 +12,7 @@ object LocalTheme {
     val THEME_TYPE_FULL = 1
     val THEME_TYPE_PART = 2
 
-    var themePurple = WthApi.ThemeINI(
+    var themePurple = ThemeINI(
             2,
             "紫色渐变",
             THEME_TYPE_PART,
@@ -52,7 +53,7 @@ object LocalTheme {
             0xffF5F5F5.toInt()//var topPressColors9: Int
     )
 
-    var themeFlower = WthApi.ThemeINI(
+    var themeFlower = ThemeINI(
     //新增的
             1,
             "十里桃林",
@@ -94,7 +95,7 @@ object LocalTheme {
             -1                      //var topPressColors9: Int
     )
 
-    var themeCar = WthApi.ThemeINI(
+    var themeCar = ThemeINI(
             //新增的
             2, "兰博基尼", THEME_TYPE_FULL,
             0x66ffffff,

@@ -5,7 +5,7 @@ import java.io.Serializable
 /**
  * Created by rarnu on 4/20/17.
  */
-class Theme: Serializable {
+class Theme : Serializable {
 
     /**
      * 主题的唯一序列号
@@ -40,9 +40,7 @@ class Theme: Serializable {
      */
     var stared = 0
 
-    constructor() {
-        // do nothing
-    }
+    constructor()
 
     override fun toString(): String {
         return "{id:$id, name:$name, author:$author, publishdate:$publishdate, description:$description, downloadcount:$downloadcount, starcount:$starcount, stared:$stared}"

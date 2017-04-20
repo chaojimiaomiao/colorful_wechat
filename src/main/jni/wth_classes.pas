@@ -588,7 +588,7 @@ begin
   Result := nil;
   if (obj <> nil) then begin
     Result := ThemeIni.Create;
-    cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeINI');
+    cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/ThemeINI');
     m := env^^.GetMethodID(env, cls, 'getStatusBarColor', '()I');
     Result.statusBarColor:= env^^.CallIntMethod(env, obj, m);
     m := env^^.GetMethodID(env, cls, 'getShowDivider', '()Z');
@@ -864,20 +864,89 @@ end;
 function ThemeIni.toJObject(env: PJNIEnv): jobject;
 var
   cls: jclass;
+  clsMethod: jmethodID;
   m: jmethodID;
-  args: Pjvalue;
 begin
   // finished
-  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeINI');
-
-  m := env^^.GetMethodID(env, cls, '<init>', '(ILjava/lang/String;IIILjava/lang/String;Ljava/lang/String;Ljava/lang/String;IZIZZIIIIIIIIIIIIIIIIIIIIIIIII)V');
-  args := TJNIEnv.argsToJValues(env, [
-    themeId, themeName, _type, normalColor, normalPressColor, statusBarPath, bottomBarPath, listPath,
-    statusBarColor, showDivider, dividerColor, darkerStatusBar, darkStatusBarText,
-    macColor, macPressColor, readerColor, readerPressColor, bottomBarColor,
-    topColors0, topColors1, topColors2, topColors3, topColors4, topColors5, topColors6, topColors7, topColors8, topColors9,
-    topPressColors0, topPressColors1, topPressColors2, topPressColors3, topPressColors4, topPressColors5, topPressColors6, topPressColors7, topPressColors8, topPressColors9]);
-  Result := env^^.NewObjectA(env, cls, m, args);
+  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/ThemeINI');
+  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '()V');
+  Result := env^^.NewObject(env, cls, clsMethod);
+  m := env^^.GetMethodID(env, cls, 'setThemeId', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FthemeId]));
+  m := env^^.GetMethodID(env, cls, 'setThemeName', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FthemeName]));
+  m := env^^.GetMethodID(env, cls, 'setType', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [F_type]));
+  m := env^^.GetMethodID(env, cls, 'setNormalColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FnormalColor]));
+  m := env^^.GetMethodID(env, cls, 'setNormalPressColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FnormalPressColor]));
+  m := env^^.GetMethodID(env, cls, 'setStatusBarPath', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FstatusBarPath]));
+  m := env^^.GetMethodID(env, cls, 'setBottomBarPath', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FbottomBarPath]));
+  m := env^^.GetMethodID(env, cls, 'setListPath', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FlistPath]));
+  m := env^^.GetMethodID(env, cls, 'setStatusBarColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FstatusBarColor]));
+  m := env^^.GetMethodID(env, cls, 'setShowDivider', '(Z)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FshowDivider]));
+  m := env^^.GetMethodID(env, cls, 'setDividerColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FdividerColor]));
+  m := env^^.GetMethodID(env, cls, 'setDarkerStatusBar', '(Z)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FdarkerStatusBar]));
+  m := env^^.GetMethodID(env, cls, 'setDarkStatusBarText', '(Z)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FdarkStatusBarText]));
+  m := env^^.GetMethodID(env, cls, 'setMacColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FmacColor]));
+  m := env^^.GetMethodID(env, cls, 'setMacPressColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FmacPressColor]));
+  m := env^^.GetMethodID(env, cls, 'setReaderColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FreaderColor]));
+  m := env^^.GetMethodID(env, cls, 'setReaderPressColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FreaderPressColor]));
+  m := env^^.GetMethodID(env, cls, 'setBottomBarColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FbottomBarColor]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors0', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors0]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors1', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors1]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors2', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors2]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors3', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors3]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors4', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors4]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors5', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors5]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors6', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors6]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors7', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors7]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors8', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors8]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors9', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors9]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors0', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors0]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors1', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors1]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors2', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors2]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors3', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors3]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors4', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors4]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors5', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors5]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors6', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors6]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors7', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors7]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors8', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors8]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors9', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors9]));
 end;
 
 { ThemeComment }
@@ -886,12 +955,21 @@ function ThemeComment.toJObject(env: PJNIEnv): jobject;
 var
   cls: jclass;
   clsMethod: jmethodID;
-  jParam: Pjvalue;
+  m: jmethodID;
 begin
-  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeComment');
-  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '(IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
-  jParam:= TJNIEnv.argsToJValues(env, [Fid, Fauthor, Fnickname, Fpublishdate, Fcomment]);
-  Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
+  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/ThemeComment');
+  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '()V');
+  Result := env^^.NewObject(env, cls, clsMethod);
+  m := env^^.GetMethodID(env, cls, 'setId', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fid]));
+  m := env^^.GetMethodID(env, cls, 'setAuthor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fauthor]));
+  m := env^^.GetMethodID(env, cls, 'setNickname', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fnickname]));
+  m := env^^.GetMethodID(env, cls, 'setPublishdate', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fpublishdate]));
+  m := env^^.GetMethodID(env, cls, 'setComment', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fcomment]));
 end;
 
 class function ThemeComment.fromJson(json: TJSONObject): ThemeComment;
@@ -968,12 +1046,23 @@ function User.toJObject(env: PJNIEnv): jobject;
 var
   cls: jclass;
   clsMethod: jmethodID;
-  jParam: Pjvalue;
+  m: jmethodID;
 begin
-  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$User');
-  clsMethod := env^^.GetMethodID(env, cls, '<init>', '(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
-  jParam:= TJNIEnv.argsToJValues(env, [Fid, Faccount, Fnickname, Femail, Fhead, Fcomment]);
-  Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
+  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/User');
+  clsMethod := env^^.GetMethodID(env, cls, '<init>', '()V');
+  Result := env^^.NewObject(env, cls, clsMethod);
+  m := env^^.GetMethodID(env, cls, 'setId', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fid]));
+  m := env^^.GetMethodID(env, cls, 'setAccount', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Faccount]));
+  m := env^^.GetMethodID(env, cls, 'setNickname', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fnickname]));
+  m := env^^.GetMethodID(env, cls, 'setEmail', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Femail]));
+  m := env^^.GetMethodID(env, cls, 'setHead', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fhead]));
+  m := env^^.GetMethodID(env, cls, 'setComment', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fcomment]));
 end;
 
 class function User.fromJson(json: TJSONObject): User;

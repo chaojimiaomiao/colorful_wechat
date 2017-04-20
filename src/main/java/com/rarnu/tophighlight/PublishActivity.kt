@@ -10,14 +10,13 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
 import com.rarnu.tophighlight.api.LocalApi
+import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.LocalTheme
 import com.rarnu.tophighlight.market.UserLoginRegisterActivity
 import com.rarnu.tophighlight.ui.CustomToolBar
 import com.rarnu.tophighlight.util.UIUtils
 import java.io.File
-
-
 
 
 class PublishActivity : AppCompatActivity(), View.OnClickListener {
@@ -29,7 +28,7 @@ class PublishActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private var ini : WthApi.ThemeINI ?= null
+    private var ini : ThemeINI?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

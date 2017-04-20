@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.util.Log
+import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.LocalTheme
 import de.robv.android.xposed.XSharedPreferences
@@ -251,7 +252,7 @@ object XpConfig {
 
     val KEY_PRESS_DING = "ding_press"
 
-    var ini :WthApi.ThemeINI ?= null
+    var ini : ThemeINI?= null
     var listviewPath = ""
     var themePath = ""
 
