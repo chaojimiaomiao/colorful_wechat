@@ -242,8 +242,10 @@ function Java_com_rarnu_tophighlight_api_WthApi_themeGetList(env: PJNIEnv;
   obj: jobject; page: jint; pageSize: jint; sort: jstring): jobject; stdcall;
 var
   list: TThemeList;
+  i: Integer;
 begin
   list := themeGetList(page, pageSize, TJNIEnv.jstringToString(env, sort));
+  // if (list <> nil) then for i := 0 to list.Count - 1 do LOGE(PChar(Format('ThemeGetList => {id: %d}', [list[i].id])));
   Result := nil;
   if (list <> nil) then Result := ThemeListToJobject(env, list);
   if (list <> nil) then list.Free;

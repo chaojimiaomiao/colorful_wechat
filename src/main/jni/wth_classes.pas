@@ -119,7 +119,7 @@ type
     Fname: string;
     Fpublishdate: String;
     Fstarcount: Integer;
-    Fstared: Boolean;
+    Fstared: Integer;
   public
     function toJObject(env: PJNIEnv): jobject;
     class function fromJson(json: TJSONObject): Theme;
@@ -132,7 +132,7 @@ type
     property description: string read Fdescription write Fdescription;
     property downloadcount: Integer read Fdownloadcount write Fdownloadcount;
     property starcount: Integer read Fstarcount write Fstarcount;
-    property stared: Boolean read Fstared write Fstared;
+    property stared: Integer read Fstared write Fstared;
   end;
 
   { ThemeComment }
@@ -376,7 +376,7 @@ begin
   clsList:= env^^.FindClass(env, 'java/util/ArrayList');
   clsListMethod:= env^^.GetMethodID(env, clsList, '<init>', '()V');
   clsListAdd:= env^^.GetMethodID(env, clsList, 'add', '(Ljava/lang/Object;)Z');
-  objList:= env^^.NewObjectA(env, clsList, clsListMethod, nil);
+  objList:= env^^.NewObject(env, clsList, clsListMethod);
   if (list <> nil) then for i := 0 to list.Count - 1 do begin
     env^^.CallBooleanMethodA(env, objList, clsListAdd, TJNIEnv.argsToJValues(env, [list[i].toJObject(env)]));
   end;
@@ -918,12 +918,27 @@ function Theme.toJObject(env: PJNIEnv): jobject;
 var
   cls: jclass;
   clsMethod: jmethodID;
-  jParam: Pjvalue;
+  m: jmethodID;
 begin
-  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$Theme');
-  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '(ILjava/lang/String;ILjava/lang/String;Ljava/lang/String;IIZ)V');
-  jParam:= TJNIEnv.argsToJValues(env, [Fid, Fname, Fauthor, Fpublishdate, Fdescription, Fdownloadcount, Fstarcount, Fstared]);
-  Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
+  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/Theme');
+  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '()V');
+  Result := env^^.NewObject(env, cls, clsMethod);
+  m := env^^.GetMethodID(env, cls, 'setId', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fid]));
+  m := env^^.GetMethodID(env, cls, 'setName', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fname]));
+  m := env^^.GetMethodID(env, cls, 'setAuthor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fauthor]));
+  m := env^^.GetMethodID(env, cls, 'setPublishdate', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fpublishdate]));
+  m := env^^.GetMethodID(env, cls, 'setDescription', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fdescription]));
+  m := env^^.GetMethodID(env, cls, 'setDownloadcount', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fdownloadcount]));
+  m := env^^.GetMethodID(env, cls, 'setStarcount', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fstarcount]));
+  m := env^^.GetMethodID(env, cls, 'setStared', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fstared]));
 end;
 
 class function Theme.fromJson(json: TJSONObject): Theme;
@@ -938,13 +953,13 @@ begin
     Result.description:= json.Strings['description'];
     Result.downloadcount:= json.Integers['downloadcount'];
     Result.starcount:= json.Integers['starcount'];
-    Result.stared:= json.Integers['stared'] <> 0;
+    Result.stared:= json.Integers['stared'];
   end;
 end;
 
 function Theme.ToString: ansistring;
 begin
-  Result := Format('Class => Theme'#13#10'id => %d'#13#10'name => %s'#13#10'author => %d'#13#10'publishdate => %s'#13#10'description => %s'#13#10'downloadcount = %d'#13#10'starcount => %d'#13#10'stared => %s'#13#10, [Fid, Fname, Fauthor, Fpublishdate, Fdescription, Fdownloadcount, Fstarcount, IfThen(Fstared, 'TRUE', 'FALSE')]);
+  Result := Format('Class => Theme'#13#10'id => %d'#13#10'name => %s'#13#10'author => %d'#13#10'publishdate => %s'#13#10'description => %s'#13#10'downloadcount = %d'#13#10'starcount => %d'#13#10'stared => %d'#13#10, [Fid, Fname, Fauthor, Fpublishdate, Fdescription, Fdownloadcount, Fstarcount, Fstared]);
 end;
 
 { User }

@@ -544,7 +544,7 @@ var
   FConvertedArgs: jvalueArray;
 begin
   SetLength(FConvertedArgs, Length(Args));
-  for I := 0 to High(Args) do
+  for I := 0 to Length(Args) - 1 do
     case Args[I].VType of
       vtInteger:
         FConvertedArgs[I].i := Args[I].VInteger;

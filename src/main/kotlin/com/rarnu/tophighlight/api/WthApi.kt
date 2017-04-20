@@ -55,40 +55,6 @@ object WthApi {
              */
             var comment: String?) : Serializable
 
-    data class Theme(
-            /**
-             * 主题的唯一序列号
-             */
-            var id: Int,
-            /**
-             * 主题的名称
-             */
-            var name: String?,
-            /**
-             * 主题作者的唯一序列号
-             */
-            var author: Int,
-            /**
-             * 主题发布时间
-             */
-            var publishdate: String?,
-            /**
-             * 主题的描述
-             */
-            var description: String?,
-            /**
-             * 主题的下载次数
-             */
-            var downloadcount: Int,
-            /**
-             * 主题的评星数
-             */
-            var starcount: Int,
-            /**
-             * 当前登录的用户是否已对主题加星，已加星的状态下，可以取消加星
-             */
-            var stared: Boolean) : Serializable
-
     data class ThemeComment(
             /**
              * 评论的唯一序列号

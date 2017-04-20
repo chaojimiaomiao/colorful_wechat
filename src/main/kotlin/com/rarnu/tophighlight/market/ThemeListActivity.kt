@@ -12,6 +12,7 @@ import android.view.MenuItem
 import android.widget.GridView
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
+import com.rarnu.tophighlight.api.Theme
 import com.rarnu.tophighlight.api.WthApi
 import java.io.*
 import java.net.MalformedURLException
@@ -69,16 +70,18 @@ class ThemeListActivity : BaseMarkerActivity() {
         Log.e("wht", "wht: " + wht)
         thread {
             listTheme?.clear()
-            val list = WthApi.themeGetList(1, 20, "date") as List<WthApi.Theme>
+            val list = WthApi.themeGetList(1, 20, "date") as List<Theme>
             println("list = $list")
-            for(theme : WthApi.Theme in list) {
+            for(theme : Theme in list) {
+                Log.e("wht", "theme => $theme")
                 var url = WthApi.themeGetDownloadUrl(theme.id)
                 var wht = Environment.getExternalStorageDirectory().absolutePath
                 Log.e("wht", "wht: " + wht)
+
                 //val ini = WthApi.readThemeFromINI(wht + "/theme.ini")
 
-                val filename = download(BASEURL + url)
-                Log.d("themelist", "filename: " + filename)
+                // TODO: val filename = download(BASEURL + url)
+                // Log.d("themelist", "filename: " + filename)
                 /*if (ini != null) {
                     listTheme?.add(ini)
                 }*/
