@@ -14,8 +14,9 @@ import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.Theme
 import com.rarnu.tophighlight.api.WthApi
-import java.io.*
-import java.net.MalformedURLException
+import java.io.File
+import java.io.FileOutputStream
+import java.net.HttpURLConnection
 import java.net.URL
 import kotlin.concurrent.thread
 
@@ -75,16 +76,15 @@ class ThemeListActivity : BaseMarkerActivity() {
             for(theme : Theme in list) {
                 Log.e("wht", "theme => $theme")
                 var url = WthApi.themeGetDownloadUrl(theme.id)
-                var wht = Environment.getExternalStorageDirectory().absolutePath
-                Log.e("wht", "wht: " + wht)
 
                 //val ini = WthApi.readThemeFromINI(wht + "/theme.ini")
 
-                // TODO: val filename = download(BASEURL + url)
-                // Log.d("themelist", "filename: " + filename)
-                /*if (ini != null) {
+                val filename = downloadFile(BASEURL + url)
+                Log.e("themelist", "filename: " + filename)
+                val ini = WthApi.readThemeFromINI(filename)
+                if (ini != null) {
                     listTheme?.add(ini)
-                }*/
+                }
             }
             // TODO: download theme file and make preview
             hTheme.sendEmptyMessage(0)
@@ -122,45 +122,38 @@ class ThemeListActivity : BaseMarkerActivity() {
         }
     }
 
-    @Throws(Exception::class)
-    fun download(docUrl: String): String {
-        var fileName = "/sdcard/" + docUrl +  ".ini"
-        val file = File(fileName)
-        if (file.exists()) {    //如果目标文件已经存在
-            file.delete()    //则删除旧文件
+    fun downloadFile(iniUrl: String) : String{
+        var lists = iniUrl.split("/")
+        var localFile = "/sdcard/" + lists.last()
+        val fTmp = File(localFile)
+        if (fTmp.exists()) {
+            fTmp.delete()
         }
-        //1K的数据缓冲
-        val bs = ByteArray(1024)
-        //读取到的数据长度
-        var len: Int
+        var url: URL?
+        var filesize = 0
         try {
-            val url = URL(docUrl)
-            //获取链接
-            //URLConnection conn = url.openConnection();
-            //创建输入流
-            val input = url.openStream() as InputStream
-            //获取文件的长度
-            //int contextLength = conn.getContentLength();
-            //输出的文件流
-            val os = FileOutputStream(file)
-            //开始读取
-            var len = input.read(bs)
-            while (len != -1) {
-                os.write(bs, 0, len)
+            url = URL(iniUrl)
+            val con = url.openConnection() as HttpURLConnection
+            var ins = con.inputStream
+            filesize = con.contentLength
+            val fileOut = File(localFile + ".tmp")
+            val out = FileOutputStream(fileOut)
+            val buffer = ByteArray(1024)
+            var count: Int
+            while (true) {
+                count = ins.read(buffer)
+                if (count != -1) {
+                    out.write(buffer, 0, count)
+                } else {
+                    break
+                }
             }
-            //完毕关闭所有连接
-            os.close()
-            input.close()
-        } catch (e: MalformedURLException) {
-            println("创建URL对象失败")
-            throw e
-        } catch (e: FileNotFoundException) {
-            println("无法加载文件")
-            throw e
-        } catch (e: IOException) {
-            println("获取连接失败")
-            throw e
+            ins.close()
+            out.close()
+            fileOut.renameTo(fTmp)
+        } catch (e: Exception) {
+            Log.e("", "下载文件失败")
         }
-        return fileName
+        return localFile
     }
 }
