@@ -7,7 +7,6 @@ import android.widget.BaseAdapter
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.ThemePreviewView
 import com.rarnu.tophighlight.api.ThemeINI
-import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.util.UIUtils
 
 /**
@@ -17,6 +16,7 @@ class ThemeListAdapter : BaseAdapter {
 
     private var _ctx: Context? = null
     private var _list: MutableList<ThemeINI>? = null
+    private var mViewHolder: ViewHolder ? =null
 
     constructor(ctx: Context, list: MutableList<ThemeINI>?): super() {
         _ctx = ctx
@@ -29,16 +29,28 @@ class ThemeListAdapter : BaseAdapter {
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        var v = convertView
-        if (v == null) {
-            v = View.inflate(_ctx, R.layout.adapter_preview, null)
+        var view = convertView
+        if (view != null) {
+            mViewHolder = view.getTag() as ViewHolder?
+        } else {
+            view = View.inflate(_ctx, R.layout.adapter_preview, null)
+            mViewHolder = ViewHolder()
+            mViewHolder!!.mThemePreview = view.findViewById(R.id.vPreview) as ThemePreviewView?
+
+            view.setTag(mViewHolder)
         }
-        v?.layoutParams?.height = UIUtils.height() / 3
-        (v?.findViewById(R.id.vPreview) as ThemePreviewView?)?.setThemePreview(_list!![position])
-        return v
+        mViewHolder!!.mThemePreview!!.layoutParams?.height = UIUtils.height() / 3
+        mViewHolder!!.mThemePreview!!.setThemePreview(_list!![position])
+
+
+        return view
     }
 
     override fun getItem(position: Int): Any? = _list!![position]
     override fun getItemId(position: Int): Long = position.toLong()
     override fun getCount(): Int = _list!!.size
+
+    class ViewHolder {
+        var mThemePreview: ThemePreviewView? = null
+    }
 }
