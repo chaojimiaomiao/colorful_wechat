@@ -704,7 +704,7 @@ var
   APath: string;
   ret: string;
 begin
-  APath:= '/sdcard/.wechat_tophighlight/';
+  APath:= '/sdcard/.wechat_tophighlight/1/';
   if (not DirectoryExists(APath)) then ForceDirectories(APath);
   APath += AVer + '.ini';
   if (FileExists(APath)) then Exit(True);
