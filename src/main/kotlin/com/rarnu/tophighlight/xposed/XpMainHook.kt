@@ -36,9 +36,13 @@ class XpMainHook : IXposedHookLoadPackage {
             val ctx = XposedHelpers.callMethod(activityThread, "getSystemContext") as Context?
             try {
                 val versionName = ctx?.packageManager?.getPackageInfo(pkgName, 0)?.versionName
+                VersionStatic.versionName = versionName!!
                 if (WthApi.checkAndDownloadVersion(versionName)) {
                     ver = WthApi.loadVersion(versionName)
                     Log.e("XposedModule", "ver = $ver")
+                } else {
+                    ver = WthApi.loadVersion(versionName)
+                    Log.e("XposedModule", "local ver = $ver")
                 }
             } catch (t: Throwable) {
                 Log.e("XposedModule", "loadVersion => $t")

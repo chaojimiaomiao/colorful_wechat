@@ -5,6 +5,8 @@ package com.rarnu.tophighlight.xposed
  */
 object VersionStatic {
 
+    var versionName = ""
+
     val expectImmersionList = arrayListOf(
             "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyIndexUI",
             "com.tencent.mm.plugin.luckymoney.ui.LuckyMoneyPrepareUI",

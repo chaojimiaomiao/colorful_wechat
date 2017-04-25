@@ -3,7 +3,6 @@ package com.rarnu.tophighlight.xposed
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
-import android.util.Log
 import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.LocalTheme
@@ -81,7 +80,43 @@ object XpConfig {
 
         // merge
         if (ini != null) {
-            if (ini!!.type == LocalTheme.THEME_TYPE_FULL) {
+            if (normalColor != defaultNormalColor) ini!!.normalColor = normalColor
+            if (normalPressColor != defaultNormalPressColor) ini!!.normalPressColor = normalPressColor
+            if (macColor != defaultMacColor) ini!!.macColor = macColor
+            if (macPressColor != defaultMacPressColor) ini!!.macPressColor = macPressColor
+            if (readerColor != defaultReaderColor) ini!!.readerColor = readerColor
+            if (readerPressColor != defaultReaderPressColor) ini!!.readerPressColor = readerPressColor
+            if (bottomBarColor != defaultBottomBarColor) ini!!.bottomBarColor = bottomBarColor
+            if (topColors[0] != defaultTopColors[0]) ini!!.topColors0 = topColors[0]
+            if (topColors[1] != defaultTopColors[1]) ini!!.topColors1 = topColors[1]
+            if (topColors[2] != defaultTopColors[2]) ini!!.topColors2 = topColors[2]
+            if (topColors[3] != defaultTopColors[3]) ini!!.topColors3 = topColors[3]
+            if (topColors[4] != defaultTopColors[4]) ini!!.topColors4 = topColors[4]
+            if (topColors[5] != defaultTopColors[5]) ini!!.topColors5 = topColors[5]
+            if (topColors[6] != defaultTopColors[6]) ini!!.topColors6 = topColors[6]
+            if (topColors[7] != defaultTopColors[7]) ini!!.topColors7 = topColors[7]
+            if (topColors[8] != defaultTopColors[8]) ini!!.topColors8 = topColors[8]
+            if (topColors[9] != defaultTopColors[9]) ini!!.topColors9 = topColors[9]
+            if (topPressColors[0] != defaultTopPressColors[0]) ini!!.topPressColors0 = topPressColors[0]
+            if (topPressColors[1] != defaultTopPressColors[1]) ini!!.topPressColors1 = topPressColors[1]
+            if (topPressColors[2] != defaultTopPressColors[2]) ini!!.topPressColors2 = topPressColors[2]
+            if (topPressColors[3] != defaultTopPressColors[3]) ini!!.topPressColors3 = topPressColors[3]
+            if (topPressColors[4] != defaultTopPressColors[4]) ini!!.topPressColors4 = topPressColors[4]
+            if (topPressColors[5] != defaultTopPressColors[5]) ini!!.topPressColors5 = topPressColors[5]
+            if (topPressColors[6] != defaultTopPressColors[6]) ini!!.topPressColors6 = topPressColors[6]
+            if (topPressColors[7] != defaultTopPressColors[7]) ini!!.topPressColors7 = topPressColors[7]
+            if (topPressColors[8] != defaultTopPressColors[8]) ini!!.topPressColors8 = topPressColors[8]
+            if (topPressColors[9] != defaultTopPressColors[9]) ini!!.topPressColors9 = topPressColors[9]
+            if (ini!!.type == LocalTheme.THEME_TYPE_PIC) {
+                if (ini!!.statusBarPath != "") statusBarPath = ini!!.statusBarPath
+                if (ini!!.bottomBarPath != "") bottomBarPath = ini!!.bottomBarPath
+                if (ini!!.listPath != "") listviewPath = ini!!.listPath
+                if (ini!!.statusBarColor != -1) statusBarColor = ini!!.statusBarColor
+                showDivider = ini!!.showDivider
+                if (ini!!.dividerColor != -1) dividerColor = ini!!.dividerColor
+                darkerStatusBar = ini!!.darkerStatusBar
+                darkStatusBarText = ini!!.darkStatusBarText
+            } else if (ini!!.type == LocalTheme.THEME_TYPE_FULL) {
                 if (ini!!.normalColor != -1) normalColor = ini!!.normalColor
                 if (ini!!.normalPressColor != -1) normalPressColor = ini!!.normalPressColor
                 if (ini!!.statusBarPath != "") statusBarPath = ini!!.statusBarPath
@@ -118,9 +153,7 @@ object XpConfig {
                 if (ini!!.topPressColors8 != -1) topPressColors[8] = ini!!.topPressColors8
                 if (ini!!.topPressColors9 != -1) topPressColors[9] = ini!!.topPressColors9
 
-            } else {
-                if (normalColor != defaultNormalColor) ini!!.normalColor = normalColor
-                if (normalPressColor != defaultNormalPressColor) ini!!.normalPressColor = normalPressColor
+            } else if (ini!!.type == LocalTheme.THEME_TYPE_PART) {
                 if (statusBarPath != "") ini!!.statusBarPath = statusBarPath
                 if (bottomBarPath != "") ini!!.bottomBarPath = bottomBarPath
                 if (listviewPath != "") ini!!.listPath = listviewPath
@@ -129,33 +162,7 @@ object XpConfig {
                 if (dividerColor != defaultDividerColor) ini!!.dividerColor = dividerColor
                 ini!!.darkerStatusBar = darkerStatusBar
                 ini!!.darkStatusBarText = darkStatusBarText
-                if (macColor != defaultMacColor) ini!!.macColor = macColor
-                if (macPressColor != defaultMacPressColor) ini!!.macPressColor = macPressColor
-                if (readerColor != defaultReaderColor) ini!!.readerColor = readerColor
-                if (readerPressColor != defaultReaderPressColor) ini!!.readerPressColor = readerPressColor
-                if (bottomBarColor != defaultBottomBarColor) ini!!.bottomBarColor = bottomBarColor
-                if (topColors[0] != defaultTopColors[0]) ini!!.topColors0 = topColors[0]
-                if (topColors[1] != defaultTopColors[1]) ini!!.topColors1 = topColors[1]
-                if (topColors[2] != defaultTopColors[2]) ini!!.topColors2 = topColors[2]
-                if (topColors[3] != defaultTopColors[3]) ini!!.topColors3 = topColors[3]
-                if (topColors[4] != defaultTopColors[4]) ini!!.topColors4 = topColors[4]
-                if (topColors[5] != defaultTopColors[5]) ini!!.topColors5 = topColors[5]
-                if (topColors[6] != defaultTopColors[6]) ini!!.topColors6 = topColors[6]
-                if (topColors[7] != defaultTopColors[7]) ini!!.topColors7 = topColors[7]
-                if (topColors[8] != defaultTopColors[8]) ini!!.topColors8 = topColors[8]
-                if (topColors[9] != defaultTopColors[9]) ini!!.topColors9 = topColors[9]
-                if (topPressColors[0] != defaultTopPressColors[0]) ini!!.topPressColors0 = topPressColors[0]
-                if (topPressColors[1] != defaultTopPressColors[1]) ini!!.topPressColors1 = topPressColors[1]
-                if (topPressColors[2] != defaultTopPressColors[2]) ini!!.topPressColors2 = topPressColors[2]
-                if (topPressColors[3] != defaultTopPressColors[3]) ini!!.topPressColors3 = topPressColors[3]
-                if (topPressColors[4] != defaultTopPressColors[4]) ini!!.topPressColors4 = topPressColors[4]
-                if (topPressColors[5] != defaultTopPressColors[5]) ini!!.topPressColors5 = topPressColors[5]
-                if (topPressColors[6] != defaultTopPressColors[6]) ini!!.topPressColors6 = topPressColors[6]
-                if (topPressColors[7] != defaultTopPressColors[7]) ini!!.topPressColors7 = topPressColors[7]
-                if (topPressColors[8] != defaultTopPressColors[8]) ini!!.topPressColors8 = topPressColors[8]
-                if (topPressColors[9] != defaultTopPressColors[9]) ini!!.topPressColors9 = topPressColors[9]
             }
-
         }
 
     }

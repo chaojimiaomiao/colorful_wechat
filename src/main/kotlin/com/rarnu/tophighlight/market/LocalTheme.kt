@@ -1,7 +1,6 @@
 package com.rarnu.tophighlight.market
 
 import com.rarnu.tophighlight.api.ThemeINI
-import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.xposed.XpConfig
 
 /**
@@ -9,8 +8,10 @@ import com.rarnu.tophighlight.xposed.XpConfig
  */
 object LocalTheme {
 
-    val THEME_TYPE_FULL = 1
+    /** 带图片路径的主题 **/
+    val THEME_TYPE_PIC = 1
     val THEME_TYPE_PART = 2
+    val THEME_TYPE_FULL = 3
 
     var themePurple = ThemeINI(
             2,
@@ -57,7 +58,7 @@ object LocalTheme {
     //新增的
             1,
             "十里桃林",
-            THEME_TYPE_FULL,
+            THEME_TYPE_PIC,
             0x66ffffff,
             0xffF5F5F5.toInt(),
             "",
@@ -97,7 +98,7 @@ object LocalTheme {
 
     var themeCar = ThemeINI(
             //新增的
-            2, "兰博基尼", THEME_TYPE_FULL,
+            2, "兰博基尼", THEME_TYPE_PIC,
             0x66ffffff,
             0xffF5F5F5.toInt(),
             "",
