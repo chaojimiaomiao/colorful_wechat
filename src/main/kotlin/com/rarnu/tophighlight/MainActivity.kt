@@ -262,9 +262,9 @@ class MainActivity : Activity(), View.OnClickListener {
             XpConfig.save(this)
         })
 
-        if (XpConfig.listviewPath == BASE_FILE_PATH + "/colorful/baiyinghua.png") {
+        if (XpConfig.themePath == BASE_FILE_PATH + "/colorful/baiyinghua.ini") {
             checkboxF.isChecked = true
-        } else if (XpConfig.listviewPath == BASE_FILE_PATH + "/colorful/lanbojini.png") {
+        } else if (XpConfig.themePath == BASE_FILE_PATH + "/colorful/lanbojini.ini") {
             checkbox.isChecked = true
         }
     }
