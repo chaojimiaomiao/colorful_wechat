@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">多彩微信</string>
+    <string name="app_desc">Colorful Wechat:修改微信主题样式,舞动微信色彩。</string>
+    <string name="view_item" formatted="false">第 %d 项</string>
+    <string name="view_default">默认颜色</string>
+    <string name="view_press">点击颜色</string>
+    <string name="view_about">关于</string>
+    <string name="view_add">DIY</string>
+    <string name="view_market">主题市场</string>
+
+    <string name="view_themes">主题商店</string>
+    <string name="view_user_profile">用户信息</string>
+    <string name="view_feedback">反馈</string>
+
+    <string name="view_account">帐号</string>
+    <string name="view_password">密码</string>
+    <string name="view_repeat_password">重复密码</string>
+    <string name="view_nickname">昵称</string>
+    <string name="view_email">邮箱</string>
+    <string name="view_login">登录</string>
+    <string name="view_register">注册</string>
+    <string name="view_account_operation">用户帐户</string>
+    <string name="view_switch">&gt;&gt;</string>
+
+    <string name="diy_theme">自定义主题</string>
+
+    <string name="view_select_theme_color">选择主题色</string>
+    <string name="view_dark_statusbar">暗状态栏</string>
+    <string name="view_dark_statusbar_text">状态栏黑字</string>
+    <string name="view_mac_login">Mac 微信已登录</string>
+    <string name="view_top_reader">正在浏览 置顶文章</string>
+
+    <string name="view_select_background_color">选择背景色</string>
+    <string name="view_select_press_color">选择选中时的颜色</string>
+
+    <string name="view_select_top_color">选择置顶色</string>
+
+    <string name="menu_profile">用户信息</string>
+
+    <string name="alert_hint">提示</string>
+    <string name="alert_text_about">喵~</string>
+    <string name="alert_ok">确定</string>
+    <string name="alert_cancel">取消</string>
+    <string name="alert_text_placeholder">手动输入颜色值，以#号开头</string>
+
+    <string name="toast_register_failed">注册失败，可能是用户名、昵称或邮箱已被占用</string>
+    <string name="toast_login_failed">登录失败</string>
+    <string name="ding_column">置顶栏目</string>
+    <string name="ding_group_entry">置顶栏目入口</string>
+
+    <string name="group_chat">群聊</string>
+    <string name="theme">主题</string>
+
+    <string name="normal_group">普通栏目</string>
+
+    <string name="alert_xposed">
+        <font color='#555'>
+            Hi~ 此软件需要root并安装xposed插件才能使用哟。你还未安装xposed框架,可以去酷安下载。无需root的版本请耐心等待。\n
+            Xposed框架功能确实强大，没有这个东东，玩机都少了很多乐趣。
+            <a color='#4455cc' href='http://www.coolapk.com/apk/de.robv.android.xposed.installer'>http://www.coolapk.com</a>
+        </font>
+    </string>
+
+    <string name="toast_wechat_patch_checked">微信补丁检查完毕</string>
+    <string name="toast_wechat_patch_check_failed">微信补丁检查失败</string>
+    <string name="toast_wechat_not_installed">没有安装微信</string>
+
+</resources>

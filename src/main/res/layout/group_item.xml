@@ -1,60 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="66dp"
-    android:background="@color/ll_gray"
-    android:orientation="vertical"
-    android:paddingLeft="3dp"
-    android:paddingRight="3dp">
+              android:layout_width="match_parent"
+              android:layout_height="66dp"
+              android:background="@color/semi_transparent"
+              android:orientation="vertical"
+              android:paddingLeft="3dp"
+              android:paddingRight="3dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="5dp">
 
         <LinearLayout
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:gravity="center">
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
 
             <ImageView
-                android:id="@+id/group_image"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/group_avatar" />
+                    android:id="@+id/group_image"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/group_avatar"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:paddingLeft="7dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/group_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Group Name"
-                android:textColor="@color/text_gray" />
+                android:gravity="center_vertical"
+                android:paddingLeft="7dp"
+                android:orientation="vertical">
 
             <TextView
-                android:id="@+id/group_chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Group Chat"
-                android:textColor="@color/text_gray" />
+                    android:id="@+id/group_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Group Name"
+                    android:textColor="@color/text_gray"/>
+
+            <TextView
+                    android:id="@+id/group_chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/group_chat"
+                    android:textColor="@color/text_gray"/>
 
         </LinearLayout>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <View
+                    android:id="@+id/view_highcolor"
+                    android:layout_width="28dip" android:layout_height="28dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dip"/>
+        </RelativeLayout>
 
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/gray" />
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/gray"/>
 
 </LinearLayout>

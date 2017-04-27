@@ -43,3 +43,14 @@ captures/
 #
 .DS_Store
 
+# CodeTyphon
+src/main/jni/lib/
+libwthapi.so
+*.lps
+*.o
+*.ppu
+*.rsj
+
+# React
+node_module/
+
