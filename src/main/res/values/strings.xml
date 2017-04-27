@@ -68,4 +68,6 @@
     <string name="toast_wechat_patch_check_failed">Wechat patch check failed.</string>
     <string name="toast_wechat_not_installed">Wechat not installed.</string>
 
+    <string name="goods_name">ThemeDIY</string>
+
 </resources>

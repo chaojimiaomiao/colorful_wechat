@@ -44,6 +44,7 @@ class MainActivity : Activity(), View.OnClickListener {
     private var scrollView: NestedScrollView? = null
 
     //private var fabAdd: FloatingActionButton? = null
+    private var fabPay: FloatingActionButton? = null
     private var fabFeedback: FloatingActionButton? = null
     private var fabAbout: FloatingActionButton? = null
     //private var fabThemes: FloatingActionButton? = null
@@ -73,11 +74,13 @@ class MainActivity : Activity(), View.OnClickListener {
         tvTitle = findViewById(R.id.tvTitle) as TextView?
         bottomBar = findViewById(R.id.first_bottom_bar) as ImageView?
         //fabAdd = findViewById(R.id.fabAdd) as FloatingActionButton?
+        fabPay = findViewById(R.id.fabPay) as FloatingActionButton?
         fabFeedback = findViewById(R.id.fabFeedback) as FloatingActionButton?
         fabAbout = findViewById(R.id.fabAbout) as FloatingActionButton?
         //fabThemes = findViewById(R.id.fabMarket) as FloatingActionButton?
 
         //fabAdd?.setOnClickListener(this)
+        fabPay?.setOnClickListener(this)
         fabFeedback?.setOnClickListener(this)
         fabAbout?.setOnClickListener(this)
         //fabThemes?.setOnClickListener(this)
@@ -137,7 +140,6 @@ class MainActivity : Activity(), View.OnClickListener {
             Log.e("", "themeCar png path: " + LocalTheme.themeCar.listPath)
             WthApi.writeThemeToINI(BASE_FILE_PATH + "/colorful/lanbojini.ini", LocalTheme.themeCar)
         }
-        Log.e("MainActivity", "Write Theme 1")
 
         var bitmapF = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
         if (ImageUtil.saveImagePrivate(bitmapF, "baiyinghua", this)) {
@@ -145,15 +147,12 @@ class MainActivity : Activity(), View.OnClickListener {
             WthApi.writeThemeToINI(BASE_FILE_PATH + "/colorful/baiyinghua.ini", LocalTheme.themeFlower)
             Log.e("", "themeFlower png path: " + LocalTheme.themeFlower.listPath)
         }
-        Log.e("MainActivity", "Write Theme 2")
 
         //读取
         if (XpConfig.ini != null) {
             var listviewBitmap = BitmapFactory.decodeFile(XpConfig.ini!!.listPath)
             val drawable = BitmapDrawable(listviewBitmap)
             scrollView?.background = drawable
-
-            Log.e("MainActivity", "Read Theme 1")
         }
     }
 
@@ -299,6 +298,9 @@ class MainActivity : Activity(), View.OnClickListener {
             R.id.fabAdd -> {
                 startActivity(Intent(this, PublishActivity::class.java))
             }*/
+            R.id.fabPay -> {
+                startActivity(Intent(this, PayActivity ::class.java))
+            }
             R.id.fabFeedback -> {
                 startActivity(Intent(this, FeedbackActivity::class.java))
             }

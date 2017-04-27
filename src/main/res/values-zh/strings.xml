@@ -66,4 +66,6 @@
     <string name="toast_wechat_patch_check_failed">微信补丁检查失败</string>
     <string name="toast_wechat_not_installed">没有安装微信</string>
 
+    <string name="goods_name">主题定制</string>
+
 </resources>

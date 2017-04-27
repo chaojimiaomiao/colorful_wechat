@@ -66,10 +66,11 @@
         <activity android:name=".WebActivity" />
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".TopListActivity" />
-        <activity android:name=".PublishActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
+        <activity
+            android:name=".PublishActivity"
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name="cn.bmob.pay.v3.act.PayAct" />
+        <activity android:name=".PayActivity"></activity>
     </application>
 
 </manifest>
