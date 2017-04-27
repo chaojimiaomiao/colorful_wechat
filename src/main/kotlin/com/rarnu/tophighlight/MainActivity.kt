@@ -22,6 +22,7 @@ import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.LocalTheme
+import com.rarnu.tophighlight.market.ThemeListActivity
 import com.rarnu.tophighlight.util.ImageUtil
 import com.rarnu.tophighlight.util.SystemUtils
 import com.rarnu.tophighlight.util.UIUtils
@@ -43,11 +44,11 @@ class MainActivity : Activity(), View.OnClickListener {
     private var bottomBar: ImageView? = null
     private var scrollView: NestedScrollView? = null
 
-    //private var fabAdd: FloatingActionButton? = null
     private var fabPay: FloatingActionButton? = null
+    private var fabAdd: FloatingActionButton? = null
     private var fabFeedback: FloatingActionButton? = null
     private var fabAbout: FloatingActionButton? = null
-    //private var fabThemes: FloatingActionButton? = null
+    private var fabThemes: FloatingActionButton? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         UIUtils.initDisplayMetrics(this, windowManager)
@@ -73,17 +74,17 @@ class MainActivity : Activity(), View.OnClickListener {
         chkDarkStatusBarText?.setOnClickListener(this)
         tvTitle = findViewById(R.id.tvTitle) as TextView?
         bottomBar = findViewById(R.id.first_bottom_bar) as ImageView?
-        //fabAdd = findViewById(R.id.fabAdd) as FloatingActionButton?
         fabPay = findViewById(R.id.fabPay) as FloatingActionButton?
+        fabAdd = findViewById(R.id.fabAdd) as FloatingActionButton?
         fabFeedback = findViewById(R.id.fabFeedback) as FloatingActionButton?
         fabAbout = findViewById(R.id.fabAbout) as FloatingActionButton?
-        //fabThemes = findViewById(R.id.fabMarket) as FloatingActionButton?
+        fabThemes = findViewById(R.id.fabMarket) as FloatingActionButton?
 
-        //fabAdd?.setOnClickListener(this)
         fabPay?.setOnClickListener(this)
+        fabAdd?.setOnClickListener(this)
         fabFeedback?.setOnClickListener(this)
         fabAbout?.setOnClickListener(this)
-        //fabThemes?.setOnClickListener(this)
+        fabThemes?.setOnClickListener(this)
 
         XpConfig.load(this)
         initScrollView()
@@ -140,6 +141,7 @@ class MainActivity : Activity(), View.OnClickListener {
             Log.e("", "themeCar png path: " + LocalTheme.themeCar.listPath)
             WthApi.writeThemeToINI(BASE_FILE_PATH + "/colorful/lanbojini.ini", LocalTheme.themeCar)
         }
+        Log.e("MainActivity", "Write Theme 1")
 
         var bitmapF = BitmapFactory.decodeResource(resources, R.drawable.baiyinghua)
         if (ImageUtil.saveImagePrivate(bitmapF, "baiyinghua", this)) {
@@ -291,15 +293,15 @@ class MainActivity : Activity(), View.OnClickListener {
         when (v.id) {
             R.id.chkDarkStatusBar -> XpConfig.darkerStatusBar = chkDarkStatusBar!!.isChecked
             R.id.chkDarkStatusBarText -> XpConfig.darkStatusBarText = chkDarkStatusBarText!!.isChecked
-            /*R.id.fabMarket -> {
+            R.id.fabPay -> {
+                startActivity(Intent(this, PayActivity::class.java))
+            }
+            R.id.fabMarket -> {
                 startActivity(Intent(this, ThemeListActivity::class.java))
                 //startActivity(Intent(this, MyReactActivity::class.java))
             }
             R.id.fabAdd -> {
                 startActivity(Intent(this, PublishActivity::class.java))
-            }*/
-            R.id.fabPay -> {
-                startActivity(Intent(this, PayActivity ::class.java))
             }
             R.id.fabFeedback -> {
                 startActivity(Intent(this, FeedbackActivity::class.java))
