@@ -32,7 +32,7 @@
   </component>
   <component name="PuppetProjectConfiguration">
     <environmentSettings>
-      <PuppetEnvironmentSettings currentEnvironmentName="2.1stable">
+      <PuppetEnvironmentSettings currentEnvironmentName="no-react">
         <environmentSet>
           <Environment name="production" modulepath="/modules:/usr/share/puppet/modules:/opt/puppet/share/puppet/modules" />
           <Environment name="no-react" modulepath="/modules:/usr/share/puppet/modules:/opt/puppet/share/puppet/modules" />

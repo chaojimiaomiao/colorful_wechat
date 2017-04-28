@@ -2,6 +2,7 @@ package com.rarnu.tophighlight.ui
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.support.v7.widget.Toolbar
 import android.util.AttributeSet
 import com.rarnu.tophighlight.R
@@ -30,6 +31,12 @@ class CustomToolBar : Toolbar {
         setTitleTextColor(if (isWhite) Color.BLACK else Color.WHITE)
         setTitleTextAppearance(this.context, R.style.MyTitle)
         setBackgroundColor(XpConfig.statusBarColor)
+    }
 
+    public fun setBackDrawable(drawable : Drawable) {
+        if (drawable != null) {
+            background = drawable
+            invalidate()
+        }
     }
 }

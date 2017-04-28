@@ -135,4 +135,45 @@ object LocalTheme {
             0xffF5F5F5.toInt(),     //var topPressColors8: Int,
             0xffF5F5F5.toInt()      //var topPressColors9: Int
     )
+
+    var themeNormal = ThemeINI(
+            2,
+            "默认",
+            THEME_TYPE_PIC,
+            0x66ffffff,
+            0xffF5F5F5.toInt(),
+            "",
+            "",
+            "",
+            XpConfig.defaultStatusBarColor,//var statusBarColo
+            false, //var showDivider: Boolean,
+            0xffF5F5F5.toInt(),//var dividerColor: Int,
+            true, //var darkerStatusBar: Boolean,
+            true, //var darkStatusBarText: Boolean,
+            XpConfig.defaultMacColor,//var macColor: Int,
+            XpConfig.defaultMacPressColor,//var macPressColor: Int,
+            XpConfig.defaultReaderColor,//var readerColor: Int,
+            XpConfig.defaultReaderPressColor,//var readerPressColor: Int,
+            XpConfig.defaultBottomBarColor,//var bottomBarColor: Int,
+            0xffF5F5F5.toInt(),//var topColors0: Int,
+            0xffF5F5F5.toInt(),//var topColors1: Int,
+            0xffF5F5F5.toInt(),//var topColors2: Int,
+            0xffF5F5F5.toInt(),//var topColors3: Int,
+            0xffF5F5F5.toInt(),//var topColors4: Int,
+            0xffF5F5F5.toInt(),//var topColors5: Int,
+            0xffF5F5F5.toInt(),//var topColors6: Int,
+            0xffF5F5F5.toInt(),//var topColors7: Int,
+            0xffF5F5F5.toInt(),//var topColors8: Int,
+            0xffF5F5F5.toInt(),//var topColors9: Int,
+            0xffF5F5F5.toInt(),//var topPressColors0: Int,
+            0xffF5F5F5.toInt(),//var topPressColors1: Int,
+            0xffF5F5F5.toInt(),//var topPressColors2: Int,
+            0xffF5F5F5.toInt(),//var topPressColors3: Int,
+            0xffF5F5F5.toInt(),//var topPressColors4: Int,
+            0xffF5F5F5.toInt(),//var topPressColors5: Int,
+            0xffF5F5F5.toInt(),//var topPressColors6: Int,
+            0xffF5F5F5.toInt(),//var topPressColors7: Int,
+            0xffF5F5F5.toInt(),//var topPressColors8: Int,
+            0xffF5F5F5.toInt()//var topPressColors9: Int
+    )
 }

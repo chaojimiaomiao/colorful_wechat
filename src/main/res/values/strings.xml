@@ -70,4 +70,12 @@
 
     <string name="goods_name">ThemeDIY</string>
 
+    <string name="no_theme_name">Please input ur theme name First~</string>
+    <string name="no_theme_desc">Please input ur theme description First~</string>
+    <string name="upload_listback">Please upload list background First~</string>
+    <string name="upload_topback">Please upload statusbar background First~~</string>
+    <string name="upload_bottomback">Please upload bottombar background First~~</string>
+    <string name="input_theme_name">input theme name :</string>
+    <string name="input_theme_desc">input theme description :</string>
+
 </resources>
