@@ -2,7 +2,6 @@ package com.rarnu.tophighlight.api
 
 import android.util.Log
 import com.rarnu.tophighlight.xposed.Versions
-import java.io.Serializable
 
 /**
  * Created by rarnu on 2/14/17.
@@ -34,8 +33,8 @@ object WthApi {
      *
      * @param account 用户帐户，帐户必须是唯一的
      * @param password 明文密码，密码将在 JNI 层被加密，并用于真实的请求
-     * @param nickname 用户昵称，昵称必须是唯一的
-     * @param email 用户的邮件地址，邮件地址必须是唯一的
+     * @param nickname 用户昵称，昵称必须是唯一的。非必填
+     * @param email 用户的邮件地址，邮件地址必须是唯一的。非必填
      *
      * @return 注册结果，成功时返回用户唯一序列号，失败返回 0
      */

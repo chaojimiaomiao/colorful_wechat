@@ -32,33 +32,47 @@
 
         <LinearLayout
             android:gravity="center"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <EditText
                 android:id="@+id/publish_input_name"
+                android:layout_marginLeft="10dp"
                 android:hint="@string/input_theme_name"
                 android:textColor="@color/colorPrimaryDark_black"
                 android:textColorHint="@color/gray"
-                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
 
             <EditText
                 android:id="@+id/publish_input_desc"
+                android:layout_marginLeft="10dp"
                 android:hint="@string/input_theme_desc"
                 android:textColor="@color/colorPrimaryDark_black"
                 android:textColorHint="@color/gray"
-                android:focusable="false"
                 android:layout_width="match_parent"
                 android:layout_height="50dp" />
+
+            <TextView
+                android:text="宽高比(9:1),建议图片宽度大于1080px"
+                android:textColor="@color/gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/publish_topback"
                 android:layout_marginTop="10dp"
                 android:text="上传顶部背景图"
                 android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="宽高比(8:1),建议图片宽度大于1080px"
+                android:textColor="@color/gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -70,6 +84,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:text="宽高比(2:3),建议图片宽度大于1080px"
+                android:textColor="@color/gray"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
             <Button
                 android:id="@+id/publish_back"
                 android:layout_marginTop="10dp"
@@ -78,24 +98,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:text="@string/rule"
-                android:background="#66ffffff"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:textSize="16sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
         </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
+        android:layout_height="40dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -113,6 +121,16 @@
             android:text="同时发布到市场"
             android:textColor="@android:color/black" />
     </LinearLayout>
+
+    <TextView
+        android:text="@string/rule1"
+        android:background="#66ffffff"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="90dp" />
 
     <RelativeLayout
         android:id="@+id/publish_bottom"

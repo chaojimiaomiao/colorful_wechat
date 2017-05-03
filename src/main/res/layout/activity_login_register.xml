@@ -104,6 +104,7 @@
             />
             <EditText
                     android:id="@+id/etRegAccount"
+                    android:hint="邮箱/手机号/昵称"
                     android:layout_width="match_parent"
                     android:layout_height="40dip"
                     android:layout_toEndOf="@+id/tvRegAccount"/>
@@ -125,12 +126,14 @@
                     android:id="@+id/etRegNickname"
                     android:layout_width="match_parent"
                     android:layout_height="40dip"
+                    android:hint="非必填"
                     android:layout_toEndOf="@+id/tvRegNickname"
                     android:layout_below="@+id/etRegRepeatPassword"/>
             <EditText
                     android:id="@+id/etRegEmail"
                     android:layout_width="match_parent"
                     android:layout_height="40dip"
+                    android:hint="非必填"
                     android:layout_toEndOf="@+id/tvRegEmail"
                     android:layout_below="@+id/etRegNickname"/>
 

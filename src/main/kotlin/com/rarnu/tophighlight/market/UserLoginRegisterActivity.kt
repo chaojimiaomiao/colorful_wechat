@@ -115,7 +115,7 @@ class UserLoginRegisterActivity : BaseMarkerActivity(), View.OnClickListener {
         val repeatPwd = regRepeatPassword?.text?.toString()
         val nickname = regNickname?.text?.toString()
         val email = regEmail?.text?.toString()
-        if (acc == null || acc == "" || pwd == null || pwd == "" || repeatPwd == null || repeatPwd == "" || nickname == null || nickname == "" || email == null || email == "" || pwd != repeatPwd) return
+        if (acc == null || acc == "" || pwd == null || pwd == "" || repeatPwd == null || repeatPwd == "" || pwd != repeatPwd) return
         thread {
             val id = WthApi.userRegister(acc, pwd, nickname, email)
             if (id != 0) {
