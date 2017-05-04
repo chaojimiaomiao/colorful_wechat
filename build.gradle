@@ -85,6 +85,7 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile 'com.android.support:support-v4:23.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.google.code.gson:gson:2.7'
 }
 
 project.gradle.startParameter.excludedTaskNames.add('compileDebugNdk')

@@ -1,5 +1,6 @@
 package com.rarnu.tophighlight
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -11,6 +12,7 @@ import android.provider.MediaStore
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
@@ -35,6 +37,7 @@ class PublishActivity : AppCompatActivity() {
     private val REQUEST_CODE_CROP_TOPBAC = 102
     private val REQUEST_CODE_CROP_BOTTOMBAC = 103
     private val REQUEST_CODE_PAY = 1001
+    private val REQUEST_CODE_LOGIN = 1002
 
     private var ini : ThemeINI?= null
 
@@ -64,8 +67,11 @@ class PublishActivity : AppCompatActivity() {
         inputDesc = findViewById(R.id.publish_input_desc) as EditText?
         uploadMarket = findViewById(R.id.publish_market) as CheckBox
 
+        if (LocalApi.userId != 0)
+            (findViewById(R.id.publish_login_btn) as Button).text = LocalApi.curUser?.account
+
         findViewById(R.id.publish_login_btn).setOnClickListener {
-            startActivity(Intent(this, UserLoginRegisterActivity::class.java))
+            startActivityForResult(Intent(this, UserLoginRegisterActivity::class.java), REQUEST_CODE_LOGIN)
         }
 
         findViewById(R.id.btn_publish).setOnClickListener {
@@ -98,11 +104,13 @@ class PublishActivity : AppCompatActivity() {
 
             if (uploadMarket!!.isChecked) {
                 //这里要先付钱
-                startActivityForResult(Intent(this, PayActivity::class.java), REQUEST_CODE_PAY)
-                var ret = WthApi.themeUpload(LocalApi.userId, ini?.themeName, inputDesc?.editableText.toString(), XpConfig.BASE_FILE_PATH + "/colorful/" + ini?.themeName + ".ini")
-                Log.e("", "发布结果" + ret)
+                var intent = Intent(this, PayActivity::class.java)
+                intent.putExtra("much", 5.0)
+                startActivityForResult(intent, REQUEST_CODE_PAY)
             } else {
-                startActivityForResult(Intent(this, PayActivity::class.java), REQUEST_CODE_PAY)
+                var intent = Intent(this, PayActivity::class.java)
+                intent.putExtra("much", 2.0)
+                startActivityForResult(intent, REQUEST_CODE_PAY)
             }
 
         }
@@ -174,25 +182,37 @@ class PublishActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
         super.onActivityResult(requestCode, resultCode, intent)
-        if (intent != null) {
-            if (intent.data != null) {
-                var iconUri = intent.data
+        if (resultCode == Activity.RESULT_OK) {
+            if (intent != null) {
+                if (intent.data != null) {
+                    var iconUri = intent.data
+                    when (requestCode) {
+                        REQUEST_CODE_CHOOSE_LISTBAC -> listbackPath = startCropImage(iconUri, 2, 3, REQUEST_CODE_CROP_LISTBAC)
+                        REQUEST_CODE_CHOOSE_TOPBAC -> topbackPath = startCropImage(iconUri, 9, 1, REQUEST_CODE_CROP_TOPBAC)
+                        REQUEST_CODE_CHOOSE_BOTTOMBAC -> bottombackPath = startCropImage(iconUri, 8, 1, REQUEST_CODE_CROP_BOTTOMBAC)
+                    }
+                }
+
                 when (requestCode) {
-                    REQUEST_CODE_CHOOSE_LISTBAC -> listbackPath = startCropImage(iconUri, 2, 3, REQUEST_CODE_CROP_LISTBAC)
-                    REQUEST_CODE_CHOOSE_TOPBAC -> topbackPath = startCropImage(iconUri, 9, 1, REQUEST_CODE_CROP_TOPBAC)
-                    REQUEST_CODE_CHOOSE_BOTTOMBAC -> bottombackPath = startCropImage(iconUri, 8, 1, REQUEST_CODE_CROP_BOTTOMBAC)
+                    REQUEST_CODE_CROP_LISTBAC -> rootView?.background = getBmpFromPath(listbackPath)
+                    REQUEST_CODE_CROP_TOPBAC -> toolBar?.background = getBmpFromPath(topbackPath)
+                    REQUEST_CODE_CROP_BOTTOMBAC -> bottomLayout?.background = getBmpFromPath(bottombackPath)
+                }
+
+                if (listbackPath.isNotBlank() && bottombackPath.isNotBlank() && topbackPath.isNotBlank() && inputName?.editableText.toString().isNotBlank()) {
+                    findViewById(R.id.btn_publish).setBackgroundDrawable(resources.getDrawable(R.drawable.bg_button_or_radius))
+                }
+            } else {
+
+                when(requestCode) {
+                    REQUEST_CODE_LOGIN -> (findViewById(R.id.publish_login_btn) as Button).text = LocalApi.curUser?.account
+                    REQUEST_CODE_PAY -> {
+                        var ret = WthApi.themeUpload(LocalApi.userId, ini?.themeName, inputDesc?.editableText.toString(), XpConfig.BASE_FILE_PATH + "/colorful/" + ini?.themeName + ".ini")
+                        Log.e("", "发布结果" + ret)
+                    }
                 }
             }
 
-            when (requestCode) {
-                REQUEST_CODE_CROP_LISTBAC -> rootView?.background = getBmpFromPath(listbackPath)
-                REQUEST_CODE_CROP_TOPBAC -> toolBar?.background = getBmpFromPath(topbackPath)
-                REQUEST_CODE_CROP_BOTTOMBAC -> bottomLayout?.background = getBmpFromPath(bottombackPath)
-            }
-
-            if (listbackPath.isNotBlank() && bottombackPath.isNotBlank() && topbackPath.isNotBlank()) {
-                findViewById(R.id.btn_publish).setBackgroundDrawable(resources.getDrawable(R.drawable.bg_button_or_radius))
-            }
 
             //rootView?.background = BitmapDrawable(startCropImage(iconUri, 2, 3))
             //toolBar?.setBackDrawable(BitmapDrawable(startCropImage(iconUri, 9, 1)))

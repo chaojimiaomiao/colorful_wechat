@@ -30,6 +30,7 @@ class PayActivity : Activity() , RadioGroup.OnCheckedChangeListener {
     var go: Button? = null
     var type: RadioGroup? = null
     var dialog: ProgressDialog? = null
+    var much = 1.0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +38,7 @@ class PayActivity : Activity() , RadioGroup.OnCheckedChangeListener {
 
         BP.init(APPID)
 
+        much = intent.getDoubleExtra("much", 1.0)
         go = findViewById(R.id.go) as Button
         type = findViewById(R.id.type) as RadioGroup
 
@@ -245,7 +247,7 @@ class PayActivity : Activity() , RadioGroup.OnCheckedChangeListener {
     }
 
     fun getPrice(): Double {
-        return 5.0
+        return much
     }
 
     fun getName(): String {

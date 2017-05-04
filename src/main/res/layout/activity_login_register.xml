@@ -104,7 +104,7 @@
             />
             <EditText
                     android:id="@+id/etRegAccount"
-                    android:hint="邮箱/手机号/昵称"
+                    android:hint="@string/login_hint"
                     android:layout_width="match_parent"
                     android:layout_height="40dip"
                     android:layout_toEndOf="@+id/tvRegAccount"/>

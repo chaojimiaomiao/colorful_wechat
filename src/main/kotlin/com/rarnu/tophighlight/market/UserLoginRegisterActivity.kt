@@ -88,8 +88,20 @@ class UserLoginRegisterActivity : BaseMarkerActivity(), View.OnClickListener {
 
     val hSucc = object : Handler() {
         override fun handleMessage(msg: Message?) {
-            setResult(RESULT_OK)
-            finish()
+            if (msg != null) {
+                when(msg.what) {
+                    0 -> {
+                        setResult(RESULT_OK)
+                        finish()
+                    }
+                    1 -> {
+                        Toast.makeText(this@UserLoginRegisterActivity, getString(R.string.toast_register_success), Toast.LENGTH_SHORT).show()
+                        layLogin?.visibility = View.VISIBLE
+                        layRegister?.visibility = View.GONE
+                    }
+                }
+            }
+
             super.handleMessage(msg)
         }
     }
@@ -98,8 +110,12 @@ class UserLoginRegisterActivity : BaseMarkerActivity(), View.OnClickListener {
         override fun handleMessage(msg: Message?) {
             if (msg != null) {
                 Toast.makeText(this@UserLoginRegisterActivity, when (msg.what) {
-                    0 -> getString(R.string.toast_login_failed)
-                    1 -> getString(R.string.toast_register_failed)
+                    0 -> {
+                        getString(R.string.toast_login_failed)
+                    }
+                    1 -> {
+                        getString(R.string.toast_register_failed)
+                    }
                     else -> ""
                 }, Toast.LENGTH_SHORT)
                 .show()
@@ -119,7 +135,7 @@ class UserLoginRegisterActivity : BaseMarkerActivity(), View.OnClickListener {
         thread {
             val id = WthApi.userRegister(acc, pwd, nickname, email)
             if (id != 0) {
-                LocalApi.userId = id
+                //LocalApi.userId = id  //注册但未登陆,不该设置这个
                 hSucc.sendEmptyMessage(0)
             } else {
                 hFail.sendEmptyMessage(1)
@@ -135,6 +151,7 @@ class UserLoginRegisterActivity : BaseMarkerActivity(), View.OnClickListener {
             val user = WthApi.userLogin(acc, pwd)
             if (user != null && user.id != 0) {
                 LocalApi.userId = user.id
+                LocalApi.curUser = user
                 hSucc.sendEmptyMessage(0)
             } else {
                 hFail.sendEmptyMessage(0)

@@ -37,6 +37,7 @@
     <string name="view_select_top_color">选择置顶色</string>
 
     <string name="menu_profile">用户信息</string>
+    <string name="login_hint">邮箱/手机号/用户名</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_text_about">喵~</string>
@@ -44,6 +45,7 @@
     <string name="alert_cancel">取消</string>
     <string name="alert_text_placeholder">手动输入颜色值，以#号开头</string>
 
+    <string name="toast_register_success">注册成功!</string>
     <string name="toast_register_failed">注册失败，可能是用户名、昵称或邮箱已被占用</string>
     <string name="toast_login_failed">登录失败</string>
     <string name="ding_column">置顶栏目</string>

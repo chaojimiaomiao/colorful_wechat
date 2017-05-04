@@ -37,6 +37,7 @@
     <string name="view_select_top_color">choose TopList Color</string>
 
     <string name="menu_profile">user info</string>
+    <string name="login_hint">mail/mobile/usrname</string>
 
     <string name="alert_hint">hint</string>
     <string name="alert_text_about">⋖(=^_^=)⋗~</string>
@@ -44,6 +45,7 @@
     <string name="alert_cancel">cancel</string>
     <string name="alert_text_placeholder">input color value, start with #</string>
 
+    <string name="toast_register_success">register success!</string>
     <string name="toast_register_failed">register fail，perhaps already has</string>
     <string name="toast_login_failed">login fail</string>
     <string name="ding_column">Ding Column</string>

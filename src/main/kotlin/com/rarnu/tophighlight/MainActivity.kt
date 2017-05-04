@@ -20,6 +20,7 @@ import android.view.View
 import android.widget.*
 import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
+import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.market.LocalTheme
 import com.rarnu.tophighlight.market.ThemeListActivity
@@ -55,6 +56,7 @@ class MainActivity : Activity(), View.OnClickListener {
         WthApi.load()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.firstpage) //main
+        LocalApi.ctx = applicationContext
 
         scrollView = findViewById(R.id.first_scroll) as NestedScrollView
         layMain = findViewById(R.id.layMain) as LinearLayout?

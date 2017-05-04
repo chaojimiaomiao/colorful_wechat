@@ -1,9 +1,13 @@
 package com.rarnu.tophighlight.api
 
+import java.io.Serializable
+
+
+
 /**
  * Created by rarnu on 4/20/17.
  */
-class User {
+class User : Serializable {
 
     /**
      * 用户的唯一序列号
