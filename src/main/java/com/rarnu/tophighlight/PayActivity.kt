@@ -38,7 +38,7 @@ class PayActivity : Activity() , RadioGroup.OnCheckedChangeListener {
 
         BP.init(APPID)
 
-        much = intent.getDoubleExtra("much", 1.0)
+        much = 0.1//intent.getDoubleExtra("much", 1.0)
         go = findViewById(R.id.go) as Button
         type = findViewById(R.id.type) as RadioGroup
 
@@ -176,6 +176,8 @@ class PayActivity : Activity() , RadioGroup.OnCheckedChangeListener {
             override fun succeed() {
                 Toast.makeText(this@PayActivity, "支付成功!", Toast.LENGTH_SHORT).show()
                 hideDialog()
+                setResult(RESULT_OK)
+                finish()
             }
 
             // 无论成功与否,返回订单号

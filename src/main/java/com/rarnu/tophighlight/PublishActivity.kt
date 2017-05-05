@@ -208,6 +208,12 @@ class PublishActivity : AppCompatActivity() {
                     REQUEST_CODE_PAY -> {
                         var ret = WthApi.themeUpload(LocalApi.userId, ini?.themeName, inputDesc?.editableText.toString(), XpConfig.BASE_FILE_PATH + "/colorful/" + ini?.themeName + ".ini")
                         Log.e("", "发布结果" + ret)
+                        if (ret != 0) {
+                            Toast.makeText(this, "发布成功!SUCCESS", Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {
+                            Toast.makeText(this, "发布失败!FAILURE", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 }
             }
