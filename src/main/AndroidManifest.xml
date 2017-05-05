@@ -70,7 +70,10 @@
             android:name=".PublishActivity"
             android:theme="@style/AppTheme"></activity>
         <activity android:name="cn.bmob.pay.v3.act.PayAct" />
-        <activity android:name=".PayActivity"></activity>
+        <activity
+            android:name=".PayActivity"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            ></activity>
     </application>
 
 </manifest>

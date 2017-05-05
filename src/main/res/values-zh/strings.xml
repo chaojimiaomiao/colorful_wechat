@@ -85,4 +85,5 @@
 您的收益 = 使用该主题用户数 * 1元 - (DIY发布套餐) 5元
     </string>
 
+    <string name="confirm_pay">确认支付</string>
 </resources>

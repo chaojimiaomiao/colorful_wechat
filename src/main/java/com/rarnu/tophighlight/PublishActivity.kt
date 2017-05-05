@@ -27,7 +27,6 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileNotFoundException
 
-
 class PublishActivity : AppCompatActivity() {
 
     private val REQUEST_CODE_CHOOSE_LISTBAC = 1

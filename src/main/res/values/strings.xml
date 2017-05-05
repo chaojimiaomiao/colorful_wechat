@@ -80,4 +80,6 @@
     <string name="input_theme_name">input theme name :</string>
     <string name="input_theme_desc">input theme description :</string>
 
+    <string name="confirm_pay">ensure pay</string>
+
 </resources>

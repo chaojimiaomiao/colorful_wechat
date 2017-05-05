@@ -42,6 +42,7 @@ class PayActivity : Activity() , RadioGroup.OnCheckedChangeListener {
         go = findViewById(R.id.go) as Button
         type = findViewById(R.id.type) as RadioGroup
 
+        go?.text = "确认支付 "+ much + " 元";
         go!!.setOnClickListener(View.OnClickListener {
             if (type!!.getCheckedRadioButtonId() == R.id.alipay)
                 pay(true)
