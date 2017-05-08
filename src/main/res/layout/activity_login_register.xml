@@ -16,10 +16,12 @@
                     android:id="@+id/tvAccount"
                     android:layout_width="60dip" android:layout_height="40dip"
                     android:text="@string/view_account"
+                    android:textSize="16sp"
                     android:gravity="start|center_vertical"/>
             <TextView
                     android:id="@+id/tvPassword"
                     android:layout_width="60dip" android:layout_height="40dip"
+                    android:textSize="16sp"
                     android:text="@string/view_password"
                     android:gravity="start|center_vertical"
                     android:layout_below="@+id/tvAccount"/>

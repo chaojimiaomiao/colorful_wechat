@@ -10,6 +10,7 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
+import com.rarnu.tophighlight.api.User
 import com.rarnu.tophighlight.api.WthApi
 import kotlin.concurrent.thread
 
@@ -134,7 +135,9 @@ class UserLoginRegisterActivity : BaseMarkerActivity(), View.OnClickListener {
         thread {
             val id = WthApi.userRegister(acc, pwd, nickname, email)
             if (id != 0) {
-                //LocalApi.userId = id  //注册但未登陆,不该设置这个
+                LocalApi.userId = id  //注册但未登陆,不该设置这个
+                var info = WthApi.userGetInfo(id) as User
+                LocalApi.curUser = info
                 hSucc.sendEmptyMessage(0)
             } else {
                 hFail.sendEmptyMessage(1)
