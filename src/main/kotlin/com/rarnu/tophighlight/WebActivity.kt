@@ -4,8 +4,6 @@ import android.app.Activity
 import android.os.Bundle
 import android.webkit.WebView
 
-
-
 class WebActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

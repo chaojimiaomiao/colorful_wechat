@@ -81,5 +81,6 @@
     <string name="input_theme_desc">input theme description :</string>
 
     <string name="confirm_pay">ensure pay</string>
+    <string name="log_out">Log Out</string>
 
 </resources>

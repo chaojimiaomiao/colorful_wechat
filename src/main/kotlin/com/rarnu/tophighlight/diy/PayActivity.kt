@@ -1,4 +1,4 @@
-package com.rarnu.tophighlight
+package com.rarnu.tophighlight.diy
 
 import android.Manifest
 import android.app.Activity
@@ -18,6 +18,7 @@ import android.widget.Toast
 import c.b.BP
 import c.b.PListener
 import c.b.QListener
+import com.rarnu.tophighlight.R
 import java.io.File
 import java.io.FileOutputStream
 

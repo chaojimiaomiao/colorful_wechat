@@ -1,4 +1,4 @@
-package com.rarnu.tophighlight
+package com.rarnu.tophighlight.diy
 
 import android.app.Activity
 import android.content.Intent
@@ -16,6 +16,8 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.Toast
+import com.rarnu.tophighlight.LogoutActivity
+import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
@@ -40,12 +42,12 @@ class PublishActivity : AppCompatActivity() {
 
     private var ini : ThemeINI?= null
 
-    private var bottomLayout : View ?=null
-    private var toolBar : CustomToolBar ?=null
-    private var rootView : View ?= null
-    private var inputName : EditText ?= null
-    private var inputDesc : EditText ?= null
-    private var uploadMarket : CheckBox ?= null
+    private var bottomLayout : View?=null
+    private var toolBar : CustomToolBar?=null
+    private var rootView : View?= null
+    private var inputName : EditText?= null
+    private var inputDesc : EditText?= null
+    private var uploadMarket : CheckBox?= null
     var listbackPath = ""
     var topbackPath = ""
     var bottombackPath = ""
@@ -70,7 +72,10 @@ class PublishActivity : AppCompatActivity() {
             (findViewById(R.id.publish_login_btn) as Button).text = LocalApi.curUser?.account
 
         findViewById(R.id.publish_login_btn).setOnClickListener {
-            startActivityForResult(Intent(this, UserLoginRegisterActivity::class.java), REQUEST_CODE_LOGIN)
+            if (LocalApi.userId == 0)
+                startActivityForResult(Intent(this, UserLoginRegisterActivity::class.java), REQUEST_CODE_LOGIN)
+            else
+                startActivity(Intent(this, LogoutActivity::class.java))
         }
 
         findViewById(R.id.btn_publish).setOnClickListener {

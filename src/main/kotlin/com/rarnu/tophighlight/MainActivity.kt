@@ -22,6 +22,8 @@ import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.diy.PayActivity
+import com.rarnu.tophighlight.diy.PublishActivity
 import com.rarnu.tophighlight.market.LocalTheme
 import com.rarnu.tophighlight.market.ThemeListActivity
 import com.rarnu.tophighlight.util.ImageUtil

@@ -16,6 +16,14 @@ object LocalApi {
     private val KEY_USER_PROFILE_ID = "user_profile_id"
     private val KEY_USER = "user_profile"
 
+    fun clear() {
+        val pref = PreferenceManager.getDefaultSharedPreferences(ctx)
+        val prefsEditor = pref.edit()
+        prefsEditor.putString(KEY_USER, "")
+        prefsEditor.putInt(KEY_USER_PROFILE_ID, 0)
+        prefsEditor.commit()
+    }
+
     var userId: Int
         get() {
             var r = 0

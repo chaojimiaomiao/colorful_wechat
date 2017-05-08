@@ -68,7 +68,6 @@ class UserLoginRegisterActivity : BaseMarkerActivity(), View.OnClickListener {
         btnRegister?.setOnClickListener(this)
         btnSwitchLogin?.setOnClickListener(this)
 
-
     }
 
     override fun onClick(v: View) {
