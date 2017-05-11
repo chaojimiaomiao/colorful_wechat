@@ -83,4 +83,6 @@
     <string name="confirm_pay">ensure pay</string>
     <string name="log_out">Log Out</string>
 
+    <string name="loading">loading...</string>
+
 </resources>

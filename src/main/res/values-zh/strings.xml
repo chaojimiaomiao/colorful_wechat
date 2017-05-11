@@ -87,4 +87,6 @@
 
     <string name="confirm_pay">确认支付</string>
     <string name="log_out">退出登录</string>
+
+    <string name="loading">加载中。。</string>
 </resources>

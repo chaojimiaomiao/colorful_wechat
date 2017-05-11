@@ -2,19 +2,25 @@ package com.rarnu.tophighlight.market
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Environment
 import android.os.Handler
 import android.os.Message
 import android.util.Log
+import android.view.Gravity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.widget.GridView
+import android.widget.PopupWindow
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.Theme
 import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.util.UIUtils
+import com.rarnu.tophighlight.xposed.XpConfig
 import java.io.File
 import java.io.FileOutputStream
 import java.net.HttpURLConnection
@@ -32,7 +38,7 @@ class ThemeListActivity : BaseMarkerActivity() {
 
     companion object {
         val MENUID_PROFILE = 1;
-        val BASEURL = "http://rarnu.xyz/wth/theme/";
+        val BASEURL = "http://diy.ourocg.cn/wth/theme/";
     }
 
     private var miProfile: MenuItem? = null
@@ -44,12 +50,21 @@ class ThemeListActivity : BaseMarkerActivity() {
         super.onCreate(savedInstanceState)
         LocalApi.ctx = this
         setContentView(R.layout.activity_themelist)
+
+        val fDir = File(XpConfig.BASE_FILE_PATH + "/down")
+        if (!fDir.exists()) { fDir.mkdirs() }
         actionBar.setTitle(R.string.view_themes)
         gvTheme = findViewById(R.id.gvTheme) as GridView?
 
         listTheme = arrayListOf()
         adapterTheme = ThemeListAdapter(this, listTheme)
         gvTheme?.adapter = adapterTheme
+        gvTheme?.setOnItemClickListener { adapterView, view, i, l ->
+            val popup = PopupWindow(view, UIUtils.dip2px(100), UIUtils.dip2px(160))
+            popup.setBackgroundDrawable(ColorDrawable(0x00000000));
+            popup.isOutsideTouchable = true
+            popup.showAtLocation(gvTheme, Gravity.CENTER, 0, 0)
+        }
 
         loadThemeList()
     }
@@ -63,10 +78,10 @@ class ThemeListActivity : BaseMarkerActivity() {
         val hTheme = object : Handler() {
             override fun handleMessage(msg: Message?) {
                 adapterTheme?.setList(listTheme)
+                findViewById(R.id.theme_load).visibility = View.INVISIBLE
                 super.handleMessage(msg)
             }
         }
-
 
         var wht = Environment.getExternalStorageDirectory().absolutePath
         Log.e("wht", "wht: " + wht)
@@ -79,12 +94,13 @@ class ThemeListActivity : BaseMarkerActivity() {
                 var url = WthApi.themeGetDownloadUrl(theme.id)
 
                 //val ini = WthApi.readThemeFromINI(wht + "/theme.ini")
-
                 val filename = downloadFile(BASEURL + url)
                 Log.e("themelist", "filename: " + filename)
-                val ini = WthApi.readThemeFromINI(filename)
-                if (ini != null) {
-                    listTheme?.add(ini)
+                if (!filename.equals("")) {
+                    val ini = WthApi.readThemeFromINI(filename)
+                    if (ini != null) {
+                        listTheme?.add(ini)
+                    }
                 }
             }
             // TODO: download theme file and make preview
@@ -125,10 +141,12 @@ class ThemeListActivity : BaseMarkerActivity() {
 
     fun downloadFile(iniUrl: String) : String{
         var lists = iniUrl.split("/")
-        var localFile = "/sdcard/" + lists.last()
+        Environment.getExternalStorageDirectory().getPath()
+        var localFile = XpConfig.BASE_FILE_PATH + "/down/"+ lists.last() + ".ini"
         val fTmp = File(localFile)
         if (fTmp.exists()) {
-            fTmp.delete()
+            //fTmp.delete()
+            return localFile
         }
         var url: URL?
         var filesize = 0
@@ -137,8 +155,8 @@ class ThemeListActivity : BaseMarkerActivity() {
             val con = url.openConnection() as HttpURLConnection
             var ins = con.inputStream
             filesize = con.contentLength
-            val fileOut = File(localFile + ".tmp")
-            val out = FileOutputStream(fileOut)
+            //val fileOut = File(localFile)// + ".tmp"
+            val out = FileOutputStream(fTmp)//fileOut
             val buffer = ByteArray(1024)
             var count: Int
             while (true) {
@@ -151,10 +169,11 @@ class ThemeListActivity : BaseMarkerActivity() {
             }
             ins.close()
             out.close()
-            fileOut.renameTo(fTmp)
+            return localFile
+            //fileOut.renameTo(fTmp)
         } catch (e: Exception) {
             Log.e("", "下载文件失败")
+            return ""
         }
-        return localFile
     }
 }

@@ -6,7 +6,6 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.*
 import com.rarnu.tophighlight.api.ThemeINI
-import com.rarnu.tophighlight.api.WthApi
 import com.rarnu.tophighlight.util.UIUtils
 
 /**

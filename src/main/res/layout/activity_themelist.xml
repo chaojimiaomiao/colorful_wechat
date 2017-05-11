@@ -3,6 +3,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="4dip">
+
+    <LinearLayout
+        android:id="@+id/theme_load"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp" />
+        <TextView
+            android:text="@string/loading"
+            android:textColor="@color/black"
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <GridView
             android:id="@+id/gvTheme"
             android:layout_width="match_parent"
@@ -12,4 +30,5 @@
             android:horizontalSpacing="4dip"
             android:scrollbars="none">
     </GridView>
+
 </RelativeLayout>
