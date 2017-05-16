@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,7 +23,7 @@
     <RelativeLayout
         android:id="@+id/layActionbar"
         android:layout_width="match_parent"
-        android:layout_height="16dip"
+        android:layout_height="@dimen/actionBarSize"
         android:layout_below="@+id/layStatusbar"
         android:background="#ffffc7c8">
 
@@ -36,11 +37,10 @@
             android:textSize="8sp" />
     </RelativeLayout>
 
-
     <LinearLayout
         android:id="@+id/layMac"
         android:layout_width="match_parent"
-        android:layout_height="17dp"
+        android:layout_height="51dp"
         android:layout_below="@+id/layActionbar"
         android:background="@color/ll_gray"
         android:orientation="vertical"
@@ -89,7 +89,7 @@
     <LinearLayout
         android:id="@+id/layReading"
         android:layout_width="match_parent"
-        android:layout_height="17dp"
+        android:layout_height="51dp"
         android:layout_below="@+id/layMac"
         android:background="@color/ll_gray"
         android:orientation="vertical"
@@ -138,211 +138,179 @@
     <ScrollView
         android:id="@+id/scroll_back"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottom_bar"
-        android:layout_below="@+id/layReading">
+        android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:id="@+id/layTop0"
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
-                android:orientation="vertical"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp">
+                android:layout_height="66dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/group_avatar" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp">
 
-                    <LinearLayout
-                        android:layout_width="17dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:src="@drawable/group_avatar" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="5dp">
+                        android:text="Group Name"
+                        android:textColor="@color/text_gray"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Group Name"
-                            android:textColor="@color/text_gray"
-                            android:textSize="6sp" />
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <View
-                            android:id="@+id/view_highcolor0"
-                            android:layout_width="9dip"
-                            android:layout_height="9dip"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="4dip" />
-                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/group_chat"
+                        android:textColor="@color/text_gray"/>
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/gray" />
+                    android:id="@+id/view_highcolor0"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dip" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray" />
 
             <LinearLayout
                 android:id="@+id/layTop1"
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
-                android:layout_below="@+id/layTop0"
-                android:orientation="vertical"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp">
+                android:layout_height="66dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/group_avatar" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp">
 
-                    <LinearLayout
-                        android:layout_width="17dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:src="@drawable/group_avatar" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="5dp">
+                        android:text="Group Name"
+                        android:textColor="@color/text_gray"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Group Name"
-                            android:textColor="@color/text_gray"
-                            android:textSize="6sp" />
-
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <View
-                            android:id="@+id/view_highcolor1"
-                            android:layout_width="9dip"
-                            android:layout_height="9dip"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="4dip" />
-                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/group_chat"
+                        android:textColor="@color/text_gray"/>
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/gray" />
+                    android:id="@+id/view_highcolor1"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dip" />
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray" />
 
             <LinearLayout
                 android:id="@+id/layTop2"
                 android:layout_width="match_parent"
-                android:layout_height="22dp"
-                android:layout_below="@+id/layTop1"
-                android:orientation="vertical"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp">
+                android:layout_height="66dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="5dp">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/group_avatar" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:padding="5dp">
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp">
 
-                    <LinearLayout
-                        android:layout_width="17dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-
-                        <ImageView
-                            android:layout_width="17dp"
-                            android:layout_height="17dp"
-                            android:src="@drawable/group_avatar" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:paddingLeft="5dp">
+                        android:text="Group Name"
+                        android:textColor="@color/text_gray"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Group Name"
-                            android:textColor="@color/text_gray"
-                            android:textSize="6sp" />
-
-
-                    </LinearLayout>
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <View
-                            android:id="@+id/view_highcolor2"
-                            android:layout_width="9dip"
-                            android:layout_height="9dip"
-                            android:layout_alignParentEnd="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="4dip" />
-                    </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/group_chat"
+                        android:textColor="@color/text_gray"/>
 
                 </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:background="@color/gray" />
+                    android:id="@+id/view_highcolor2"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dip" />
             </LinearLayout>
 
-        </RelativeLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray" />
+
+        </LinearLayout>
 
     </ScrollView>
 
@@ -354,4 +322,4 @@
         android:background="@android:color/white"
         android:scaleType="centerInside"
         android:src="@drawable/bottombar" />
-</RelativeLayout>
+</LinearLayout>

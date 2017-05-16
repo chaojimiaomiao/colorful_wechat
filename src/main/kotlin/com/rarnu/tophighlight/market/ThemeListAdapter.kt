@@ -53,9 +53,10 @@ class ThemeListAdapter : BaseAdapter {
             //popup.setBackgroundDrawable(ColorDrawable(0x00000000));
             popup.isOutsideTouchable = true
             popup.showAtLocation(convertView, Gravity.CENTER, 0, 0)*/
-            var tmpView = View(_ctx)
+            var bigPreV = ThemePreviewView(_ctx!!) as ThemePreviewView
+            bigPreV.setThemePreview(_list!![position])
             Toast.makeText(_ctx, "what the fuck", Toast.LENGTH_SHORT).show()
-            AlertDialog.Builder(_ctx).setTitle("自定义布局").setView(v).show()
+            AlertDialog.Builder(_ctx).setTitle("自定义布局").setView(bigPreV).show()
         }
 
         view?.setOnClickListener { v ->
