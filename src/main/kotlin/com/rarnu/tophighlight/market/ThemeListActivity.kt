@@ -14,11 +14,13 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.GridView
 import android.widget.PopupWindow
+import android.widget.Toast
 import com.rarnu.tophighlight.R
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.Theme
 import com.rarnu.tophighlight.api.ThemeINI
 import com.rarnu.tophighlight.api.WthApi
+import com.rarnu.tophighlight.util.Constants.REQUEST_CODE_PAY
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
 import java.io.File
@@ -50,6 +52,9 @@ class ThemeListActivity : BaseMarkerActivity() {
         super.onCreate(savedInstanceState)
         LocalApi.ctx = this
         setContentView(R.layout.activity_themelist)
+
+
+        Toast.makeText(this, "点击放大浏览主题", Toast.LENGTH_LONG).show()
 
         val fDir = File(XpConfig.BASE_FILE_PATH + "/down")
         if (!fDir.exists()) { fDir.mkdirs() }
@@ -87,7 +92,7 @@ class ThemeListActivity : BaseMarkerActivity() {
         Log.e("wht", "wht: " + wht)
         thread {
             listTheme?.clear()
-            val list = WthApi.themeGetList(1, 20, "date") as List<Theme>
+            val list = WthApi.themeGetList(1, 10, "date") as List<Theme>
             println("list = $list")
             for(theme : Theme in list) {
                 Log.e("wht", "theme => $theme")
@@ -99,6 +104,7 @@ class ThemeListActivity : BaseMarkerActivity() {
                 if (!filename.equals("")) {
                     val ini = WthApi.readThemeFromINI(filename)
                     if (ini != null) {
+                        ini.localPath = filename
                         listTheme?.add(ini)
                     }
                 }
@@ -136,12 +142,17 @@ class ThemeListActivity : BaseMarkerActivity() {
             0 -> {
                 // TODO: login or register callback
             }
+            REQUEST_CODE_PAY -> {
+                Toast.makeText(this, "重启本软件及微信可生效", Toast.LENGTH_LONG).show()
+                XpConfig.ini = WthApi.readThemeFromINI(listTheme!![adapterTheme!!.getSelectedPos()].localPath)
+                XpConfig.themePath = XpConfig.ini!!.localPath
+                XpConfig.save(this)
+            }
         }
     }
 
     fun downloadFile(iniUrl: String) : String{
         var lists = iniUrl.split("/")
-        Environment.getExternalStorageDirectory().getPath()
         var localFile = XpConfig.BASE_FILE_PATH + "/down/"+ lists.last() + ".ini"
         val fTmp = File(localFile)
         if (fTmp.exists()) {

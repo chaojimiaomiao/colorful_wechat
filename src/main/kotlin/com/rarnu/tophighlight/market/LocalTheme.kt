@@ -14,6 +14,7 @@ object LocalTheme {
     val THEME_TYPE_FULL = 3
 
     var themePurple = ThemeINI(
+            "",
             2,
             "紫色渐变",
             THEME_TYPE_PART,
@@ -55,6 +56,7 @@ object LocalTheme {
     )
 
     var themeFlower = ThemeINI(
+            "",
     //新增的
             1,
             "十里桃林",
@@ -97,6 +99,7 @@ object LocalTheme {
     )
 
     var themeCar = ThemeINI(
+            "",
             //新增的
             2, "兰博基尼", THEME_TYPE_PIC,
             0x66ffffff,
@@ -137,6 +140,7 @@ object LocalTheme {
     )
 
     var themeNormal = ThemeINI(
+            "",
             2,
             "默认",
             THEME_TYPE_PIC,

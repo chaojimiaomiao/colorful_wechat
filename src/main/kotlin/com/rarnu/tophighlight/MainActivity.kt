@@ -22,7 +22,6 @@ import com.bingjie.colorpicker.builder.ColorPickerClickListener
 import com.getbase.floatingactionbutton.FloatingActionButton
 import com.rarnu.tophighlight.api.LocalApi
 import com.rarnu.tophighlight.api.WthApi
-import com.rarnu.tophighlight.diy.PayActivity
 import com.rarnu.tophighlight.diy.PublishActivity
 import com.rarnu.tophighlight.market.LocalTheme
 import com.rarnu.tophighlight.market.ThemeListActivity
@@ -78,13 +77,13 @@ class MainActivity : Activity(), View.OnClickListener {
         chkDarkStatusBarText?.setOnClickListener(this)
         tvTitle = findViewById(R.id.tvTitle) as TextView?
         bottomBar = findViewById(R.id.first_bottom_bar) as ImageView?
-        fabPay = findViewById(R.id.fabPay) as FloatingActionButton?
+        //fabPay = findViewById(R.id.fabPay) as FloatingActionButton?
         fabAdd = findViewById(R.id.fabAdd) as FloatingActionButton?
         fabFeedback = findViewById(R.id.fabFeedback) as FloatingActionButton?
         fabAbout = findViewById(R.id.fabAbout) as FloatingActionButton?
         fabThemes = findViewById(R.id.fabMarket) as FloatingActionButton?
 
-        fabPay?.setOnClickListener(this)
+        //fabPay?.setOnClickListener(this)
         fabAdd?.setOnClickListener(this)
         fabFeedback?.setOnClickListener(this)
         fabAbout?.setOnClickListener(this)
@@ -297,9 +296,9 @@ class MainActivity : Activity(), View.OnClickListener {
         when (v.id) {
             R.id.chkDarkStatusBar -> XpConfig.darkerStatusBar = chkDarkStatusBar!!.isChecked
             R.id.chkDarkStatusBarText -> XpConfig.darkStatusBarText = chkDarkStatusBarText!!.isChecked
-            R.id.fabPay -> {
+            /*R.id.fabPay -> {
                 startActivity(Intent(this, PayActivity::class.java))
-            }
+            }*/
             R.id.fabMarket -> {
                 startActivity(Intent(this, ThemeListActivity::class.java))
                 //startActivity(Intent(this, MyReactActivity::class.java))

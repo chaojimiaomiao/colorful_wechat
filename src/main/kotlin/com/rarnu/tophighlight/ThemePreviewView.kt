@@ -86,7 +86,8 @@ class ThemePreviewView : RelativeLayout {
             vHighColor2?.setBackgroundColor(t.topPressColors2)
 
             UIUtils.backviewBindPath(scrollView!!, t.listPath)
-
+            UIUtils.backviewBindPath(imgBottomBar!!, t.bottomBarPath)
+            UIUtils.backviewBindPath(layActionbar!!, t.statusBarPath)
         }
     }
 }

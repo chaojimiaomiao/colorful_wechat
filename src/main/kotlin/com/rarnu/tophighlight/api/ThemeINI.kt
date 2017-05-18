@@ -7,6 +7,7 @@ import java.io.Serializable
  */
 class ThemeINI: Serializable {
 
+    var localPath = ""
     //新增的
     var themeId = 0
     var themeName = ""
@@ -54,6 +55,7 @@ class ThemeINI: Serializable {
     constructor()
 
     constructor(
+            localPath:String = "",
             themeId: Int,
             themeName: String,
             type: Int,
@@ -94,6 +96,7 @@ class ThemeINI: Serializable {
             topPressColors8: Int,
             topPressColors9: Int) {
 
+        this.localPath = localPath
         this.themeId = themeId
         this.themeName = themeName
         this.type = type

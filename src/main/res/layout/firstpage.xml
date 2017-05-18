@@ -72,19 +72,10 @@
             fab:fab_labelsPosition="left">
 
             <com.getbase.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabPay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                fab:fab_icon="@drawable/ic_add_24dp"
-                fab:fab_colorNormal="@color/pink"
-                fab:fab_size="mini"
-                fab:fab_title="支付" />
-
-            <com.getbase.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabMarket"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                fab:fab_icon="@drawable/ic_add_24dp"
+                fab:fab_icon="@drawable/ic_person_add_24dp"
                 fab:fab_colorNormal="@color/pink"
                 fab:fab_size="mini"
                 fab:fab_title="@string/view_market" />

@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/layStatusbar"
         android:layout_width="match_parent"
-        android:layout_height="9dip"
+        android:layout_height="12dip"
         android:background="@android:color/black">
 
         <TextView
@@ -23,7 +23,7 @@
     <RelativeLayout
         android:id="@+id/layActionbar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarSize"
+        android:layout_height="30dp"
         android:layout_below="@+id/layStatusbar"
         android:background="#ffffc7c8">
 
@@ -34,13 +34,13 @@
             android:paddingStart="8dip"
             android:text="微信"
             android:textColor="@android:color/white"
-            android:textSize="8sp" />
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/layMac"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/layActionbar"
         android:background="@color/ll_gray"
         android:orientation="vertical"
@@ -76,7 +76,7 @@
                 android:paddingLeft="3dp"
                 android:text="Mac 微信已登录"
                 android:textColor="@color/text_gray"
-                android:textSize="6sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -89,7 +89,7 @@
     <LinearLayout
         android:id="@+id/layReading"
         android:layout_width="match_parent"
-        android:layout_height="51dp"
+        android:layout_height="30dp"
         android:layout_below="@+id/layMac"
         android:background="@color/ll_gray"
         android:orientation="vertical"
@@ -125,7 +125,7 @@
                 android:paddingLeft="3dp"
                 android:text="正在浏览 置顶文章"
                 android:textColor="@color/text_gray"
-                android:textSize="6sp" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -137,8 +137,9 @@
 
     <ScrollView
         android:id="@+id/scroll_back"
+        android:layout_weight="1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:orientation="vertical"
@@ -148,7 +149,7 @@
             <LinearLayout
                 android:id="@+id/layTop0"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="60dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="5dp">
@@ -159,8 +160,8 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:src="@drawable/group_avatar" />
                 </LinearLayout>
 
@@ -203,7 +204,7 @@
             <LinearLayout
                 android:id="@+id/layTop1"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="60dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="5dp">
@@ -214,9 +215,10 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@drawable/group_avatar" />
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/group_avatar"
+                        android:id="@+id/imageView" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -258,7 +260,7 @@
             <LinearLayout
                 android:id="@+id/layTop2"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="60dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="5dp">
@@ -269,8 +271,8 @@
                     android:gravity="center">
 
                     <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
                         android:src="@drawable/group_avatar" />
                 </LinearLayout>
 
@@ -317,7 +319,7 @@
     <ImageView
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="17dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
         android:scaleType="centerInside"
