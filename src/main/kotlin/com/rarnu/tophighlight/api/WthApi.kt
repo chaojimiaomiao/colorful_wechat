@@ -1,5 +1,7 @@
 package com.rarnu.tophighlight.api
 
+import android.util.Log
+import com.rarnu.tophighlight.xposed.Versions
 import java.io.Serializable
 
 /**
@@ -18,120 +20,14 @@ object WthApi {
         System.loadLibrary("wthapi")
     }
 
-    data class User(
-            /**
-             * 用户的唯一序列号
-             */
-            var id: Int,
-            /**
-             * 用户帐户
-             */
-            var account: String?,
-            /**
-             * 用户昵称
-             */
-            var nickname: String?,
-            /**
-             * 用户邮箱地址
-             */
-            var email: String?,
-            /**
-             * 用户头像的下载地址
-             */
-            var head: String?,
-            /**
-             * 用户的自定义备注，签名等
-             */
-            var comment: String?) : Serializable
-
-    data class Theme(
-            /**
-             * 主题的唯一序列号
-             */
-            var id: Int,
-            /**
-             * 主题的名称
-             */
-            var name: String?,
-            /**
-             * 主题作者的唯一序列号
-             */
-            var author: Int,
-            /**
-             * 主题发布时间
-             */
-            var publishdate: String?,
-            /**
-             * 主题的描述
-             */
-            var description: String?,
-            /**
-             * 主题的下载次数
-             */
-            var downloadcount: Int,
-            /**
-             * 主题的评星数
-             */
-            var starcount: Int,
-            /**
-             * 当前登录的用户是否已对主题加星，已加星的状态下，可以取消加星
-             */
-            var stared: Boolean) : Serializable
-
-    data class ThemeComment(
-            /**
-             * 评论的唯一序列号
-             */
-            var id: Int,
-            /**
-             * 评论作者的唯一序列号
-             */
-            var author: Int,
-            /**
-             * 评论作者的昵称
-             */
-            var nickname: String?,
-            /**
-             * 评论的发布时间
-             */
-            var publishdate: String?,
-            /**
-             * 评论的内容
-             */
-            var comment: String?) : Serializable
-
-    data class ThemeINI(
-            var statusBarColor: Int,
-            var showDivider: Boolean,
-            var dividerColor: Int,
-            var darkerStatusBar: Boolean,
-            var darkStatusBarText: Boolean,
-            var macColor: Int,
-            var macPressColor: Int,
-            var readerColor: Int,
-            var readerPressColor: Int,
-            var bottomBarColor: Int,
-            var topColors0: Int,
-            var topColors1: Int,
-            var topColors2: Int,
-            var topColors3: Int,
-            var topColors4: Int,
-            var topColors5: Int,
-            var topColors6: Int,
-            var topColors7: Int,
-            var topColors8: Int,
-            var topColors9: Int,
-            var topPressColors0: Int,
-            var topPressColors1: Int,
-            var topPressColors2: Int,
-            var topPressColors3: Int,
-            var topPressColors4: Int,
-            var topPressColors5: Int,
-            var topPressColors6: Int,
-            var topPressColors7: Int,
-            var topPressColors8: Int,
-            var topPressColors9: Int
-    ) : Serializable
+    fun load(path: String) {
+        try {
+            System.load(path)
+            Log.e("XposedModule", "jni library loaded")
+        } catch (th: Throwable) {
+            Log.e("XposedModule", "load jni library error => $th")
+        }
+    }
 
     /**
      * 新用户注册
@@ -373,5 +269,50 @@ object WthApi {
      * @return 是否保存成功
      */
     external fun writeThemeToINI(themeFile: String?, theme: ThemeINI?): Boolean
+
+    /**
+     * 记录设备信息，仅当程序启动时调用一次
+     */
+    external fun recordDevice()
+
+    /**
+     * 发送反馈信息
+     *
+     * @param appVer 当前软件版本，从 AndroidManifest.xml 获取
+     * @param userId 已登录用户的唯一序列号，未登录时传0
+     * @param nickname 用户昵称，仅当未登录时有效，已登录时传""
+     * @param email 邮箱地址，仅当未登录时有效，已登录时传""
+     * @param content 反馈内容，不能为空
+     * @param img1
+     * @param img2
+     * @param img3 附加的图片，若是有图则传图片的绝对路径，若是没有则传""，最多三张图
+     *
+     * @return 是否发送成功
+     */
+    external fun feedbackAdd(appVer: Int, userId: Int, nickname: String?, email: String?, content: String?, img1: String?, img2: String?, img3: String?): Boolean
+
+    /**
+     * 检查 Xposed 是否已安装
+     *
+     * @return 是否已安装
+     */
+    external fun xposedInstalled(): Boolean
+
+    /**
+     * 检查是否有适用于当前版本微信的配置文件，若没有则进行下载
+     *
+     * @param 当前安装的微信版本号
+     * @return 已有配置文件或下载成功，返回 true，否则返回 false
+     *
+     */
+    external fun checkAndDownloadVersion(AVer: String?): Boolean
+
+    /**
+     * 加载指定微信的配置文件
+     *
+     * @param 当前安装的微信版本号
+     * @return 是否加载成功，若加载成功，Versions.kt 内指定变量将拥有特定值
+     */
+    external fun loadVersion(AVer: String?): Versions?
 
 }

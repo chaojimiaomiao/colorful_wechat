@@ -5,7 +5,7 @@ unit wth_classes;
 interface
 
 uses
-  Classes, SysUtils, jni2, jni_utils, fpjson, strutils, fgl, IniFiles;
+  Classes, SysUtils, JNI2, fpjson, strutils, fgl, IniFiles, FileUtil, BaseUnix, android;
 
 const
   SEC_THEME = 'theme';
@@ -21,6 +21,62 @@ const
   KEY_THEME_BOTTOMBAR_COLOR = 'theme_bottombar_color';
   KEY_THEME_TOP_COLOR = 'theme_top_color_%d';
   KEY_THEME_TOP_PRESS_COLOR = 'theme_top_press_color_%d';
+
+  KEY_THEME_ID = 'theme_id';
+  KEY_THEME_NAME = 'theme_name';
+  KEY_THEME_TYPE = 'theme_type';
+  KEY_THEME_NORMAL_COLOR = 'theme_normal_color';
+  KEY_THEME_NORMAL_PRESS_COLOR = 'theme_normal_press_color';
+  KEY_STATUSBAR_PATH = 'theme_statusbar_path';
+  KEY_BOTTOMBAR_PATH = 'theme_bottombar_path';
+  KEY_LIST_PATH = 'theme_list_path';
+
+  SEC_WECHAT = 'wechat';
+  KEY_LISTVIEW_ACT = 'listview_act';
+  KEY_LISTVIEW_BACK_METHOD = 'listview_back_method';
+  KEY_LISTVIEW_BACK_FIELD = 'listview_back_field';
+  KEY_CONVERSATION_ADAPTER = 'conversation_adapter';
+  KEY_USER_INFO_METHOD = 'user_info_method';
+  KEY_TOP_INFO_METHOD = 'top_info_method';
+  KEY_TOP_INFO_FIELD = 'top_info_field';
+
+  KEY_MMFRAGMENT_ACTIVITY = 'mmfragment_activity';
+  KEY_CHATUI_ACTIVITY = 'chatui_activity';
+  KEY_GET_APPCOMPACT = 'get_appcompact';
+  KEY_GET_ACTIONBAR = 'get_actionbar';
+  KEY_DIVIDER_ID = 'divider_id';
+  KEY_ACTIONBAR_VIEW_ID = 'actionbar_view_id';
+  KEY_CUSTOMIZE_ACTIONBAR = 'customize_actionbar';
+  KEY_ACTIONBAR_CONTAINER = 'actionbar_container';
+
+  KEY_BOTTOM_TABVIEW = 'bottom_tabview';
+  KEY_BOTTOM_METHOD = 'bottom_method';
+  KEY_BOTTOM_FIELD = 'bottom_field';
+
+  KEY_TOOL_CLASS = 'tool_class';
+  KEY_TOOL_METHOD = 'tool_method';
+  KEY_TOOL_FIELD = 'tool_field';
+
+  KEY_POPUPWINDOW_CLASS = 'popupwindow_class';
+  KEY_POPUP_FIELD = 'popup_field';
+  KEY_POPUP_MENU_FIELD = 'popup_menu_field';
+  KEY_POPUP_MENU_ITEM_CLASS = 'popup_menu_item_class';
+  KEY_POPUP_MENU_ITEM_CONTAINER = 'popup_menu_item_container';
+  KEY_POPUP_MENU_ITEM_ID = 'popup_menu_item_id';
+  KEY_POPUPWINDOW_ADAPTER = 'popupwindow_adapter';
+
+  KEY_TOP_MAC_ACTIVITY = 'top_mac_activity';
+  KEY_TOP_READER_ACTIVITY = 'top_reader_activity';
+  KEY_TOP_MAC_METHOD = 'top_mac_method';
+  KEY_TOP_MAC_FIELD = 'top_mac_field';
+  KEY_TOP_READER_METHOD = 'top_reader_method';
+  KEY_TOP_READER_FIELD = 'top_reader_field';
+  KEY_TOP_READER_VIEW_ID = 'top_reader_view_id';
+
+  KEY_SETTING_ACTIVITY = 'setting_activity';
+  KEY_SETTING_PREFERENCE = 'setting_preference';
+  KEY_SETTING_LIST_FIELD = 'setting_list_field';
+  KEY_SETTING_ADD_METHOD = 'setting_add_method';
 
 type
 
@@ -63,7 +119,7 @@ type
     Fname: string;
     Fpublishdate: String;
     Fstarcount: Integer;
-    Fstared: Boolean;
+    Fstared: Integer;
   public
     function toJObject(env: PJNIEnv): jobject;
     class function fromJson(json: TJSONObject): Theme;
@@ -76,7 +132,7 @@ type
     property description: string read Fdescription write Fdescription;
     property downloadcount: Integer read Fdownloadcount write Fdownloadcount;
     property starcount: Integer read Fstarcount write Fstarcount;
-    property stared: Boolean read Fstared write Fstared;
+    property stared: Integer read Fstared write Fstared;
   end;
 
   { ThemeComment }
@@ -105,15 +161,22 @@ type
   ThemeIni = class
   private
     FbottomBarColor: Int64;
+    FbottomBarPath: string;
     FdarkerStatusBar: Boolean;
     FdarkStatusBarText: Boolean;
     FdividerColor: Int64;
+    FlistPath: string;
     FmacColor: Int64;
     FmacPressColor: Int64;
+    FnormalColor: Int64;
+    FnormalPressColor: Int64;
     FreaderColor: Int64;
     FreaderPressColor: Int64;
     FshowDivider: Boolean;
     FstatusBarColor: Int64;
+    FstatusBarPath: string;
+    FthemeId: Integer;
+    FthemeName: string;
     FtopColors0: Int64;
     FtopColors1: Int64;
     FtopColors2: Int64;
@@ -134,6 +197,7 @@ type
     FtopPressColors7: Int64;
     FtopPressColors8: Int64;
     FtopPressColors9: Int64;
+    F_type: Integer;
   public
     class function fromJObject(env: PJNIEnv; obj: jobject): ThemeIni;
     class function fromINI(path: string): ThemeIni;
@@ -170,11 +234,116 @@ type
     property topPressColors7: Int64 read FtopPressColors7 write FtopPressColors7;
     property topPressColors8: Int64 read FtopPressColors8 write FtopPressColors8;
     property topPressColors9: Int64 read FtopPressColors9 write FtopPressColors9;
+
+    property themeId: Integer read FthemeId write FthemeId;
+    property themeName: string read FthemeName write FthemeName;
+    property _type: Integer read F_type write F_type;
+    property normalColor: Int64 read FnormalColor write FnormalColor;
+    property normalPressColor: Int64 read FnormalPressColor write FnormalPressColor;
+    property statusBarPath: string read FstatusBarPath write FstatusBarPath;
+    property bottomBarPath: string read FbottomBarPath write FbottomBarPath;
+    property listPath: string read FlistPath write FlistPath;
   end;
 
   TParamMap = specialize TFPGMap<string, string>;
   TThemeList = specialize TFPGList<Theme>;
   TCommentList = specialize TFPGList<ThemeComment>;
+
+  { TWechatVersion }
+
+  TWechatVersion = class
+  private
+    FactionBarContainer: string;
+    FactionBarViewId: Int64;
+    FbottomField: string;
+    FbottomMethod: string;
+    FbottomTabView: string;
+    FchatUIActivity: string;
+    FconversationAdapter: string;
+    FcustomizeActionBar: string;
+    FdividerId: Int64;
+    FgetActionBar: string;
+    FgetAppCompact: string;
+    FlistviewAct: String;
+    FlistviewBackField: string;
+    FlistviewBackMethod: string;
+    FmmFragmentActivity: string;
+    FpopupField: string;
+    FpopupMenuField: string;
+    FpopupMenuItemClass: string;
+    FpopupMenuItemContainer: string;
+    FpopupMenuItemId: Int64;
+    FpopupWindowAdapter: string;
+    FpopupWindowClass: string;
+    FsettingActivity: string;
+    FsettingAddMethod: string;
+    FsettingListField: string;
+    FsettingPreference: string;
+    FtoolClass: string;
+    FtoolField: string;
+    FtoolMethod: string;
+    FtopInfoField: string;
+    FtopInfoMethod: string;
+    FtopMacActivity: string;
+    FtopMacField: string;
+    FtopMacMethod: string;
+    FtopReaderActivity: string;
+    FtopReaderField: string;
+    FtopReaderMethod: string;
+    FtopReaderViewId: Int64;
+    FuserInfoMethod: string;
+  public
+    class function fromINI(APath: string): TWechatVersion;
+    function toJObject(env: PJNIEnv): jobject;
+  published
+
+    property listviewAct: String read FlistviewAct write FlistviewAct;
+    property listviewBackMethod: string read FlistviewBackMethod write FlistviewBackMethod;
+    property listviewBackField: string read FlistviewBackField write FlistviewBackField;
+    property conversationAdapter: string read FconversationAdapter write FconversationAdapter;
+    property userInfoMethod: string read FuserInfoMethod write FuserInfoMethod;
+    property topInfoMethod: string read FtopInfoMethod write FtopInfoMethod;
+    property topInfoField: string read FtopInfoField write FtopInfoField;
+
+    property mmFragmentActivity: string read FmmFragmentActivity write FmmFragmentActivity;
+    property chatUIActivity: string read FchatUIActivity write FchatUIActivity;
+    property getAppCompact: string read FgetAppCompact write FgetAppCompact;
+    property getActionBar: string read FgetActionBar write FgetActionBar;
+    property dividerId: Int64 read FdividerId write FdividerId;
+    property actionBarViewId: Int64 read FactionBarViewId write FactionBarViewId;
+    property customizeActionBar: string read FcustomizeActionBar write FcustomizeActionBar;
+    property actionBarContainer: string read FactionBarContainer write FactionBarContainer;
+
+    property bottomTabView: string read FbottomTabView write FbottomTabView;
+    property bottomMethod: string read FbottomMethod write FbottomMethod;
+    property bottomField: string read FbottomField write FbottomField;
+
+    property toolClass: string read FtoolClass write FtoolClass;
+    property toolMethod: string read FtoolMethod write FtoolMethod;
+    property toolField: string read FtoolField write FtoolField;
+
+    property popupWindowClass: string read FpopupWindowClass write FpopupWindowClass;
+    property popupField: string read FpopupField write FpopupField;
+    property popupMenuField: string read FpopupMenuField write FpopupMenuField;
+    property popupMenuItemClass: string read FpopupMenuItemClass write FpopupMenuItemClass;
+    property popupMenuItemContainer: string read FpopupMenuItemContainer write FpopupMenuItemContainer;
+    property popupMenuItemId: Int64 read FpopupMenuItemId write FpopupMenuItemId;
+    property popupWindowAdapter: string read FpopupWindowAdapter write FpopupWindowAdapter;
+
+    property topMacActivity: string read FtopMacActivity write FtopMacActivity;
+    property topReaderActivity: string read FtopReaderActivity write FtopReaderActivity;
+    property topMacMethod: string read FtopMacMethod write FtopMacMethod;
+    property topMacField: string read FtopMacField write FtopMacField;
+    property topReaderMethod: string read FtopReaderMethod write FtopReaderMethod;
+    property topReaderField: string read FtopReaderField write FtopReaderField;
+    property topReaderViewId: Int64 read FtopReaderViewId write FtopReaderViewId;
+
+    property settingActivity: string read FsettingActivity write FsettingActivity;
+    property settingPreference: string read FsettingPreference write FsettingPreference;
+    property settingListField: string read FsettingListField write FsettingListField;
+    property settingAddMethod: string read FsettingAddMethod write FsettingAddMethod;
+
+  end;
 
 function JsonToThemeList(jarr: TJSONArray): TThemeList;
 function ThemeListToJobject(env: PJNIEnv; list: TThemeList): jobject;
@@ -207,9 +376,9 @@ begin
   clsList:= env^^.FindClass(env, 'java/util/ArrayList');
   clsListMethod:= env^^.GetMethodID(env, clsList, '<init>', '()V');
   clsListAdd:= env^^.GetMethodID(env, clsList, 'add', '(Ljava/lang/Object;)Z');
-  objList:= env^^.NewObjectA(env, clsList, clsListMethod, nil);
+  objList:= env^^.NewObject(env, clsList, clsListMethod);
   if (list <> nil) then for i := 0 to list.Count - 1 do begin
-    env^^.CallBooleanMethodA(env, objList, clsListAdd, argsToJValues(env, [list[i].toJObject(env)]));
+    env^^.CallBooleanMethodA(env, objList, clsListAdd, TJNIEnv.argsToJValues(env, [list[i].toJObject(env)]));
   end;
   Result := objList;
 end;
@@ -239,9 +408,173 @@ begin
   clsListAdd:= env^^.GetMethodID(env, clsList, 'add', '(Ljava/lang/Object;)Z');
   objList:= env^^.NewObjectA(env, clsList, clsListMethod, nil);
   if (list <> nil) then for i := 0 to list.Count - 1 do begin
-    env^^.CallBooleanMethodA(env, objList, clsListAdd, argsToJValues(env, [list[i].toJObject(env)]));
+    env^^.CallBooleanMethodA(env, objList, clsListAdd, TJNIEnv.argsToJValues(env, [list[i].toJObject(env)]));
   end;
   Result := objList;
+end;
+
+{ TWechatVersion }
+
+class function TWechatVersion.fromINI(APath: string): TWechatVersion;
+var
+  sl: TStringList;
+begin
+  Result := nil;
+  // load wechat version from ini
+  if (not FileExists(APath)) then Exit;
+  with TIniFile.Create(APath) do begin
+    sl := TStringList.Create;
+    ReadSectionValues(SEC_WECHAT, sl);
+    Result := TWechatVersion.Create;
+    with Result do begin
+      listviewAct:= sl.Values[KEY_LISTVIEW_ACT];
+      listviewBackMethod:= sl.Values[KEY_LISTVIEW_BACK_METHOD];
+      listviewBackField:= sl.Values[KEY_LISTVIEW_BACK_FIELD];
+      conversationAdapter:= sl.Values[KEY_CONVERSATION_ADAPTER];
+      userInfoMethod:= sl.Values[KEY_USER_INFO_METHOD];
+      topInfoMethod:= sl.Values[KEY_TOP_INFO_METHOD];
+      topInfoField:= sl.Values[KEY_TOP_INFO_FIELD];
+
+      mmFragmentActivity:= sl.Values[KEY_MMFRAGMENT_ACTIVITY];
+      chatUIActivity:= sl.Values[KEY_CHATUI_ACTIVITY];
+      getAppCompact:= sl.Values[KEY_GET_APPCOMPACT];
+      getActionBar:= sl.Values[KEY_GET_ACTIONBAR];
+      dividerId:= StrToInt64(sl.Values[KEY_DIVIDER_ID]);
+      actionBarViewId:= StrToInt64(sl.Values[KEY_ACTIONBAR_VIEW_ID]);
+      customizeActionBar:= sl.Values[KEY_CUSTOMIZE_ACTIONBAR];
+      actionBarContainer:= sl.Values[KEY_ACTIONBAR_CONTAINER];
+
+      bottomTabView:= sl.Values[KEY_BOTTOM_TABVIEW];
+      bottomMethod:= sl.Values[KEY_BOTTOM_METHOD];
+      bottomField:= sl.Values[KEY_BOTTOM_FIELD];
+
+      toolClass := sl.Values[KEY_TOOL_CLASS];
+      toolMethod:= sl.Values[KEY_TOOL_METHOD];
+      toolField:= sl.Values[KEY_TOOL_FIELD];
+
+      popupWindowClass:= sl.Values[KEY_POPUPWINDOW_CLASS];
+      popupField:= sl.Values[KEY_POPUP_FIELD];
+      popupMenuField:= sl.Values[KEY_POPUP_MENU_FIELD];
+      popupMenuItemClass:= sl.Values[KEY_POPUP_MENU_ITEM_CLASS];
+      popupMenuItemContainer:= sl.Values[KEY_POPUP_MENU_ITEM_CONTAINER];
+      popupMenuItemId:= StrToInt64(sl.Values[KEY_POPUP_MENU_ITEM_ID]);
+      popupWindowAdapter:= sl.Values[KEY_POPUPWINDOW_ADAPTER];
+
+      topMacActivity:= sl.Values[KEY_TOP_MAC_ACTIVITY];
+      topReaderActivity:= sl.Values[KEY_TOP_READER_ACTIVITY];
+      topMacMethod:= sl.Values[KEY_TOP_MAC_METHOD];
+      topMacField:= sl.Values[KEY_TOP_MAC_FIELD];
+      topReaderMethod:= sl.Values[KEY_TOP_READER_METHOD];
+      topReaderField:= sl.Values[KEY_TOP_READER_FIELD];
+      topReaderViewId:= StrToInt64(sl.Values[KEY_TOP_READER_VIEW_ID]);
+
+      settingActivity:= sl.Values[KEY_SETTING_ACTIVITY];
+      settingPreference:= sl.Values[KEY_SETTING_PREFERENCE];
+      settingListField:= sl.Values[KEY_SETTING_LIST_FIELD];
+      settingAddMethod:= sl.Values[KEY_SETTING_ADD_METHOD];
+    end;
+    sl.Free;
+    Free;
+  end;
+end;
+
+function TWechatVersion.toJObject(env: PJNIEnv): jobject;
+var
+  cls: jclass;
+  m: jmethodID;
+begin
+  LOGE('mapTo start');
+  Result := nil;
+  // map wechat version to jvm
+  if (env = nil) then Exit;
+  try
+    cls := env^^.FindClass(env, 'com/rarnu/tophighlight/xposed/Versions');
+    m := env^^.GetMethodID(env, cls, '<init>', '()V');
+    Result := env^^.NewObject(env, cls, m);
+    m := env^^.GetMethodID(env, cls, 'setListviewAct', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [listviewAct]));
+    m := env^^.GetMethodID(env, cls, 'setListviewBackMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [listviewBackMethod]));
+    m := env^^.GetMethodID(env, cls, 'setListviewBackField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [listviewBackField]));
+    m := env^^.GetMethodID(env, cls, 'setConversationAdapter', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [conversationAdapter]));
+    m := env^^.GetMethodID(env, cls, 'setUserInfoMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [userInfoMethod]));
+    m := env^^.GetMethodID(env, cls, 'setTopInfoMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topInfoMethod]));
+    m := env^^.GetMethodID(env, cls, 'setTopInfoField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topInfoField]));
+    m := env^^.GetMethodID(env, cls, 'setMmFragmentActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [mmFragmentActivity]));
+    m := env^^.GetMethodID(env, cls, 'setChatUIActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [chatUIActivity]));
+    m := env^^.GetMethodID(env, cls, 'setGetAppCompact', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [getAppCompact]));
+    m := env^^.GetMethodID(env, cls, 'setGetActionBar', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [getActionBar]));
+    m := env^^.GetMethodID(env, cls, 'setDividerId', '(I)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [dividerId]));
+    m := env^^.GetMethodID(env, cls, 'setActionBarViewId', '(I)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [actionBarViewId]));
+    m := env^^.GetMethodID(env, cls, 'setCustomizeActionBar', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [customizeActionBar]));
+    m := env^^.GetMethodID(env, cls, 'setActionBarContainer', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [actionBarContainer]));
+    m := env^^.GetMethodID(env, cls, 'setBottomTabView', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [bottomTabView]));
+    m := env^^.GetMethodID(env, cls, 'setBottomMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [bottomMethod]));
+    m := env^^.GetMethodID(env, cls, 'setBottomField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [bottomField]));
+    m := env^^.GetMethodID(env, cls, 'setToolClass', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [toolClass]));
+    m := env^^.GetMethodID(env, cls, 'setToolMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [toolMethod]));
+    m := env^^.GetMethodID(env, cls, 'setToolField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [toolField]));
+    m := env^^.GetMethodID(env, cls, 'setPopupWindowClass', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupWindowClass]));
+    m := env^^.GetMethodID(env, cls, 'setPopupField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupField]));
+    m := env^^.GetMethodID(env, cls, 'setPopupMenuField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupMenuField]));
+    m := env^^.GetMethodID(env, cls, 'setPopupMenuItemClass', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupMenuItemClass]));
+    m := env^^.GetMethodID(env, cls, 'setPopupMenuItemContainer', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupMenuItemContainer]));
+    m := env^^.GetMethodID(env, cls, 'setPopupMenuItemId', '(I)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupMenuItemId]));
+    m := env^^.GetMethodID(env, cls, 'setPopupWindowAdapter', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [popupWindowAdapter]));
+    m := env^^.GetMethodID(env, cls, 'setTopMacActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topMacActivity]));
+    m := env^^.GetMethodID(env, cls, 'setTopReaderActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topReaderActivity]));
+    m := env^^.GetMethodID(env, cls, 'setTopMacMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topMacMethod]));
+    m := env^^.GetMethodID(env, cls, 'setTopMacField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topMacField]));
+    m := env^^.GetMethodID(env, cls, 'setTopReaderMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topReaderMethod]));
+    m := env^^.GetMethodID(env, cls, 'setTopReaderField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topReaderField]));
+    m := env^^.GetMethodID(env, cls, 'setTopReaderViewId', '(I)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [topReaderViewId]));
+    m := env^^.GetMethodID(env, cls, 'setSettingActivity', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [settingActivity]));
+    m := env^^.GetMethodID(env, cls, 'setSettingPreference', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [settingPreference]));
+    m := env^^.GetMethodID(env, cls, 'setSettingListField', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [settingListField]));
+    m := env^^.GetMethodID(env, cls, 'setSettingAddMethod', '(Ljava/lang/String;)V');
+    env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [settingAddMethod]));
+
+  except
+    on E: Exception do begin
+      LOGE(PChar(Format('WechatVersion mapTo => %s', [E.Message])));
+    end;
+  end;
 end;
 
 { ThemeIni }
@@ -251,10 +584,11 @@ var
   cls: jclass;
   m: jmethodID;
 begin
+  // finished
   Result := nil;
   if (obj <> nil) then begin
     Result := ThemeIni.Create;
-    cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeINI');
+    cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/ThemeINI');
     m := env^^.GetMethodID(env, cls, 'getStatusBarColor', '()I');
     Result.statusBarColor:= env^^.CallIntMethod(env, obj, m);
     m := env^^.GetMethodID(env, cls, 'getShowDivider', '()Z');
@@ -317,11 +651,46 @@ begin
     Result.topPressColors8:= env^^.CallIntMethod(env, obj, m);
     m := env^^.GetMethodID(env, cls, 'getTopPressColors9', '()I');
     Result.topPressColors9:= env^^.CallIntMethod(env, obj, m);
+
+    m := env^^.GetMethodID(env, cls, 'getThemeId', '()I');
+    Result.themeId:= env^^.CallIntMethod(env, obj, m);
+    m := env^^.GetMethodID(env, cls, 'getThemeName', '()Ljava/lang/String;');
+    Result.themeName:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
+    m := env^^.GetMethodID(env, cls, 'getType', '()I');
+    Result._type:= env^^.CallIntMethod(env, obj, m);
+    m := env^^.GetMethodID(env, cls, 'getNormalColor', '()I');
+    Result.normalColor:= env^^.CallIntMethod(env, obj, m);
+    m := env^^.GetMethodID(env, cls, 'getNormalPressColor', '()I');
+    Result.normalPressColor:= env^^.CallIntMethod(env, obj, m);
+    m := env^^.GetMethodID(env, cls, 'getStatusBarPath', '()Ljava/lang/String;');
+    Result.statusBarPath:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
+    m := env^^.GetMethodID(env, cls, 'getBottomBarPath', '()Ljava/lang/String;');
+    Result.bottomBarPath:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
+    m := env^^.GetMethodID(env, cls, 'getListPath', '()Ljava/lang/String;');
+    Result.listPath:= TJNIEnv.JStringToString(env, env^^.CallObjectMethod(env, obj, m));
   end;
 end;
 
-class function ThemeIni.fromINI(path: string): ThemeIni;
+function binaryImageToFile(ms: TMemoryStream; path: string): string;
+var
+  dir: string;
+  fpath: string;
 begin
+  dir := '/sdcard/.wechat_tophighlight/';
+  if (not DirectoryExists(dir)) then ForceDirectories(dir);
+  fpath:= dir + path;
+  if (not FileExists(fpath)) then ms.SaveToFile(fpath);
+  Exit(fpath);
+end;
+
+class function ThemeIni.fromINI(path: string): ThemeIni;
+var
+  ms: TMemoryStream;
+  len: Integer;
+  p: string;
+  fpath: string;
+begin
+  // finished
   Result := nil;
   if (FileExists(path)) then begin
     Result := ThemeIni.Create;
@@ -356,13 +725,66 @@ begin
       Result.topPressColors8:= ReadInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [8]), $ffd9d9d9);
       Result.topColors9:= ReadInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [9]), $ffeeeeee);
       Result.topPressColors9:= ReadInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [9]), $ffd9d9d9);
+
+      Result.themeId:= ReadInteger(SEC_THEME, KEY_THEME_ID, 0);
+      Result.themeName:= ReadString(SEC_THEME, KEY_THEME_NAME, '');
+      Result._type:= ReadInteger(SEC_THEME, KEY_THEME_TYPE, 0);
+      Result.normalColor:= ReadInt64(SEC_THEME, KEY_THEME_NORMAL_COLOR, $fff5f5f5);
+      Result.normalPressColor:= ReadInt64(SEC_THEME, KEY_THEME_NORMAL_PRESS_COLOR, $ffd9d9d9);
+
+      ms := TMemoryStream.Create;
+      len := ReadBinaryStream(SEC_THEME, KEY_STATUSBAR_PATH, ms);
+      if (len > 0) then begin
+        p := Format('img_%d_%s.png', [Result.themeId, 'statusbar']);
+        fpath := binaryImageToFile(ms, p);
+        Result.statusBarPath:= fpath;
+      end else Result.statusBarPath:= '';
+      ms.Free;
+      ms := TMemoryStream.Create;
+      len := ReadBinaryStream(SEC_THEME, KEY_BOTTOMBAR_PATH, ms);
+      if (len > 0) then begin
+        p := Format('img_%d_%s.png', [Result.themeId, 'bottombar']);
+        fpath:= binaryImageToFile(ms, p);
+        Result.bottomBarPath:= fpath;
+      end else Result.bottomBarPath:= '';
+      ms.Free;
+      ms := TMemoryStream.Create;
+      len := ReadBinaryStream(SEC_THEME, KEY_LIST_PATH, ms);
+      if (len > 0) then begin
+        p := Format('img_%d_%s.png', [Result.themeId, 'list']);
+        fpath:= binaryImageToFile(ms, p);
+        Result.listPath:= fpath;
+      end else Result.listPath:= '';
+      ms.Free;
       Free;
     end;
+  end else begin
+    LOGE(PChar(Format('File %s not exists!', [path])));
   end;
 end;
 
-function ThemeIni.toINI(path: string): Boolean;
+function CopyStream(ms: TMemoryStream; AId: Integer; AFix: string): string;
+var
+  dir: string;
+  fpath: string;
 begin
+  dir := '/sdcard/.wechat_tophighlight/';
+  if (not DirectoryExists(dir)) then ForceDirectories(dir);
+  fpath:= dir + Format('img_%d_%s.png', [AId, AFix]);
+  if (not FileExists(fpath)) then ms.SaveToFile(fpath);
+  ms.Seek(0, soFromBeginning);
+  Exit(fpath);
+end;
+
+function ThemeIni.toINI(path: string): Boolean;
+var
+  base: string;
+  ms: TMemoryStream;
+begin
+  base := ExtractFilePath(path);
+  if (not DirectoryExists(base)) then ForceDirectories(base);
+
+  // finished
   Result := False;
   try
     with TIniFile.Create(path) do begin
@@ -398,26 +820,133 @@ begin
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_COLOR, [9]), topColors9);
       WriteInt64(SEC_THEME, Format(KEY_THEME_TOP_PRESS_COLOR, [9]), topPressColors9);
 
+      WriteInteger(SEC_THEME, KEY_THEME_ID, themeId);
+      WriteString(SEC_THEME, KEY_THEME_NAME, themeName);
+      WriteInteger(SEC_THEME, KEY_THEME_TYPE, _type);
+      WriteInt64(SEC_THEME, KEY_THEME_NORMAL_COLOR, normalColor);
+      WriteInt64(SEC_THEME, KEY_THEME_NORMAL_PRESS_COLOR, normalPressColor);
+
+      // image
+      if (FileExists(statusBarPath)) then begin
+        ms := TMemoryStream.Create;
+        ms.LoadFromFile(statusBarPath);
+        CopyStream(ms, themeId, 'statusbar');
+        WriteBinaryStream(SEC_THEME, KEY_STATUSBAR_PATH, ms);
+        ms.Free;
+      end;
+
+      if (FileExists(bottomBarPath)) then begin
+        ms := TMemoryStream.Create;
+        ms.LoadFromFile(bottomBarPath);
+        CopyStream(ms, themeId, 'bottombar');
+        WriteBinaryStream(SEC_THEME, KEY_BOTTOMBAR_PATH, ms);
+        ms.Free;
+      end;
+
+      if (FileExists(listPath)) then begin
+        ms := TMemoryStream.Create;
+        ms.LoadFromFile(listPath);
+        CopyStream(ms, themeId, 'list');
+        WriteBinaryStream(SEC_THEME, KEY_LIST_PATH, ms);
+        ms.Free;
+      end;
       Free;
     end;
     Result := True;
   except
+    on E: Exception do begin
+      LOGE(PChar(Format('Save INI Failed => %s', [E.Message])));
+    end;
   end;
+  FpChmod(path, &755);
 end;
 
 function ThemeIni.toJObject(env: PJNIEnv): jobject;
 var
   cls: jclass;
+  clsMethod: jmethodID;
   m: jmethodID;
-  args: Pjvalue;
 begin
-  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeINI');
-  m := env^^.GetMethodID(env, cls, '<init>', '(IZIZZIIIIIIIIIIIIIIIIIIIIIIIII)V');
-  args := argsToJValues(env, [statusBarColor, showDivider, dividerColor, darkerStatusBar, darkStatusBarText,
-    macColor, macPressColor, readerColor, readerPressColor, bottomBarColor,
-    topColors0, topColors1, topColors2, topColors3, topColors4, topColors5, topColors6, topColors7, topColors8, topColors9,
-    topPressColors0, topPressColors1, topPressColors2, topPressColors3, topPressColors4, topPressColors5, topPressColors6, topPressColors7, topPressColors8, topPressColors9]);
-  Result := env^^.NewObjectA(env, cls, m, args);
+  // finished
+  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/ThemeINI');
+  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '()V');
+  Result := env^^.NewObject(env, cls, clsMethod);
+  m := env^^.GetMethodID(env, cls, 'setThemeId', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FthemeId]));
+  m := env^^.GetMethodID(env, cls, 'setThemeName', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FthemeName]));
+  m := env^^.GetMethodID(env, cls, 'setType', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [F_type]));
+  m := env^^.GetMethodID(env, cls, 'setNormalColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FnormalColor]));
+  m := env^^.GetMethodID(env, cls, 'setNormalPressColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FnormalPressColor]));
+  m := env^^.GetMethodID(env, cls, 'setStatusBarPath', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FstatusBarPath]));
+  m := env^^.GetMethodID(env, cls, 'setBottomBarPath', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FbottomBarPath]));
+  m := env^^.GetMethodID(env, cls, 'setListPath', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FlistPath]));
+  m := env^^.GetMethodID(env, cls, 'setStatusBarColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FstatusBarColor]));
+  m := env^^.GetMethodID(env, cls, 'setShowDivider', '(Z)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FshowDivider]));
+  m := env^^.GetMethodID(env, cls, 'setDividerColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FdividerColor]));
+  m := env^^.GetMethodID(env, cls, 'setDarkerStatusBar', '(Z)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FdarkerStatusBar]));
+  m := env^^.GetMethodID(env, cls, 'setDarkStatusBarText', '(Z)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FdarkStatusBarText]));
+  m := env^^.GetMethodID(env, cls, 'setMacColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FmacColor]));
+  m := env^^.GetMethodID(env, cls, 'setMacPressColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FmacPressColor]));
+  m := env^^.GetMethodID(env, cls, 'setReaderColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FreaderColor]));
+  m := env^^.GetMethodID(env, cls, 'setReaderPressColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FreaderPressColor]));
+  m := env^^.GetMethodID(env, cls, 'setBottomBarColor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FbottomBarColor]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors0', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors0]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors1', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors1]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors2', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors2]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors3', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors3]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors4', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors4]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors5', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors5]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors6', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors6]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors7', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors7]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors8', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors8]));
+  m := env^^.GetMethodID(env, cls, 'setTopColors9', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopColors9]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors0', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors0]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors1', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors1]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors2', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors2]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors3', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors3]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors4', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors4]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors5', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors5]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors6', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors6]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors7', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors7]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors8', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors8]));
+  m := env^^.GetMethodID(env, cls, 'setTopPressColors9', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [FtopPressColors9]));
 end;
 
 { ThemeComment }
@@ -426,12 +955,21 @@ function ThemeComment.toJObject(env: PJNIEnv): jobject;
 var
   cls: jclass;
   clsMethod: jmethodID;
-  jParam: Pjvalue;
+  m: jmethodID;
 begin
-  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$ThemeComment');
-  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '(IILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
-  jParam:= argsToJValues(env, [Fid, Fauthor, Fnickname, Fpublishdate, Fcomment]);
-  Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
+  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/ThemeComment');
+  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '()V');
+  Result := env^^.NewObject(env, cls, clsMethod);
+  m := env^^.GetMethodID(env, cls, 'setId', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fid]));
+  m := env^^.GetMethodID(env, cls, 'setAuthor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fauthor]));
+  m := env^^.GetMethodID(env, cls, 'setNickname', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fnickname]));
+  m := env^^.GetMethodID(env, cls, 'setPublishdate', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fpublishdate]));
+  m := env^^.GetMethodID(env, cls, 'setComment', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fcomment]));
 end;
 
 class function ThemeComment.fromJson(json: TJSONObject): ThemeComment;
@@ -458,12 +996,27 @@ function Theme.toJObject(env: PJNIEnv): jobject;
 var
   cls: jclass;
   clsMethod: jmethodID;
-  jParam: Pjvalue;
+  m: jmethodID;
 begin
-  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$Theme');
-  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '(ILjava/lang/String;ILjava/lang/String;Ljava/lang/String;IIZ)V');
-  jParam:= argsToJValues(env, [Fid, Fname, Fauthor, Fpublishdate, Fdescription, Fdownloadcount, Fstarcount, Fstared]);
-  Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
+  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/Theme');
+  clsMethod:= env^^.GetMethodID(env, cls, '<init>', '()V');
+  Result := env^^.NewObject(env, cls, clsMethod);
+  m := env^^.GetMethodID(env, cls, 'setId', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fid]));
+  m := env^^.GetMethodID(env, cls, 'setName', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fname]));
+  m := env^^.GetMethodID(env, cls, 'setAuthor', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fauthor]));
+  m := env^^.GetMethodID(env, cls, 'setPublishdate', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fpublishdate]));
+  m := env^^.GetMethodID(env, cls, 'setDescription', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fdescription]));
+  m := env^^.GetMethodID(env, cls, 'setDownloadcount', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fdownloadcount]));
+  m := env^^.GetMethodID(env, cls, 'setStarcount', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fstarcount]));
+  m := env^^.GetMethodID(env, cls, 'setStared', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fstared]));
 end;
 
 class function Theme.fromJson(json: TJSONObject): Theme;
@@ -478,13 +1031,13 @@ begin
     Result.description:= json.Strings['description'];
     Result.downloadcount:= json.Integers['downloadcount'];
     Result.starcount:= json.Integers['starcount'];
-    Result.stared:= json.Integers['stared'] <> 0;
+    Result.stared:= json.Integers['stared'];
   end;
 end;
 
 function Theme.ToString: ansistring;
 begin
-  Result := Format('Class => Theme'#13#10'id => %d'#13#10'name => %s'#13#10'author => %d'#13#10'publishdate => %s'#13#10'description => %s'#13#10'downloadcount = %d'#13#10'starcount => %d'#13#10'stared => %s'#13#10, [Fid, Fname, Fauthor, Fpublishdate, Fdescription, Fdownloadcount, Fstarcount, IfThen(Fstared, 'TRUE', 'FALSE')]);
+  Result := Format('Class => Theme'#13#10'id => %d'#13#10'name => %s'#13#10'author => %d'#13#10'publishdate => %s'#13#10'description => %s'#13#10'downloadcount = %d'#13#10'starcount => %d'#13#10'stared => %d'#13#10, [Fid, Fname, Fauthor, Fpublishdate, Fdescription, Fdownloadcount, Fstarcount, Fstared]);
 end;
 
 { User }
@@ -493,12 +1046,23 @@ function User.toJObject(env: PJNIEnv): jobject;
 var
   cls: jclass;
   clsMethod: jmethodID;
-  jParam: Pjvalue;
+  m: jmethodID;
 begin
-  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/WthApi$User');
-  clsMethod := env^^.GetMethodID(env, cls, '<init>', '(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V');
-  jParam:= argsToJValues(env, [Fid, Faccount, Fnickname, Femail, Fhead, Fcomment]);
-  Result := env^^.NewObjectA(env, cls, clsMethod, jParam);
+  cls := env^^.FindClass(env, 'com/rarnu/tophighlight/api/User');
+  clsMethod := env^^.GetMethodID(env, cls, '<init>', '()V');
+  Result := env^^.NewObject(env, cls, clsMethod);
+  m := env^^.GetMethodID(env, cls, 'setId', '(I)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fid]));
+  m := env^^.GetMethodID(env, cls, 'setAccount', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Faccount]));
+  m := env^^.GetMethodID(env, cls, 'setNickname', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fnickname]));
+  m := env^^.GetMethodID(env, cls, 'setEmail', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Femail]));
+  m := env^^.GetMethodID(env, cls, 'setHead', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fhead]));
+  m := env^^.GetMethodID(env, cls, 'setComment', '(Ljava/lang/String;)V');
+  env^^.CallVoidMethodA(env, Result, m, TJNIEnv.ArgsToJValues(env, [Fcomment]));
 end;
 
 class function User.fromJson(json: TJSONObject): User;

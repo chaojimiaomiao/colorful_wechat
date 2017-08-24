@@ -5,10 +5,10 @@ unit caller;
 interface
 
 uses
-  Classes, SysUtils, http_utils, encrypt_utils, fpjson, jsonparser, jsonscanner, wth_classes;
+  Classes, SysUtils, http_utils, encrypt_utils, fpjson, jsonparser, jsonscanner, wth_classes, android, JNI2;
 
 const
-  BASEURL = 'http://rarnu.com/wth/';
+  BASEURL = 'http://rarnu.xyz/wth/';
 
 // user
 function userRegister(account: string; password: string; nickname: string; email: string): Integer;
@@ -36,6 +36,19 @@ function themeGetListByUser(page: Integer; pageSize: Integer; author: Integer; s
 function commentAdd(id: Integer; author: Integer; comment: String): Boolean;
 function commentRemove(id: Integer; author: Integer): Boolean;
 function commentGetList(id: Integer): TCommentList;
+
+// UUID
+procedure uuidAdd(year, month,day, hour, minute: Word; uuid: string);
+
+// feedback
+function feedbackAdd(appVer: Integer; userId: Integer; deviceId: string; nickname: string; email: string; content: string; img1: string; img2: string; img3: string): Boolean;
+
+// system
+function xposedInstalled(): Boolean;
+
+// hotfix
+function checkAndDownloadVersion(AVer: string): Boolean;
+function loadVersion(AVer: string): TWechatVersion;
 
 implementation
 
@@ -590,6 +603,137 @@ begin
     finally
       if (json <> nil) then json.Free;
       if (parser <> nil) then parser.Free;
+    end;
+  end;
+end;
+
+procedure uuidAdd(year, month, day, hour, minute: Word; uuid: string);
+var
+  param: TParamMap;
+  ret: string = '';
+begin
+  param := TParamMap.Create;
+  param.Add('year', IntToStr(year));
+  param.Add('month', IntToStr(month));
+  param.Add('day', IntToStr(day));
+  param.Add('hour', IntToStr(hour));
+  param.Add('minute', IntToStr(minute));
+  param.Add('uuid', uuid);
+  try
+    ret := HttpPost(BASEURL + 'uid_add.php', param);
+  except
+  end;
+  param.Free;
+  LOGE(PChar(Format('Record UUID: %s', [ret])));
+end;
+
+procedure uploadFeedbackImage(fid: Integer; uid: Integer; imgid: Integer; f: string);
+var
+  param: TParamMap;
+  fileParam: TParamMap;
+  ret: string;
+begin
+  param := TParamMap.Create;
+  param.Add('fid', IntToStr(fid));
+  param.Add('uid', IntToStr(uid));
+  param.Add('imgid', IntToStr(imgid));
+  fileParam := TParamMap.Create;
+  fileParam.Add('file', f);
+  ret := HttpPostFile(BASEURL + 'feedback_upload_img.php', param, fileParam);
+  fileParam.Free;
+  param.Free;
+  LOGE(PChar(Format('Upload feedback image => %s', [ret])));
+end;
+
+function feedbackAdd(appVer: Integer; userId: Integer; deviceId: string;
+  nickname: string; email: string; content: string; img1: string; img2: string;
+  img3: string): Boolean;
+var
+  param: TParamMap;
+  ret: string;
+  json: TJSONObject;
+  parser: TJSONParser;
+  fid: Integer = -1;
+begin
+  Result := False;
+  param := TParamMap.Create;
+  param.Add('appver', IntToStr(appVer));
+  param.Add('userid', IntToStr(userId));
+  param.Add('deviceid', deviceId);
+  param.Add('nickname', nickname);
+  param.Add('email', email);
+  param.Add('content', content);
+  ret := HttpPost(BASEURL + 'feedback_add.php', param);
+  param.Free;
+  if (ret.Trim <> '') then begin
+    try
+      parser := TJSONParser.Create(ret, [joUTF8]);
+      json := TJSONObject(parser.Parse);
+      fid:= json.Integers['result'];
+      if (fid <> -1) then Result := True;
+    finally
+      if (json <> nil) then json.Free;
+      if (parser <> nil) then parser.Free;
+    end;
+  end;
+  // upload
+  if (Result) then begin
+    if (img1.Trim <> '') then uploadFeedbackImage(fid, userId, 1, img1);
+    if (img2.Trim <> '') then uploadFeedbackImage(fid, userId, 2, img2);
+    if (img3.Trim <> '') then uploadFeedbackImage(fid, userId, 3, img3);
+  end;
+end;
+
+function xposedInstalled: Boolean;
+const
+  LIB1 = '/system/lib/libxposed_art.so';
+  LIB2 = '/system/lib64/libxposed_art.so';
+  PROP = '/system/xposed.prop';
+var
+  libExists: Boolean = False;
+  propExists: Boolean = False;
+begin
+  if (FileExists(LIB1)) then libExists:= True;
+  if (FileExists(LIB2)) then libExists:= True;
+  if (FileExists(PROP)) then propExists:= True;
+  Exit(libExists and propExists);
+end;
+
+function checkAndDownloadVersion(AVer: string): Boolean;
+var
+  APath: string;
+  ret: string;
+begin
+  APath:= '/sdcard/.wechat_tophighlight/1/';
+  if (not DirectoryExists(APath)) then ForceDirectories(APath);
+  APath += AVer + '.ini';
+  if (FileExists(APath)) then Exit(True);
+  Result := False;
+  try
+    ret := HttpGet(BASEURL + 'ver/' + AVer + '.ini', nil);
+  except
+  end;
+  if (ret.Trim <> '') then begin
+    with TStringList.Create do begin
+      Text:= ret;
+      SaveToFile(APath);
+      Result := True;
+      Free;
+    end;
+  end;
+end;
+
+function loadVersion(AVer: string): TWechatVersion;
+var
+  APath: string;
+begin
+  Result := nil;
+  try
+    APath:= '/sdcard/.wechat_tophighlight/' + AVer + '.ini';
+    if (FileExists(APath)) then Result := TWechatVersion.fromINI(APath);
+  except
+    on e: Exception do begin
+      LOGE(PChar(Format('loadVersion => %s', [e.Message])));
     end;
   end;
 end;

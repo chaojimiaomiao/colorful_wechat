@@ -6,7 +6,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import com.flask.colorpicker.builder.ColorPickerClickListener
+import com.bingjie.colorpicker.builder.ColorPickerClickListener
+import com.bingjie.colorpicker.builder.MiaoDialog
 import com.rarnu.tophighlight.util.UIUtils
 import com.rarnu.tophighlight.xposed.XpConfig
 
@@ -32,7 +33,11 @@ class ColumnView(ctx: Context, private val resourceId: Int, private val textStri
             })
             (findViewById(R.id.item_text) as TextView?)?.text = textString
             (findViewById(R.id.item_image) as ImageView?)?.setImageResource(resourceId)
-            setOnClickListener { UIUtils.showDialog(context, getPickerClickListener(this@with)) }
+            setOnClickListener {
+                //UIUtils.showDialog(context, getPickerClickListener(this@with))
+                val miaoDialog = MiaoDialog(context, R.style.miaoDialog, false).setPositiveButton(getPickerClickListener(this@with))
+                miaoDialog.show()
+            }
             setOnLongClickListener {
                 UIUtils.showDialog(context, getPickerClickListener(this@with, true), true)
                 true
@@ -40,7 +45,7 @@ class ColumnView(ctx: Context, private val resourceId: Int, private val textStri
         }
     }
 
-    fun getPickerClickListener(view: View, longClick: Boolean = false): ColorPickerClickListener = ColorPickerClickListener { dialogInterface, selectColor, integers ->
+    fun getPickerClickListener(view: View, longClick: Boolean = false): ColorPickerClickListener = ColorPickerClickListener { selectColor, integers ->
         if (!longClick) {
             view.setBackgroundColor(selectColor)
             when (key) {
@@ -55,5 +60,21 @@ class ColumnView(ctx: Context, private val resourceId: Int, private val textStri
         }
         XpConfig.save(context)
     }
+
+    /*fun getPickerClickListener(view: View, longClick: Boolean = false): ColorPickerClickListener = ColorPickerClickListener { dialogInterface, selectColor, integers ->
+        if (!longClick) {
+            view.setBackgroundColor(selectColor)
+            when (key) {
+                XpConfig.KEY_MAC_COLOR -> XpConfig.macColor = selectColor
+                XpConfig.KEY_TOP_READER_COLOR -> XpConfig.readerColor = selectColor
+            }
+        } else {
+            when (key) {
+                XpConfig.KEY_MAC_COLOR -> XpConfig.macPressColor = selectColor
+                XpConfig.KEY_TOP_READER_COLOR -> XpConfig.readerPressColor = selectColor
+            }
+        }
+        XpConfig.save(context)
+    }*/
 
 }

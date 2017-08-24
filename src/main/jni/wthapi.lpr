@@ -5,7 +5,7 @@
 {$mode objfpc}{$H+}
 
 uses
-  Classes, sysutils, jni2, jni_utils, api_export, http_utils, test, wth_classes;
+  cthreads, Classes, sysutils, JNI2, api_export, http_utils, test, wth_classes;
 
 {$IFNDEF DEBUG}
 exports
@@ -38,7 +38,20 @@ exports
 
   // theme ini
   Java_com_rarnu_tophighlight_api_WthApi_readThemeFromINI,
-  Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI;
+  Java_com_rarnu_tophighlight_api_WthApi_writeThemeToINI,
+
+  // UUID
+  Java_com_rarnu_tophighlight_api_WthApi_recordDevice,
+
+  // feedback
+  Java_com_rarnu_tophighlight_api_WthApi_feedbackAdd,
+
+  // system
+  Java_com_rarnu_tophighlight_api_WthApi_xposedInstalled,
+
+  // hotfix
+  Java_com_rarnu_tophighlight_api_WthApi_checkAndDownloadVersion,
+  Java_com_rarnu_tophighlight_api_WthApi_loadVersion;
 
 {$ENDIF}
 

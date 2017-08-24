@@ -1,12 +1,16 @@
 package com.rarnu.tophighlight.util
 
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.drawable.BitmapDrawable
 import android.util.DisplayMetrics
+import android.view.View
 import android.view.WindowManager
-import com.flask.colorpicker.ColorPickerView
-import com.flask.colorpicker.builder.ColorPickerClickListener
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder
+import com.bingjie.colorpicker.ColorPickerView
+import com.bingjie.colorpicker.builder.ColorPickerClickListener
+import com.bingjie.colorpicker.builder.ColorPickerDialogBuilder
+import com.bingjie.colorpicker.builder.MiaoDialog
 import com.rarnu.tophighlight.R
 
 
@@ -47,6 +51,11 @@ object UIUtils {
     }
 
     fun showDialog(context: Context, pickerClickListener: ColorPickerClickListener, longClick: Boolean = false) =
+            MiaoDialog(context, R.style.miaoDialog, longClick)
+                    .setPositiveButton(pickerClickListener)
+                    .show()
+
+    fun showDialog1(context: Context, pickerClickListener: ColorPickerClickListener, longClick: Boolean = false) =
             ColorPickerDialogBuilder
                     .with(context)
                     .setTitle(if (!longClick) R.string.view_select_background_color else R.string.view_select_press_color)
@@ -57,5 +66,11 @@ object UIUtils {
                     .setNegativeButton(R.string.alert_cancel, null)
                     .build()
                     .show()
+
+    fun backviewBindPath(view : View, path: String) {
+        var listviewBitmap = BitmapFactory.decodeFile(path)
+        val drawable = BitmapDrawable(listviewBitmap)
+        view.background = drawable
+    }
 
 }

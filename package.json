@@ -1,0 +1,26 @@
+{
+  "name": "wechat_top_highlight",
+  "version": "1.0.0",
+  "description": "colorful wechat",
+  "main": "index.js",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rarnu/wechat_top_highlight.git"
+  },
+  "keywords": [
+    "wechat"
+  ],
+  "author": "chaojimiaomiao,rarnu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rarnu/wechat_top_highlight/issues"
+  },
+  "homepage": "https://github.com/rarnu/wechat_top_highlight#readme",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-native": "^0.42.3"
+  }
+}

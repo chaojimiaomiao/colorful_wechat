@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="66dp"
-              android:background="@color/ll_gray"
+              android:background="@color/semi_transparent"
               android:orientation="vertical"
               android:paddingLeft="3dp"
               android:paddingRight="3dp">
@@ -45,7 +45,7 @@
                     android:id="@+id/group_chat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Group Chat"
+                    android:text="@string/group_chat"
                     android:textColor="@color/text_gray"/>
 
         </LinearLayout>

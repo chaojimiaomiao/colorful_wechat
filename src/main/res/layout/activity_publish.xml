@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.rarnu.tophighlight.PublishActivity">
+
+    <com.rarnu.tophighlight.ui.CustomToolBar
+        android:id="@+id/publish_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarSize" >
+
+        <Button
+            android:id="@+id/publish_login_btn"
+            android:text="登录"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </com.rarnu.tophighlight.ui.CustomToolBar>
+
+    <ScrollView
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:scrollbarSize="6dp"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarThumbVertical="@color/pink"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:text="预览"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp" />
+
+            <com.rarnu.tophighlight.ThemePreviewView
+                android:id="@+id/vPreview"
+                android:layout_width="180dp"
+                android:layout_height="300dp">
+            </com.rarnu.tophighlight.ThemePreviewView>
+
+            <Button
+                android:id="@+id/publish_back"
+                android:layout_marginTop="10dp"
+                android:text="上传背景图"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/publish_topback"
+                android:layout_marginTop="10dp"
+                android:text="上传顶部背景图"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/publish_bottomback"
+                android:layout_marginTop="10dp"
+                android:text="上传底部背景图"
+                android:textColor="@android:color/black"
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/check_black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="30dp"
+            android:text="同时发布到市场"
+            android:textColor="@android:color/black" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="58dp">
+
+        <View
+            android:background="#d8d8d8"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
+
+        <Button
+            android:id="@+id/btn_publish"
+            android:clickable="false"
+            android:layout_centerInParent="true"
+            android:text="提交"
+            android:textSize="17sp"
+            android:textColor="#bebebe"
+            android:background="@drawable/bg_button_lg_radius"
+            android:layout_width="220dp"
+            android:layout_height="41dp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
