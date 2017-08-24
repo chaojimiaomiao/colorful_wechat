@@ -8,3 +8,5 @@ Technique included in this are more than below.
 3. 嵌入react-native页面
 4. 使用annotation在编译期间自动生成所有新的配置
 5. 不便公开的细节和接口实现均隐藏在JNI中
+
+![image](https://github.com/chaojimiaomiao/colorful_wechat/blob/2.2/Screenshot.png)
