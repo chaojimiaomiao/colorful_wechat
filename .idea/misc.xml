@@ -27,16 +27,17 @@
       </value>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_7" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" assert-keyword="true" jdk-15="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/classes" />
   </component>
   <component name="PuppetProjectConfiguration">
     <environmentSettings>
-      <PuppetEnvironmentSettings currentEnvironmentName="no-react">
+      <PuppetEnvironmentSettings currentEnvironmentName="2.2">
         <environmentSet>
           <Environment name="production" modulepath="/modules:/usr/share/puppet/modules:/opt/puppet/share/puppet/modules" />
           <Environment name="no-react" modulepath="/modules:/usr/share/puppet/modules:/opt/puppet/share/puppet/modules" />
           <Environment name="2.1stable" modulepath="/modules:/usr/share/puppet/modules:/opt/puppet/share/puppet/modules" />
+          <Environment name="2.2" modulepath="/modules:/usr/share/puppet/modules:/opt/puppet/share/puppet/modules" />
         </environmentSet>
       </PuppetEnvironmentSettings>
     </environmentSettings>
